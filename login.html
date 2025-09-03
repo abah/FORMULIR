@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistem Monitoring dan Evaluasi Program Kontraktual - Itjen Kementerian Transmigrasi RI</title>
+    
+    <!-- Favicon dan Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="logo/logo.png">
+    
+    <!-- Meta Tags untuk Social Media dan WhatsApp -->
+    <meta name="description" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta name="keywords" content="Itjen, Inspektorat Jenderal, Kementerian Transmigrasi, Monitoring, Evaluasi, Program Kontraktual, Kontrak">
+    <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Itjen Kementerian Transmigrasi RI">
+    <meta property="og:description" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta property="og:image" content="logo/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Itjen Kementerian Transmigrasi RI">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Itjen Kementerian Transmigrasi RI">
+    <meta property="twitter:description" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta property="twitter:image" content="logo/logo.png">
+    
+    <!-- WhatsApp Meta Tags -->
+    <meta property="og:image:alt" content="Logo Inspektorat Jenderal Kementerian Transmigrasi">
+    <meta name="thumbnail" content="logo/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&family=SF+Pro+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Apple-inspired Color Palette */
+            --primary: #007AFF;
+            --primary-dark: #0056CC;
+            --primary-light: #5AC8FA;
+            --secondary: #8E8E93;
+            --success: #34C759;
+            --warning: #FF9500;
+            --danger: #FF3B30;
+            --info: #5AC8FA;
+            
+            /* Grayscale */
+            --gray-1: #8E8E93;
+            --gray-2: #AEAEB2;
+            --gray-3: #C7C7CC;
+            --gray-4: #D1D1D6;
+            --gray-5: #E5E5EA;
+            --gray-6: #F2F2F7;
+            --label: #000000;
+            --label-secondary: #3C3C43;
+            --label-tertiary: #3C3C4399;
+            --label-quaternary: #3C3C432E;
+            
+            /* Background */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F2F2F7;
+            --bg-tertiary: #FFFFFF;
+            --bg-grouped: #F2F2F7;
+            
+            /* Shadows */
+            --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+            --shadow-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+            --shadow-4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+            --shadow-5: 0 20px 40px rgba(0, 0, 0, 0.1);
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+            
+            /* Spacing */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            color: var(--label);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px 10px;
+            box-sizing: border-box;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            width: 100%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-5);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 1;
+            animation: slideInUp 0.8s ease-out;
+            margin: auto;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-6);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: var(--shadow-3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-subtitle {
+            color: var(--label-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-2);
+            color: var(--label);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-2);
+            font-size: 1.1rem;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .input-container .password-toggle {
+            left: auto;
+            right: var(--space-4);
+            cursor: pointer;
+            color: var(--gray-3);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-container .password-toggle:hover {
+            color: var(--primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .input-container .password-toggle.active {
+            color: var(--primary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 48px 16px 48px;
+            border: 2px solid var(--gray-4);
+            border-radius: var(--radius-md);
+            font-size: 16px; /* Prevents zoom on iOS */
+            transition: all 0.3s ease;
+            background: #FFFFFF !important;
+            color: #333333 !important;
+            box-shadow: var(--shadow-1);
+            font-family: inherit;
+            box-sizing: border-box;
+            min-height: 48px; /* Better touch target */
+            -webkit-text-fill-color: #333333 !important;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+        }
+
+        .form-group input:focus + i {
+            color: var(--primary);
+        }
+
+        /* Password Input Enhancements */
+        .form-group input[type="password"] {
+            letter-spacing: 0.1em;
+            font-family: monospace, inherit;
+        }
+
+        .form-group input[type="password"].show-password {
+            letter-spacing: normal;
+            font-family: inherit;
+        }
+        
+        .form-group input::placeholder {
+            color: #9AA0A6 !important;
+            opacity: 1;
+        }
+        
+        .form-group input::-webkit-input-placeholder {
+            color: #9AA0A6 !important;
+            opacity: 1;
+        }
+        
+        .form-group input::-moz-placeholder {
+            color: #9AA0A6 !important;
+            opacity: 1;
+        }
+        
+        .form-group input:-ms-input-placeholder {
+            color: #9AA0A6 !important;
+            opacity: 1;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-2);
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: var(--space-5) var(--space-6);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: var(--shadow-2);
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-6);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-3);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-btn .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .demo-users {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            margin-bottom: var(--space-6);
+        }
+
+        .demo-users h4 {
+            font-family: 'SF Pro Display', sans-serif;
+            color: var(--label);
+            margin-bottom: var(--space-4);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .demo-user {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-3);
+            border: 1px solid var(--gray-5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .demo-user:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-1);
+        }
+
+        .demo-user:last-child {
+            margin-bottom: 0;
+        }
+
+        .demo-user-info {
+            flex: 1;
+        }
+
+        .demo-user-name {
+            font-weight: 600;
+            color: var(--label);
+            font-size: 0.9rem;
+        }
+
+        .demo-user-role {
+            color: var(--label-secondary);
+            font-size: 0.8rem;
+        }
+
+        .demo-user-credentials {
+            text-align: right;
+            font-size: 0.85rem;
+        }
+
+        .demo-username {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .demo-password {
+            color: var(--gray-1);
+        }
+
+        .message {
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .message.success {
+            background: rgba(52, 199, 89, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(52, 199, 89, 0.3);
+        }
+
+        .message.error {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+        }
+
+        .message.info {
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 122, 255, 0.3);
+        }
+
+        .footer-links {
+            text-align: center;
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--gray-5);
+        }
+
+        .footer-links a {
+            color: var(--gray-1);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 var(--space-3);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+            
+            .login-container {
+                margin: 0;
+                padding: 20px;
+                max-width: 100%;
+                max-height: none;
+                min-height: auto;
+            }
+            
+            .logo-title {
+                font-size: 1.3rem !important;
+                line-height: 1.2;
+                font-weight: 800 !important;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            /* Responsive adjustments for professional layout */
+            .logo-container .logo-subtitle:nth-of-type(1) {
+                font-size: 0.9rem !important;
+                font-weight: 600 !important;
+            }
+            
+            .logo-container .logo-subtitle:nth-of-type(2) {
+                font-size: 0.8rem !important;
+            }
+            
+            .logo-container .logo-subtitle:nth-of-type(3) {
+                font-size: 0.7rem !important;
+            }
+            
+            .form-group input {
+                padding: 14px 14px 14px 40px;
+                font-size: 16px;
+                min-height: 44px;
+            }
+            
+            .input-container i {
+                left: 12px;
+                font-size: 1rem;
+            }
+            
+            /* Demo users responsive CSS removed */
+            
+            .debug-tools {
+                margin-top: 20px;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            body {
+                align-items: flex-start;
+                padding-top: 10px;
+            }
+            
+            .login-container {
+                padding: 15px;
+                max-height: 95vh;
+            }
+            
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .logo-title {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #1C1C1E;
+                --bg-secondary: #2C2C2E;
+                --label: #FFFFFF;
+                --label-secondary: #8E8E93;
+                --gray-4: #3A3A3C;
+                --gray-5: #48484A;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Logo & Branding -->
+        <div class="logo-container">
+            <div class="logo-icon">
+                <img src="logo/logo.png" alt="Logo Inspektorat Jenderal Kementerian Transmigrasi" style="width: 80px; height: 80px; object-fit: contain;">
+            </div>
+            <h1 class="logo-title" style="font-size: 1.8rem; font-weight: 800; color: #0d47a1; margin-bottom: 0.5rem;">ITJEN KEMENTERIAN TRANSMIGRASI</h1>
+            <p class="logo-subtitle" style="font-size: 1.1rem; font-weight: 600; color: var(--label-secondary); margin-bottom: 0.3rem;">Republik Indonesia</p>
+            <p class="logo-subtitle" style="font-size: 0.95rem; font-weight: 500; color: #1976d2;">Sistem Monitoring dan Evaluasi Program Kontraktual</p>
+        </div>
+
+        <!-- Message Container -->
+        <div id="messageContainer"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-container">
+                    <input type="text" id="username" name="username" required autocomplete="username" placeholder="Masukkan username Anda">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
+                    <i class="fas fa-lock"></i>
+                    <i class="fas fa-eye password-toggle" onclick="togglePassword()" title="Tampilkan password" tabindex="0" role="button" aria-label="Toggle password visibility"></i>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i>
+                <span id="loginBtnText">Masuk</span>
+            </button>
+        </form>
+
+        <!-- Demo Users -->
+        <div class="demo-users">
+            <h4><i class="fas fa-users"></i> Demo Users</h4>
+            <div id="demoUsersList">
+                <!-- Will be populated by JavaScript -->
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button type="button" onclick="refreshDemoUsers()" style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">
+                    <i class="fas fa-sync-alt"></i> Refresh Users
+                </button>
+                <button type="button" onclick="showAllUsers()" style="background: var(--info); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; margin-left: 8px;">
+                    <i class="fas fa-list"></i> Show All Users
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <a href="#" onclick="showHelp()">Bantuan</a>
+            <a href="#" onclick="showAbout()">Tentang</a>
+            <a href="#" onclick="showContact()">Kontak</a>
+        </div>
+    </div>
+
+    <!-- Load Dependencies -->
+    <script src="indonesia-regions-complete.js"></script>
+    <script src="satker-data-complete.js"></script>
+    <script src="simple_auth.js"></script>
+
+    <!-- Login Logic -->
+    <script>
+        // ===================================================================
+        // LOGIN PAGE LOGIC
+        // ===================================================================
+
+        let isLoading = false;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔐 Login page initialized');
+            
+            // Wait a bit for scripts to load
+            setTimeout(() => {
+                if (window.SimpleAuth) {
+                    initializeLogin();
+                } else {
+                    console.error('❌ Simple Auth failed to load');
+                    // Continue anyway, don't block
+                    setupLoginForm();
+                    initializeDemoUsers();
+                    showMessage('Selamat datang! Silakan login untuk mengakses sistem.', 'info');
+                }
+            }, 100);
+        });
+
+        function initializeLogin() {
+            // Simple check - no aggressive redirect
+            const currentUser = window.SimpleAuth.getCurrentUser();
+            if (currentUser) {
+                console.log('✅ Already logged in as:', currentUser.username);
+                // Give user choice instead of auto-redirect
+                showAlreadyLoggedIn(currentUser);
+                return;
+            }
+            
+            // Setup form handler
+            setupLoginForm();
+            
+            // Initialize and show demo users
+            initializeDemoUsers();
+            
+            // Show welcome message
+            showMessage(`Selamat datang! Silakan login untuk mengakses sistem.`, 'info');
+        }
+
+        function showAlreadyLoggedIn(user) {
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.innerHTML = `
+                <div style="background: #e7f3ff; border: 1px solid #007bff; color: #0056b3; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4 style="margin: 0 0 10px;">✅ Sudah Login sebagai: ${user.fullName || user.username}</h4>
+                    <p style="margin: 0 0 15px;">Role: ${user.role === 'super_admin' ? 'Super Administrator' : 'Satker Admin'}</p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button onclick="continueTodashboard('${user.role}')" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                            🏠 Lanjut ke Dashboard
+                        </button>
+                        <button onclick="logoutAndLogin()" style="background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                            🔄 Login User Lain
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function continueTodashboard(role) {
+            // Redirect semua role ke executive dashboard
+            window.location.href = 'executive-dashboard.html';
+        }
+
+        function logoutAndLogin() {
+            window.SimpleAuth.logout();
+            window.location.reload();
+        }
+
+        // Setup login form
+        function setupLoginForm() {
+            const loginForm = document.getElementById('loginForm');
+            loginForm.addEventListener('submit', handleLogin);
+            
+            // Enter key handling
+            document.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !isLoading) {
+                    handleLogin(e);
+                }
+            });
+        }
+
+        // Handle login form submission
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            if (isLoading) return;
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showMessage('Username dan password harus diisi!', 'error');
+                return;
+            }
+            
+            // Show loading state
+            setLoadingState(true);
+            
+            try {
+                // Simulate network delay for better UX
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                console.log('🔐 Attempting simple login:', username);
+                
+                // Use SIMPLE auth - no complications
+                const result = window.SimpleAuth.login(username, password);
+                
+                if (result.success) {
+                    showMessage('Login berhasil! Mengalihkan ke dashboard...', 'success');
+                    console.log('✅ Login successful, redirecting...', result.user);
+                    
+                    // Redirect to dashboard after brief delay
+                    setTimeout(() => {
+                        redirectToDashboard(result.user);
+                    }, 1500);
+                } else {
+                    console.error('❌ Login failed:', result.error);
+                    showMessage(result.error || 'Username atau password salah!', 'error');
+                    setLoadingState(false);
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage('Terjadi kesalahan sistem. Silakan coba lagi.', 'error');
+                setLoadingState(false);
+            }
+        }
+
+        // Set loading state
+        function setLoadingState(loading) {
+            isLoading = loading;
+            const loginBtn = document.getElementById('loginBtn');
+            const loginBtnText = document.getElementById('loginBtnText');
+            
+            if (loading) {
+                loginBtn.disabled = true;
+                loginBtnText.textContent = 'Memproses...';
+                loginBtn.innerHTML = '<div class="spinner"></div><span>Memproses...</span>';
+            } else {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i><span>Masuk</span>';
+            }
+        }
+
+        // Initialize demo users
+        function initializeDemoUsers() {
+            // Show only essential demo users, don't auto-generate
+            setTimeout(() => {
+                showEssentialDemoUsers();
+            }, 500);
+        }
+
+        // Show only essential demo users (no auto-generation)
+        function showEssentialDemoUsers() {
+            const container = document.getElementById('demoUsersList');
+            
+            // Only show super admin and a few essential users
+            const essentialUsers = [
+                {
+                    username: 'superadmin',
+                    password: 'admin123',
+                    displayName: 'Super Administrator',
+                    role: 'Full System Access'
+                }
+            ];
+            
+            let html = '';
+            essentialUsers.forEach(user => {
+                html += createDemoUserHTML(user, user.displayName, user.role);
+            });
+            
+            container.innerHTML = html;
+            console.log('✅ Displayed essential demo users only');
+        }
+
+        // Refresh demo users list (simplified)
+        function refreshDemoUsers() {
+            showEssentialDemoUsers();
+        }
+
+        // Display demo users (simplified)
+        function displayDemoUsers(users) {
+            // This function is kept for compatibility but simplified
+            showEssentialDemoUsers();
+        }
+
+        // Create demo user HTML
+        function createDemoUserHTML(user, displayName, roleDescription) {
+            return `
+                <div class="demo-user" onclick="fillLogin('${user.username}', '${user.password}')">
+                    <div class="demo-user-info">
+                        <div class="demo-user-name">${displayName}</div>
+                        <div class="demo-user-role">${roleDescription}</div>
+                    </div>
+                    <div class="demo-user-credentials">
+                        <div class="demo-username">${user.username}</div>
+                        <div class="demo-password">${user.password}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show all users in popup
+        function showAllUsers() {
+            try {
+                const users = window.SimpleAuth.getUsers();
+                
+                if (users.length === 0) {
+                    alert('No users found. Click "Refresh Users" first.');
+                    return;
+                }
+                
+                let userList = `👥 ALL AVAILABLE USERS (${users.length} total)\n\n`;
+                userList += `🔐 LOGIN CREDENTIALS:\n\n`;
+                
+                // Super admin first
+                const superAdmin = users.find(u => u.role === 'super_admin');
+                if (superAdmin) {
+                    userList += `👑 SUPER ADMIN:\n`;
+                    userList += `   Username: ${superAdmin.username}\n`;
+                    userList += `   Password: ${superAdmin.password}\n`;
+                    userList += `   Access: All 153 satkers\n\n`;
+                }
+                
+                // Satker users by province
+                const satkerUsers = users.filter(u => u.role === 'satker_admin');
+                const provinceGroups = {};
+                
+                satkerUsers.forEach(user => {
+                    const prov = user.provinsi || 'Unknown';
+                    if (!provinceGroups[prov]) {
+                        provinceGroups[prov] = [];
+                    }
+                    provinceGroups[prov].push(user);
+                });
+                
+                userList += `🏛️ SATKER USERS BY PROVINCE:\n\n`;
+                
+                Object.keys(provinceGroups).sort().forEach(provinsi => {
+                    userList += `📍 ${provinsi.toUpperCase()}:\n`;
+                    provinceGroups[provinsi].slice(0, 3).forEach(user => {
+                        userList += `   • ${user.username} / ${user.password}\n`;
+                        userList += `     (${user.satkerName?.substring(0, 50)}...)\n`;
+                    });
+                    if (provinceGroups[provinsi].length > 3) {
+                        userList += `   ... and ${provinceGroups[provinsi].length - 3} more\n`;
+                    }
+                    userList += `\n`;
+                });
+                
+                userList += `\n💡 TIP: Copy username/password and paste in login form`;
+                
+                alert(userList);
+                
+            } catch (error) {
+                console.error('Error showing users:', error);
+                alert('Error loading users. Check console for details.');
+            }
+        }
+
+        // Fill login form with demo credentials
+        function fillLogin(username, password) {
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            
+            // Focus on login button
+            document.getElementById('loginBtn').focus();
+            
+            // Show hint
+            showMessage(`Demo login: ${username}. Klik "Masuk" untuk login.`, 'info');
+        }
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordInput.classList.add('show-password');
+                toggleIcon.className = 'fas fa-eye-slash password-toggle active';
+                toggleIcon.setAttribute('title', 'Sembunyikan password');
+                toggleIcon.setAttribute('aria-label', 'Sembunyikan password');
+            } else {
+                passwordInput.type = 'password';
+                passwordInput.classList.remove('show-password');
+                toggleIcon.className = 'fas fa-eye password-toggle';
+                toggleIcon.setAttribute('title', 'Tampilkan password');
+                toggleIcon.setAttribute('aria-label', 'Tampilkan password');
+            }
+        }
+
+        // Add keyboard support for password toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleIcon = document.querySelector('.password-toggle');
+            if (toggleIcon) {
+                toggleIcon.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        togglePassword();
+                    }
+                });
+            }
+        });
+
+        // Redirect to dashboard based on user role
+        function redirectToDashboard(user) {
+            if (!user) {
+                console.error('No user provided for redirect');
+                return;
+            }
+            
+            // Check for redirect URL from session
+            const redirectUrl = sessionStorage.getItem('redirect_after_login');
+            if (redirectUrl && redirectUrl !== '/login.html') {
+                sessionStorage.removeItem('redirect_after_login');
+                window.location.href = redirectUrl;
+                return;
+            }
+            
+            // Default redirect - semua role ke executive dashboard
+            window.location.href = 'executive-dashboard.html';
+        }
+
+        // Show message
+        function showMessage(message, type = 'info') {
+            const messageContainer = document.getElementById('messageContainer');
+            
+            // Clear existing messages
+            messageContainer.innerHTML = '';
+            
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 
+                        type === 'error' ? 'exclamation-triangle' : 
+                        'info-circle';
+            
+            messageElement.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            messageContainer.appendChild(messageElement);
+            
+            // Auto-remove after 5 seconds for non-error messages
+            if (type !== 'error') {
+                setTimeout(() => {
+                    if (messageElement.parentNode) {
+                        messageElement.style.opacity = '0';
+                        setTimeout(() => {
+                            if (messageElement.parentNode) {
+                                messageElement.parentNode.removeChild(messageElement);
+                            }
+                        }, 300);
+                    }
+                }, 5000);
+            }
+        }
+
+        // Helper functions
+        function showHelp() {
+            alert(`🆘 BANTUAN LOGIN
+
+📋 Cara Login:
+1. Pilih salah satu demo user di atas
+2. Atau masukkan username/password manual
+3. Klik "Masuk"
+
+👥 Demo Users:
+• Super Admin: akses semua satker
+• Admin Satker: akses satker sendiri saja
+
+🔐 Default Password: password123
+(Bisa diubah setelah login)
+
+📞 Butuh bantuan? Hubungi IT Support`);
+        }
+
+        function showAbout() {
+            alert(`ℹ️ TENTANG SISTEM
+
+🏛️ Satker Management System
+📍 Kementerian Transmigrasi
+
+✨ Fitur:
+• 153 Satuan Kerja terdaftar
+• Role-based access control
+• Data isolation per satker
+• Audit logging
+• Performance optimized
+
+🔧 Technology:
+• Pure JavaScript (no database)
+• Hardcoded approach
+• Instant loading
+• Offline capable
+
+📅 Version: 1.0.0`);
+        }
+
+        function showContact() {
+            alert(`📞 KONTAK
+
+🏢 Kementerian Transmigrasi
+📧 Email: support@transmigrasi.go.id
+☎️ Telepon: 021-XXXXXXX
+
+💻 IT Support:
+📧 it-support@transmigrasi.go.id
+⏰ Jam Kerja: 08:00 - 17:00 WIB
+
+🔧 Technical Support:
+• Login issues
+• Password reset
+• Access management
+• System troubleshooting`);
+        }
+
+        // Console helper
+        console.log(`
+🔐 LOGIN SYSTEM READY
+
+✨ NEW FEATURES:
+• Auto-detect correct usernames
+• Dynamic demo users list
+• "Show All Users" button
+• Real-time user creation
+
+🎯 How to Login:
+1. Click "Refresh Users" to load demo users
+2. Click on any demo user to auto-fill
+3. Or click "Show All Users" to see complete list
+4. Super Admin always available: superadmin / admin123
+
+🧪 Debug Commands:
+• window.authManager.getSystemUsers() - View all users
+• window.authManager.login('username', 'password') - Test login
+• refreshDemoUsers() - Reload demo users
+        `);
+    </script>
+</body>
+</html>
+

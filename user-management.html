@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Itjen Kementerian Transmigrasi RI</title>
+    
+    <!-- Favicon dan Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo/logo.png">
+    <link rel="shortcut icon" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="logo/logo.png">
+    
+    <!-- Meta Tags untuk Social Media dan WhatsApp -->
+    <meta name="description" content="User Management - Sistem manajemen pengguna untuk platform monitoring Inspektorat Jenderal Kementerian Transmigrasi. Kelola akses dan permission user secara terpusat.">
+    <meta name="keywords" content="User Management, Itjen, Inspektorat Jenderal, Kementerian Transmigrasi, Admin, User, Permission, Management">
+    <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="User Management - Itjen Kementerian Transmigrasi RI">
+    <meta property="og:description" content="Sistem manajemen pengguna untuk platform monitoring Inspektorat Jenderal Kementerian Transmigrasi.">
+    <meta property="og:image" content="logo/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Itjen Kementerian Transmigrasi RI">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="User Management - Itjen Kementerian Transmigrasi RI">
+    <meta property="twitter:description" content="Sistem manajemen pengguna untuk platform monitoring.">
+    <meta property="twitter:image" content="logo/logo.png">
+    
+    <!-- WhatsApp Meta Tags -->
+    <meta property="og:image:alt" content="Logo Inspektorat Jenderal Kementerian Transmigrasi">
+    <meta name="thumbnail" content="logo/logo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-title i { color: var(--primary); }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--gray-200);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .main-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            margin-top: 1rem;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .user-table th {
+            background: var(--gray-50);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.875rem;
+        }
+
+        .user-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 0.875rem;
+        }
+
+        .user-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .user-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-details h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .user-details p {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        .role-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .role-super {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+        }
+
+        .role-satker {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .action-edit {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .action-delete {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .action-reset {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="page-title">
+                <i class="fas fa-users"></i>
+                User Management
+            </h1>
+            <a href="executive-dashboard.html" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+            
+            <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Users</div>
+                        <div class="stat-icon" style="background: rgba(79, 70, 229, 0.1); color: var(--primary);">
+                            <i class="fas fa-users"></i>
+            </div>
+            </div>
+                    <div class="stat-number" id="totalUsers">-</div>
+            </div>
+                
+            <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Super Admins</div>
+                        <div class="stat-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
+                            <i class="fas fa-user-shield"></i>
+            </div>
+        </div>
+                    <div class="stat-number" id="superAdmins">-</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Satker Admins</div>
+                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+                            <i class="fas fa-building"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="satkerAdmins">-</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Database-Verified</div>
+                        <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--info);">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="verifiedUsers">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>All Users</h2>
+            
+            <div id="alertContainer"></div>
+
+            <div class="table-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Satker</th>
+                            <th>Verification</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Dependencies -->
+    <script src="simple_auth.js"></script>
+    <script src="satker-data-complete.js"></script>
+
+    <script>
+        let allUsers = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('👤 User Management initialized');
+            checkAdminAuth();
+            loadUsers();
+        });
+
+        // Check admin authentication
+        function checkAdminAuth() {
+            const currentUser = window.SimpleAuth?.getCurrentUser();
+            if (!currentUser || currentUser.role !== 'super_admin') {
+                alert('❌ Access denied! Super admin privileges required.');
+                window.location.href = 'login.html';
+                return;
+            }
+            console.log('✅ Admin authenticated:', currentUser.username);
+        }
+
+        // Load all users
+        function loadUsers() {
+            try {
+                allUsers = window.SimpleAuth?.getUsers() || [];
+                updateStats();
+                renderUsers();
+                console.log(`📊 Loaded ${allUsers.length} users`);
+            } catch (error) {
+                console.error('❌ Error loading users:', error);
+                showAlert('Error loading users: ' + error.message, 'danger');
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalUsers = allUsers.length;
+            const superAdmins = allUsers.filter(u => u.role === 'super_admin').length;
+            const satkerAdmins = allUsers.filter(u => u.role === 'satker_admin').length;
+            const verifiedUsers = allUsers.filter(u => u.codeVerified || u.role === 'super_admin').length;
+
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('superAdmins').textContent = superAdmins;
+            document.getElementById('satkerAdmins').textContent = satkerAdmins;
+            document.getElementById('verifiedUsers').textContent = verifiedUsers;
+        }
+
+        // Render users table
+        function renderUsers() {
+            const tbody = document.getElementById('userTableBody');
+
+            tbody.innerHTML = allUsers.map(user => `
+                <tr>
+                    <td>
+                    <div class="user-info">
+                            <div class="user-avatar">
+                                ${user.fullName ? user.fullName.charAt(0).toUpperCase() : user.username.charAt(0).toUpperCase()}
+                            </div>
+                            <div class="user-details">
+                                <h4>${user.fullName || user.username}</h4>
+                                <p>@${user.username}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="role-badge ${user.role === 'super_admin' ? 'role-super' : 'role-satker'}">
+                            ${user.role === 'super_admin' ? 'Super Admin' : 'Satker Admin'}
+                        </span>
+                    </td>
+                    <td>
+                        <div>
+                            <div style="font-weight: 500;">${user.satkerName || 'N/A'}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">${user.satkerCode || ''}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="role-badge ${user.codeVerified || user.role === 'super_admin' ? 'role-satker' : 'role-super'}">
+                            ${user.codeVerified || user.role === 'super_admin' ? '✅ Verified' : '⚠️ Check Code'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn action-reset" onclick="resetPassword('${user.username}')" title="Reset Password">
+                                <i class="fas fa-key"></i>
+                            </button>
+                            ${user.role !== 'super_admin' ? `
+                                <button class="action-btn action-delete" onclick="deleteUser('${user.username}')" title="Delete User">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            ` : ''}
+                    </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Reset password
+        function resetPassword(username) {
+            if (confirm(`Reset password for user "${username}" to default?`)) {
+                try {
+                    const userIndex = allUsers.findIndex(u => u.username === username);
+                    if (userIndex !== -1) {
+                        allUsers[userIndex].password = 'password123';
+                        if (window.SimpleAuth.updateUsers) {
+                            window.SimpleAuth.updateUsers(allUsers);
+                        }
+                        showAlert(`✅ Password reset for ${username} to "password123"`, 'success');
+                    }
+                } catch (error) {
+                    console.error('❌ Error resetting password:', error);
+                    showAlert('❌ Error resetting password: ' + error.message, 'danger');
+                }
+            }
+        }
+
+        // Delete user
+        function deleteUser(username) {
+            if (confirm(`Are you sure you want to delete user "${username}"?`)) {
+                try {
+                    allUsers = allUsers.filter(u => u.username !== username);
+                    
+                    if (window.SimpleAuth.updateUsers) {
+                        window.SimpleAuth.updateUsers(allUsers);
+                    }
+                    
+                    updateStats();
+                    renderUsers();
+                    
+                    showAlert(`✅ User ${username} deleted successfully`, 'success');
+            } catch (error) {
+                    console.error('❌ Error deleting user:', error);
+                    showAlert('❌ Error deleting user: ' + error.message, 'danger');
+                }
+            }
+        }
+
+        // Show alert
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        // Add updateUsers method to SimpleAuth if not exists
+        if (window.SimpleAuth && !window.SimpleAuth.updateUsers) {
+            window.SimpleAuth.updateUsers = function(users) {
+                localStorage.setItem('simple_auth_users', JSON.stringify(users));
+                console.log('✅ Users updated in localStorage');
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Progress Kegiatan - Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementrans</title>
+    
+    <!-- Favicon dan Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="logo/logo.png">
+    
+    <!-- Meta Tags untuk Social Media dan WhatsApp -->
+    <meta name="description" content="Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta name="keywords" content="Inspektorat Jenderal, Kementrans, Transmigrasi, Dashboard, Monitoring, Program, Anggaran">
+    <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Form Progress Kegiatan - Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementrans">
+    <meta property="og:description" content="Sistem monitoring dan pelaporan program serta anggaran Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta property="og:image" content="logo/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Inspektorat Jenderal Kementrans">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="Form Progress Kegiatan - Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementrans">
+    <meta property="twitter:description" content="Sistem monitoring dan pelaporan program serta anggaran Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta property="twitter:image" content="logo/logo.png">
+    
+    <!-- WhatsApp Meta Tags -->
+    <meta property="og:image:alt" content="Logo Inspektorat Jenderal Kementerian Transmigrasi">
+    <meta name="thumbnail" content="logo/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&family=SF+Pro+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Apple-inspired Color Palette */
+            --primary: #007AFF;
+            --primary-dark: #0056CC;
+            --primary-light: #5AC8FA;
+            --secondary: #8E8E93;
+            --success: #34C759;
+            --warning: #FF9500;
+            --danger: #FF3B30;
+            --info: #5AC8FA;
+            
+            /* Grayscale */
+            --gray-1: #8E8E93;
+            --gray-2: #AEAEB2;
+            --gray-3: #C7C7CC;
+            --gray-4: #D1D1D6;
+            --gray-5: #E5E5EA;
+            --gray-6: #F2F2F7;
+            --label: #000000;
+            --label-secondary: #3C3C43;
+            --label-tertiary: #3C3C4399;
+            --label-quaternary: #3C3C432E;
+            
+            /* Background */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F2F2F7;
+            --bg-tertiary: #FFFFFF;
+            --bg-grouped: #F2F2F7;
+            
+            /* Shadows */
+            --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+            --shadow-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+            --shadow-4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+            --shadow-5: 0 20px 40px rgba(0, 0, 0, 0.1);
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+            
+            /* Spacing */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            color: var(--label);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--gray-5);
+            padding: var(--space-4) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            text-decoration: none;
+            color: var(--label);
+        }
+
+        .navbar-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .navbar-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline.danger {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .btn-outline.danger:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--label);
+            font-size: 0.9rem;
+        }
+
+        .user-satker {
+            color: var(--label-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-6);
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-3);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-3);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: var(--label-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .satker-info {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-4);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-weight: 600;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-3);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Form Sections */
+        .form-section {
+            margin-bottom: var(--space-10);
+            padding-bottom: var(--space-8);
+            border-bottom: 2px solid var(--gray-5);
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--gray-4);
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .section-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--label);
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            color: var(--label-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .form-grid.two-column {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .form-grid.three-column {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-5);
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-2);
+            color: var(--label);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--space-4);
+            border: 2px solid var(--gray-4);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg-primary);
+            font-family: inherit;
+        }
+
+        .form-hint {
+            margin-top: var(--space-1);
+            font-size: 0.8rem;
+            color: var(--label-secondary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+
+        .form-hint i {
+            color: var(--info);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Input with Icon */
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-2);
+            font-size: 1.1rem;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed var(--gray-4);
+            border-radius: var(--radius-md);
+            padding: var(--space-8);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--bg-secondary);
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(0, 122, 255, 0.05);
+        }
+
+        .file-upload.dragover {
+            border-color: var(--primary);
+            background: rgba(0, 122, 255, 0.1);
+        }
+
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--gray-2);
+            margin-bottom: var(--space-3);
+        }
+
+        .file-upload-text {
+            color: var(--label-secondary);
+            font-weight: 500;
+            margin-bottom: var(--space-2);
+        }
+
+        .file-upload-hint {
+            color: var(--gray-1);
+            font-size: 0.85rem;
+        }
+
+        .file-preview {
+            margin-top: var(--space-4);
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-2);
+            border: 1px solid var(--gray-5);
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--success);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--label);
+            margin-bottom: var(--space-1);
+        }
+
+        .file-size {
+            color: var(--label-secondary);
+            font-size: 0.85rem;
+        }
+
+        .file-remove {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: var(--space-2);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-remove:hover {
+            background: #D70015;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        .progress-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-6);
+            align-items: end;
+        }
+
+        .progress-display {
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            text-align: center;
+            border: 2px solid var(--gray-5);
+        }
+
+        .progress-label {
+            color: var(--label-secondary);
+            font-size: 0.9rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .progress-value {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-percentage {
+            color: var(--success);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: var(--space-2);
+        }
+
+        /* Action Buttons */
+        .form-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: flex-end;
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 2px solid var(--gray-5);
+        }
+
+        .btn {
+            padding: var(--space-4) var(--space-8);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: var(--shadow-2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-3);
+        }
+
+        .btn-secondary {
+            background: var(--gray-5);
+            color: var(--label);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-4);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #28CD41);
+            color: white;
+            box-shadow: var(--shadow-2);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-3);
+        }
+
+        /* Message */
+        .message {
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .message.success {
+            background: rgba(52, 199, 89, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(52, 199, 89, 0.3);
+        }
+
+        .message.error {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+        }
+
+        .message.warning {
+            background: rgba(255, 149, 0, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 149, 0, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-4);
+            }
+            
+            .navbar-content {
+                padding: 0 var(--space-4);
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-grid.two-column,
+            .form-grid.three-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .user-info {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="executive-dashboard.html" class="navbar-brand">
+                <div class="navbar-icon">
+                    <img src="logo/logo.png" alt="Logo Inspektorat Jenderal" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-md);">
+                </div>
+                <div class="navbar-title">Form Progress Kegiatan</div>
+            </a>
+            
+            <div class="navbar-actions">
+                <a href="progress-dashboard.html" class="btn-outline">
+                    <i class="fas fa-table"></i>
+                    <span>Lihat Data</span>
+                </a>
+                <a href="executive-dashboard.html" class="btn-outline">
+                    <i class="fas fa-home"></i>
+                    <span>Executive Dashboard</span>
+                </a>
+                <button onclick="logout()" class="btn-outline danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+                <div class="user-info">
+                    <div class="user-name" id="userName">Loading...</div>
+                    <div class="user-satker" id="userSatker">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in-up">
+            <h1><i class="fas fa-chart-line"></i> Form Progress Kegiatan</h1>
+            <p>Input data progress fisik dan keuangan kegiatan satuan kerja</p>
+            <div class="satker-info" id="satkerInfo">
+                <i class="fas fa-building"></i>
+                <span id="satkerName">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Message Container -->
+        <div id="messageContainer"></div>
+
+        <!-- Form Container -->
+        <div class="form-container fade-in-up" style="animation-delay: 0.1s;">
+            <form id="progressForm">
+                <!-- Section 1: Informasi Dasar -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Informasi Dasar</div>
+                            <div class="section-subtitle">Data identitas dan lokasi kegiatan</div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid three-column">
+                        <div class="form-group">
+                            <label for="nomor">Nomor <span class="required">*</span></label>
+                            <input type="number" id="nomor" name="nomor" required min="1" placeholder="Nomor urut entri">
+                        </div>
+
+                        <!-- Super Admin Only: Satker Selection -->
+                        <div class="form-group full-width" id="satkerSelectionGroup" style="display: none;">
+                            <label for="selectedSatker">Pilih Satuan Kerja <span class="required">*</span></label>
+                            <select id="selectedSatker" name="selectedSatker" onchange="updateSatkerDetails()">
+                                <option value="">Pilih Satuan Kerja untuk Input Data</option>
+                            </select>
+                            <div class="form-hint">
+                                <i class="fas fa-info-circle"></i>
+                                Super Admin dapat memilih satker mana saja untuk input progress data
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="provinsi">Provinsi <span class="required">*</span></label>
+                            <input type="text" id="provinsi" name="provinsi" required readonly placeholder="Auto-filled dari data satker">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kabupaten">Kabupaten/Kota <span class="required">*</span></label>
+                            <input type="text" id="kabupaten" name="kabupaten" required readonly placeholder="Auto-filled dari data satker">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="namaUnitKerja">Nama Unit Kerja <span class="required">*</span></label>
+                            <input type="text" id="namaUnitKerja" name="namaUnitKerja" required readonly placeholder="Auto-filled dari data satker">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kodeSatker">Kode Satker <span class="required">*</span></label>
+                            <input type="text" id="kodeSatker" name="kodeSatker" required readonly placeholder="Auto-filled">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Pejabat & Penanggung Jawab (Opsional) -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Pejabat & Penanggung Jawab <span style="color: var(--warning); font-size: 0.8rem; font-weight: normal;">(Opsional)</span></div>
+                            <div class="section-subtitle">Data pejabat terkait pelaksanaan kegiatan - dapat diisi kemudian</div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid two-column">
+                        <div class="form-group">
+                            <label for="kepalaUnitKerja">Kepala Unit Kerja</label>
+                            <input type="text" id="kepalaUnitKerja" name="kepalaUnitKerja" placeholder="Nama kepala unit kerja (opsional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nipKepalaUnitKerja">NIP Kepala Unit Kerja</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="nipKepalaUnitKerja" name="nipKepalaUnitKerja" placeholder="NIP kepala unit kerja (opsional)" maxlength="18">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="namaKPA">Nama KPA/KPB</label>
+                            <input type="text" id="namaKPA" name="namaKPA" placeholder="Nama Kuasa Pengguna Anggaran/Barang (opsional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nipKPA">NIP KPA/KPB</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="nipKPA" name="nipKPA" placeholder="NIP KPA/KPB (opsional)" maxlength="18">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="namaPPK">Nama PPK</label>
+                            <input type="text" id="namaPPK" name="namaPPK" placeholder="Nama Pejabat Pembuat Komitmen (opsional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nipPPK">NIP PPK</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="nipPPK" name="nipPPK" placeholder="NIP PPK (opsional)" maxlength="18">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="namaPPSPM">Nama PPSPM</label>
+                            <input type="text" id="namaPPSPM" name="namaPPSPM" placeholder="Nama Pejabat Penandatangan SPM (opsional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nipPPSPM">NIP PPSPM</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="nipPPSPM" name="nipPPSPM" placeholder="NIP PPSPM (opsional)" maxlength="18">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="namaBendahara">Nama Bendahara Pengeluaran (BP)</label>
+                            <input type="text" id="namaBendahara" name="namaBendahara" placeholder="Nama bendahara pengeluaran (opsional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nipBendahara">NIP BP</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="nipBendahara" name="nipBendahara" placeholder="NIP bendahara pengeluaran (opsional)" maxlength="18">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Detail Kegiatan -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Detail Kegiatan</div>
+                            <div class="section-subtitle">Informasi kegiatan dan anggaran</div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="namaKegiatan">Nama Kegiatan <span class="required">*</span></label>
+                            <input type="text" id="namaKegiatan" name="namaKegiatan" required placeholder="Nama kegiatan sesuai dokumen perencanaan">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="namaPaket">Nama Paket <span class="required">*</span></label>
+                            <input type="text" id="namaPaket" name="namaPaket" required placeholder="Nama paket pekerjaan">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paguAnggaran">Pagu Anggaran (Rp) <span class="required">*</span></label>
+                            <div class="input-with-icon">
+                                <input type="number" id="paguAnggaran" name="paguAnggaran" required placeholder="0" min="0" onchange="calculatePercentage()">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nilaiKontrak">Nilai Kontrak (Rp) <span class="required">*</span></label>
+                            <div class="input-with-icon">
+                                <input type="number" id="nilaiKontrak" name="nilaiKontrak" required placeholder="0" min="0" onchange="validateKontrak(); calculatePercentage()">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <small class="form-help">Nilai kontrak harus ≤ Pagu Anggaran</small>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="uraianOutput">Uraian Output <span class="required">*</span></label>
+                            <textarea id="uraianOutput" name="uraianOutput" required placeholder="Penjelasan keluaran yang akan dihasilkan dari kegiatan"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="indikator">Indikator <span class="required">*</span></label>
+                            <input type="text" id="indikator" name="indikator" required placeholder="Tolok ukur keberhasilan output">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="targetOutput">Target Output <span class="required">*</span></label>
+                            <input type="text" id="targetOutput" name="targetOutput" required placeholder="Capaian target sesuai indikator">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="lokasiKegiatan">Lokasi Kegiatan <span class="required">*</span></label>
+                            <div class="input-with-icon">
+                                <input type="text" id="lokasiKegiatan" name="lokasiKegiatan" required placeholder="Lokasi pelaksanaan kegiatan (alamat lengkap)">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="picProgram">PIC Program <span class="required">*</span></label>
+                            <div class="input-with-icon">
+                                <select id="picProgram" name="picProgram" required>
+                                    <option value="">-- Pilih Unit Kerja Eselon 2 --</option>
+                                </select>
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="help-text">
+                                <i class="fas fa-info-circle"></i>
+                                Pilih Unit Kerja Eselon 2 yang bertanggung jawab sebagai PIC Program
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Timeline -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Timeline Kegiatan</div>
+                            <div class="section-subtitle">Tanggal-tanggal penting dalam pelaksanaan</div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid two-column">
+                        <div class="form-group">
+                            <label for="tanggalSelesaiLelang">Tanggal Selesai Lelang</label>
+                            <input type="date" id="tanggalSelesaiLelang" name="tanggalSelesaiLelang">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tanggalPenetapanPemenang">Tanggal Penetapan Pemenang</label>
+                            <input type="date" id="tanggalPenetapanPemenang" name="tanggalPenetapanPemenang">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tanggalKontrak">Tanggal Kontrak</label>
+                            <input type="date" id="tanggalKontrak" name="tanggalKontrak">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tanggalProgres0">Tanggal Progres 0% <span class="required">*</span></label>
+                            <input type="date" id="tanggalProgres0" name="tanggalProgres0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Progress -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Progress Kegiatan</div>
+                            <div class="section-subtitle">Capaian keuangan dan fisik saat ini</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-grid">
+                            <div class="form-group">
+                                <label for="progressKeuangan">Progress Keuangan (Rp) <span class="required">*</span></label>
+                                <div class="input-with-icon">
+                                    <input type="number" id="progressKeuangan" name="progressKeuangan" required placeholder="0" min="0" onchange="calculatePercentage()">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+
+                            <div class="progress-display">
+                                <div class="progress-label">Persentase Penyerapan</div>
+                                <div class="progress-value" id="persentasePenyerapan">0%</div>
+                                <div class="progress-percentage">dari nilai kontrak</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="progressFisik">Progress Fisik (%) <span class="required">*</span></label>
+                            <div class="input-with-icon">
+                                <input type="number" id="progressFisik" name="progressFisik" required 
+                                       min="0" max="100" step="0.1" placeholder="0.0" 
+                                       onchange="validateProgressFisik()" oninput="validateProgressFisik()">
+                                <i class="fas fa-percentage"></i>
+                        </div>
+                            <div class="help-text">
+                                <i class="fas fa-info-circle"></i>
+                                Masukkan persentase kemajuan fisik (0-100%). Contoh: 67.5
+                            </div>                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Dokumentasi & Kendala -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Dokumentasi & Kendala</div>
+                            <div class="section-subtitle">Upload foto dan uraian hambatan</div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <!-- Foto Before (Sebelum Kegiatan) -->
+                        <div class="form-group">
+                            <label for="fotoBefore">📸 Foto Sebelum Kegiatan <span class="required">*</span></label>
+                            <div class="file-upload" onclick="document.getElementById('fotoBeforeInput').click()">
+                                <div class="file-upload-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="file-upload-text">Upload foto kondisi awal</div>
+                                <div class="file-upload-hint">JPG, PNG (Max: 5MB)</div>
+                            </div>
+                            <input type="file" id="fotoBeforeInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'before')" required>
+                            <div id="fotoBeforePreview" class="file-preview"></div>
+                        </div>
+
+                        <!-- Foto After (Sesudah Kegiatan) -->
+                        <div class="form-group">
+                            <label for="fotoAfter">📸 Foto Sesudah Kegiatan</label>
+                            <div class="file-upload" onclick="document.getElementById('fotoAfterInput').click()">
+                                <div class="file-upload-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="file-upload-text">Upload foto progress/hasil</div>
+                                <div class="file-upload-hint">JPG, PNG (Max: 5MB)</div>
+                            </div>
+                            <input type="file" id="fotoAfterInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'after')">
+                            <div id="fotoAfterPreview" class="file-preview"></div>
+                            <small style="color: #6b7280;">Upload saat progress sudah berjalan</small>
+                        </div>
+
+                        <!-- Dokumentasi Tambahan -->
+                        <div class="form-group full-width">
+                            <label for="dokumentasiTambahan">📄 Dokumentasi Tambahan (Opsional)</label>
+                            <div class="file-upload" onclick="document.getElementById('dokumenTambahanInput').click()">
+                                <div class="file-upload-icon">
+                                    <i class="fas fa-file-upload"></i>
+                                </div>
+                                <div class="file-upload-text">Upload dokumen pendukung</div>
+                                <div class="file-upload-hint">JPG, PNG, PDF (Max: 5MB per file)</div>
+                            </div>
+                            <input type="file" id="dokumenTambahanInput" multiple accept="image/*,.pdf" style="display: none;" onchange="handleFileUpload(event, 'tambahan')">
+                            <div id="dokumenTambahanPreview" class="file-preview"></div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="hambatan">Hambatan / Kendala</label>
+                            <textarea id="hambatan" name="hambatan" placeholder="Uraian masalah yang dihadapi dalam pelaksanaan kegiatan"></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="mitigasi">Penjelasan Mitigasi Satker</label>
+                            <textarea id="mitigasi" name="mitigasi" placeholder="Langkah-langkah yang diambil untuk mengatasi hambatan/kendala"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fas fa-undo"></i>
+                        <span>Reset Form</span>
+                    </button>
+                    
+                    <button type="button" class="btn btn-secondary" onclick="saveAsDraft()">
+                        <i class="fas fa-save"></i>
+                        <span>Simpan Draft</span>
+                    </button>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Submit Data</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Load Dependencies -->
+    <script src="indonesia-regions-complete.js"></script>
+    <script src="satker-data-complete.js"></script>
+    <script src="unit-kerja-kementrans.js"></script>
+    <script src="simple_auth.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, serverTimestamp, enableNetwork, onSnapshot, query, where, orderBy } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+        // Firebase configuration - Dashboard Kementrans
+        const firebaseConfig = {
+            apiKey: "AIzaSyBcetwoMXOnXuU60WSaUaUce-g1GVSDmWE",
+            authDomain: "dashboard-kementrans.firebaseapp.com",
+            projectId: "dashboard-kementrans",
+            storageBucket: "dashboard-kementrans.firebasestorage.app",
+            messagingSenderId: "852941680228",
+            appId: "1:852941680228:web:57f9502b71e246ea8e7971",
+            measurementId: "G-MRMNSD561Q"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Enable offline persistence
+        enableNetwork(db);
+
+        // Make Firebase available globally
+        window.db = db;
+        window.auth = auth;
+        window.firebase = {
+            app,
+            db, 
+            auth,
+            collection,
+            addDoc,
+            getDocs,
+            query,
+            where,
+            orderBy,
+            onSnapshot,
+            enableNetwork,
+            serverTimestamp
+        };
+        
+        // Mark Firebase as ready
+        window.firebaseReady = true;
+        
+        console.log('🔥 Firebase initialized for nationwide deployment');
+        console.log('🔧 Firebase functions available:', Object.keys(window.firebase));
+        
+        // Dispatch custom event to signal Firebase is ready
+        window.dispatchEvent(new CustomEvent('firebaseReady'));
+        
+        // Global flag for other scripts to check
+        setTimeout(() => {
+            if (window.firebaseReady) {
+                console.log('✅ Firebase fully loaded and ready for form submission');
+            }
+        }, 1000);
+    </script>
+
+    <!-- Form Logic -->
+    <script>
+        // ===================================================================
+        // FORM PROGRESS KEGIATAN LOGIC
+        // ===================================================================
+
+        let currentUser = null;
+        let currentSatker = null;
+        let uploadedFiles = [];
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM Content Loaded - Starting form initialization');
+            console.log('📋 Checking script availability:');
+            console.log('   - SimpleAuth:', typeof window.SimpleAuth);
+            console.log('   - UnitKerjaKementrans:', typeof window.UnitKerjaKementrans);
+            
+            // Additional check for UnitKerjaKementrans
+            if (typeof window.UnitKerjaKementrans !== 'undefined') {
+                try {
+                    const stats = window.UnitKerjaKementrans.getUnitStatistics();
+                    console.log('📊 Unit statistics:', stats);
+                } catch (error) {
+                    console.error('❌ Error getting unit statistics:', error);
+                }
+            }            console.log('📋 Form Progress Kegiatan initializing...');
+            initializeForm();
+        });
+
+        // Initialize form
+        // Initialize PIC Program dropdown
+        function initializePICProgram() {
+            try {
+                if (typeof window.UnitKerjaKementrans !== 'undefined') {
+                    window.UnitKerjaKementrans.populatePICProgramDropdown('picProgram');
+                    console.log('✅ PIC Program dropdown initialized');
+                } else {
+                    console.warn('⚠️ UnitKerjaKementrans not loaded yet, retrying...');
+                    setTimeout(initializePICProgram, 500);
+                }
+            } catch (error) {
+                console.error('❌ Error initializing PIC Program dropdown:', error);
+            }
+        }
+
+                async function initializeForm() {
+            // Check authentication using SimpleAuth
+            if (typeof window.SimpleAuth === 'undefined') {
+                console.error('❌ SimpleAuth not loaded');
+                redirectToLogin();
+                return;
+            }
+            
+            currentUser = window.SimpleAuth.getCurrentUser();
+            if (!currentUser) {
+                console.log('❌ No user found, redirecting to login');
+                redirectToLogin();
+                return;
+            }
+
+            // Check permission - Super admin or satker admin can create reports
+            if (currentUser.role !== 'super_admin' && currentUser.role !== 'satker_admin') {
+                showMessage('Anda tidak memiliki permission untuk membuat laporan progress.', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3000);
+                return;
+            }
+
+            // Load user data
+            loadUserData();
+            await loadSatkerData();
+            
+            // Initialize PIC Program dropdown
+            initializePICProgram();
+            
+            // FORCE DEBUG - Direct PIC Program initialization
+            setTimeout(() => {
+                console.log('🔧 FORCE DEBUG: Checking PIC Program after 3 seconds');
+                const picDropdown = document.getElementById('picProgram');
+                console.log('🔧 PIC Dropdown element:', picDropdown);
+                console.log('🔧 Current options count:', picDropdown ? picDropdown.options.length : 'NULL');
+                
+                if (picDropdown && picDropdown.options.length <= 1) {
+                    console.log('🔧 FORCE: Attempting direct populate...');
+                    
+                    if (typeof window.UnitKerjaKementrans !== 'undefined') {
+                        console.log('🔧 UnitKerjaKementrans available, forcing populate');
+                        try {
+                            // Clear and populate directly
+                            picDropdown.innerHTML = '<option value="">-- Pilih PIC Program --</option>';
+                            
+                            // Manual populate
+                            const data = window.UnitKerjaKementrans.data;
+                            Object.entries(data).forEach(([eselon1Name, eselon1Data]) => {
+                                const optgroup = document.createElement('optgroup');
+                                optgroup.label = eselon1Name;
+                                
+                                eselon1Data.unit_eselon2.forEach(eselon2 => {
+                                    const option = document.createElement('option');
+                                    option.value = eselon2.kode;
+                                    option.textContent = eselon2.singkatan;
+                                    optgroup.appendChild(option);
+                                });
+                                
+                                picDropdown.appendChild(optgroup);
+                            });
+                            
+                            console.log('🔧 FORCE: Manual populate completed, options:', picDropdown.options.length);
+                        } catch (error) {
+                            console.error('🔧 FORCE: Error in manual populate:', error);
+                        }
+                    } else {
+                        console.error('🔧 FORCE: UnitKerjaKementrans STILL not available!');
+                    }
+                }
+            }, 3000);            
+            // Backup PIC Program initialization with multiple retries
+            setTimeout(() => {
+                const dropdown = document.getElementById('picProgram');
+                if (dropdown && dropdown.options.length <= 1) {
+                    console.log('🔄 Retrying PIC Program initialization (backup 1)...');
+                    initializePICProgram();
+            
+            // FORCE DEBUG - Direct PIC Program initialization
+            setTimeout(() => {
+                console.log('🔧 FORCE DEBUG: Checking PIC Program after 3 seconds');
+                const picDropdown = document.getElementById('picProgram');
+                console.log('🔧 PIC Dropdown element:', picDropdown);
+                console.log('🔧 Current options count:', picDropdown ? picDropdown.options.length : 'NULL');
+                
+                if (picDropdown && picDropdown.options.length <= 1) {
+                    console.log('🔧 FORCE: Attempting direct populate...');
+                    
+                    if (typeof window.UnitKerjaKementrans !== 'undefined') {
+                        console.log('🔧 UnitKerjaKementrans available, forcing populate');
+                        try {
+                            // Clear and populate directly
+                            picDropdown.innerHTML = '<option value="">-- Pilih PIC Program --</option>';
+                            
+                            // Manual populate
+                            const data = window.UnitKerjaKementrans.data;
+                            Object.entries(data).forEach(([eselon1Name, eselon1Data]) => {
+                                const optgroup = document.createElement('optgroup');
+                                optgroup.label = eselon1Name;
+                                
+                                eselon1Data.unit_eselon2.forEach(eselon2 => {
+                                    const option = document.createElement('option');
+                                    option.value = eselon2.kode;
+                                    option.textContent = eselon2.singkatan;
+                                    optgroup.appendChild(option);
+                                });
+                                
+                                picDropdown.appendChild(optgroup);
+                            });
+                            
+                            console.log('🔧 FORCE: Manual populate completed, options:', picDropdown.options.length);
+                        } catch (error) {
+                            console.error('🔧 FORCE: Error in manual populate:', error);
+                        }
+                    } else {
+                        console.error('🔧 FORCE: UnitKerjaKementrans STILL not available!');
+                    }
+                }
+            }, 3000);                    
+                    // Second backup after 3 seconds
+                    setTimeout(() => {
+                        if (dropdown.options.length <= 1) {
+                            console.log('🔄 Retrying PIC Program initialization (backup 2)...');
+                            if (typeof window.UnitKerjaKementrans !== 'undefined') {
+                                console.log('📊 UnitKerjaKementrans available, forcing populate...');
+                                window.UnitKerjaKementrans.populatePICProgramDropdown('picProgram');
+                            } else {
+                                console.error('❌ UnitKerjaKementrans still not loaded after 5 seconds!');
+                            }
+                        }
+                    }, 3000);
+                }
+            }, 2000);            setupFormHandlers();
+            
+            // Log access (simplified)
+            console.log('✅ Form access:', {
+                user: currentUser.username,
+                satker: currentUser.satkerCode,
+                page: 'form_progress_kegiatan'
+            });
+            
+            console.log('✅ Form initialized');
+            showMessage(`Form siap digunakan untuk ${currentUser.satkerName}`, 'success');
+        }
+
+        // Load user data
+        function loadUserData() {
+            document.getElementById('userName').textContent = currentUser.fullName;
+            document.getElementById('userSatker').textContent = currentUser.satkerName;
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('🚪 Apakah Anda yakin ingin logout dari sistem?')) {
+                try {
+                    // Use SimpleAuth logout
+                    window.SimpleAuth.logout();
+                    
+                    // Show notification
+                    showMessage('✅ Logout berhasil! Redirecting...', 'success');
+                    
+                    // Redirect to login
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1500);
+                    
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    showMessage('❌ Logout gagal. Silakan coba lagi.', 'error');
+                }
+            }
+        }
+
+        // Load satker data
+        async function loadSatkerData() {
+            if (currentUser.role === 'super_admin') {
+                // Super admin - show satker selection dropdown from Firebase
+                await loadSatkerSelectionForSuperAdmin();
+            } else {
+                // Regular satker admin - auto-fill their satker data from Firebase
+                await loadOwnSatkerData();
+            }
+        }
+
+        // Load satker selection for super admin
+        async function loadSatkerSelectionForSuperAdmin() {
+            try {
+            document.getElementById('satkerSelectionGroup').style.display = 'block';
+            const satkerSelect = document.getElementById('selectedSatker');
+            
+                console.log('🔍 Loading all satkers from Firebase collection "satuan_kerja" for super admin...');
+                
+                // Get all satkers from Firebase collection 'satuan_kerja'
+                const allSatkersQuery = window.firebase.collection(window.firebase.db, 'satuan_kerja');
+                const snapshot = await window.firebase.getDocs(allSatkersQuery);
+                
+                const allSatkers = [];
+                snapshot.forEach((doc) => {
+                    allSatkers.push({ id: doc.id, ...doc.data() });
+                });
+                
+                console.log(`👑 Super admin: Loaded ${allSatkers.length} satkers from Firebase`);
+                
+                // Sort satkers by name for better UX
+                allSatkers.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+                
+                // Populate dropdown with all satkers
+            allSatkers.forEach((satker, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                    option.textContent = `${satker.name} (${satker.provinsi || 'Unknown'})`;
+                option.dataset.satker = JSON.stringify(satker);
+                satkerSelect.appendChild(option);
+                });
+                
+                // Store satkers globally for updateSatkerDetails function
+                window.firebaseSatkers = allSatkers;
+                
+                console.log('✅ Super admin dropdown populated with Firebase data');
+                console.log('🔍 Sample satkers:', allSatkers.slice(0, 3).map(s => ({ name: s.name, code: s.code, provinsi: s.provinsi })));
+                
+            } catch (error) {
+                console.error('❌ Error loading satkers from Firebase for super admin:', error);
+                showMessage(`❌ Error mengambil data satker dari Firebase: ${error.message}`, 'error');
+            }
+        }
+
+        // Load own satker data for regular admin from Firebase
+        async function loadOwnSatkerData() {
+            try {
+                console.log('🔍 Loading satker data from Firebase collection "satuan_kerja"...');
+                console.log('🔍 Searching for satkerCode:', currentUser.satkerCode);
+                
+                // Query Firebase collection 'satuan_kerja' for current user's satker
+                const satkerQuery = window.firebase.query(
+                    window.firebase.collection(window.firebase.db, 'satuan_kerja'),
+                    window.firebase.where('code', '==', currentUser.satkerCode)
+                );
+                
+                const snapshot = await window.firebase.getDocs(satkerQuery);
+                
+                if (!snapshot.empty) {
+                    // Found satker data in Firebase
+                    snapshot.forEach((doc) => {
+                        currentSatker = { id: doc.id, ...doc.data() };
+                        console.log('✅ Found satker in Firebase database:', currentSatker);
+                    });
+                    
+                    fillSatkerData(currentSatker);
+                    console.log(`👤 Satker admin: Auto-filled data from Firebase for ${currentSatker.name}`);
+                } else {
+                    console.error(`❌ Satker with code "${currentUser.satkerCode}" not found in Firebase collection "satuan_kerja"`);
+                    
+                    // Try alternative search by name
+                    console.log('🔄 Trying search by satker name...');
+                    const nameQuery = window.firebase.query(
+                        window.firebase.collection(window.firebase.db, 'satuan_kerja'),
+                        window.firebase.where('name', '==', currentUser.satkerName)
+                    );
+                    
+                    const nameSnapshot = await window.firebase.getDocs(nameQuery);
+                    
+                    if (!nameSnapshot.empty) {
+                        nameSnapshot.forEach((doc) => {
+                            currentSatker = { id: doc.id, ...doc.data() };
+                            console.log('✅ Found satker by name in Firebase:', currentSatker);
+                        });
+                        
+                    fillSatkerData(currentSatker);
+                        console.log(`👤 Satker admin: Auto-filled data from Firebase (by name) for ${currentSatker.name}`);
+                } else {
+                        console.error(`❌ CRITICAL: Satker "${currentUser.satkerName}" (${currentUser.satkerCode}) not found in Firebase "satuan_kerja" collection!`);
+                        showMessage(`❌ Data satker "${currentUser.satkerName}" tidak ditemukan dalam database Firebase. Hubungi administrator untuk menambahkan data satker ini ke collection "satuan_kerja".`, 'error');
+                        return;
+                    }
+                }
+                
+            } catch (error) {
+                console.error('❌ Error loading satker data from Firebase:', error);
+                showMessage(`❌ Error mengambil data satker dari Firebase: ${error.message}`, 'error');
+            }
+        }
+        
+        // Fallback function to fill satker data from user profile
+        function fillSatkerDataFromUser() {
+            if (!currentUser) return;
+            
+            // Use current user data as fallback
+            const userSatkerData = {
+                name: currentUser.satkerName || `Satker ${currentUser.username}`,
+                code: currentUser.satkerCode || 'UNKNOWN',
+                provinsi: currentUser.provinsi || '',
+                kabupaten: currentUser.kabupaten || ''
+            };
+            
+            fillSatkerData(userSatkerData);
+            console.log(`🔄 Fallback: Using user data for ${userSatkerData.name}`);
+        }
+
+        // Update satker details when super admin selects a satker
+        function updateSatkerDetails() {
+            const satkerSelect = document.getElementById('selectedSatker');
+            const selectedIndex = parseInt(satkerSelect.value);
+            
+            console.log('🔄 updateSatkerDetails called, selectedIndex:', selectedIndex);
+            
+            if (selectedIndex >= 0 && !isNaN(selectedIndex)) {
+                // Use Firebase satkers data stored globally
+                const allSatkers = window.firebaseSatkers || [];
+                console.log('📊 Available Firebase satkers:', allSatkers.length);
+                
+                if (selectedIndex < allSatkers.length) {
+                currentSatker = allSatkers[selectedIndex];
+                fillSatkerData(currentSatker);
+                    console.log(`✅ Super admin selected Firebase satker:`, {
+                        index: selectedIndex,
+                        name: currentSatker.name,
+                        code: currentSatker.code,
+                        provinsi: currentSatker.provinsi,
+                        kabupaten: currentSatker.kabupaten
+                    });
+            } else {
+                    console.error('❌ selectedIndex out of range:', selectedIndex, 'max:', allSatkers.length - 1);
+                    currentSatker = null;
+                clearSatkerData();
+            }
+            } else {
+                console.log('🔄 No satker selected, clearing data');
+                clearSatkerData();
+                currentSatker = null;
+            }
+            
+            // Debug: Log currentSatker status
+            console.log('🎯 currentSatker after update:', currentSatker ? 'SET' : 'NULL');
+        }
+
+        // Fill satker data in the form
+        function fillSatkerData(satker) {
+            document.getElementById('satkerName').textContent = satker.name;
+            document.getElementById('namaUnitKerja').value = satker.name;
+            
+            // USE ACTUAL DATA FROM MASTER FILE - NO MORE GUESSING!
+            let satkerCode = satker.code || satker.satkerCode;
+            
+            // If no code in master data, generate from kabupaten/kota name
+            if (!satkerCode || satkerCode === 'ALL') {
+                console.log(`📋 No code in master data for: ${satker.name}`);
+                console.log(`📍 Using location data: ${satker.kabupaten}, ${satker.provinsi}`);
+                
+                // Generate code from kabupaten name (this is the standard approach)
+                if (satker.kabupaten) {
+                    // Remove "Kabupaten" or "Kota" prefix and use the location name
+                    const locationName = satker.kabupaten
+                        .replace(/^Kabupaten\s+/i, '')
+                        .replace(/^Kota\s+/i, '')
+                        .toUpperCase();
+                    satkerCode = locationName;
+                    console.log(`✅ Generated satkerCode from master data kabupaten: ${satkerCode}`);
+                } else {
+                    console.error(`❌ No kabupaten data in master file for: ${satker.name}`);
+                    satkerCode = 'UNKNOWN_LOCATION';
+                }
+            }
+            
+            document.getElementById('kodeSatker').value = satkerCode;
+            console.log(`✅ Using verified satkerCode for ${satker.name}: ${satkerCode}`);
+            
+            // Auto-fill provinsi and kabupaten from satker data
+            if (satker.provinsi) {
+                document.getElementById('provinsi').value = satker.provinsi;
+            }
+            if (satker.kabupaten) {
+                document.getElementById('kabupaten').value = satker.kabupaten;
+            }
+            
+            console.log(`✅ Filled satker data: ${satker.name} - ${satker.provinsi}, ${satker.kabupaten}`);
+        }
+
+        // Clear satker data
+        function clearSatkerData() {
+            document.getElementById('satkerName').textContent = 'Pilih satker terlebih dahulu';
+            document.getElementById('namaUnitKerja').value = '';
+            document.getElementById('kodeSatker').value = '';
+            document.getElementById('provinsi').value = '';
+            document.getElementById('kabupaten').value = '';
+        }
+
+        // Note: Province and kabupaten are now auto-filled from satker data
+        // No need for manual dropdown loading since they're readonly inputs
+
+        // Calculate percentage
+        function calculatePercentage() {
+            const nilaiKontrak = parseFloat(document.getElementById('nilaiKontrak').value) || 0;
+            const progressKeuangan = parseFloat(document.getElementById('progressKeuangan').value) || 0;
+            
+            if (nilaiKontrak > 0) {
+                const percentage = ((progressKeuangan / nilaiKontrak) * 100).toFixed(2);
+                document.getElementById('persentasePenyerapan').textContent = percentage + '%';
+                
+                // Color coding
+                const element = document.getElementById('persentasePenyerapan');
+                if (percentage >= 80) {
+                    element.style.color = 'var(--success)';
+                } else if (percentage >= 50) {
+                    element.style.color = 'var(--warning)';
+                } else {
+                    element.style.color = 'var(--danger)';
+                }
+            } else {
+                document.getElementById('persentasePenyerapan').textContent = '0%';
+            }
+        }
+
+        // Validate nilai kontrak
+        function validateKontrak() {
+            const paguAnggaran = parseFloat(document.getElementById('paguAnggaran').value) || 0;
+            const nilaiKontrak = parseFloat(document.getElementById('nilaiKontrak').value) || 0;
+            const kontrakField = document.getElementById('nilaiKontrak');
+            const helpText = kontrakField.parentNode.nextElementSibling;
+            
+            if (nilaiKontrak > 0 && paguAnggaran > 0) {
+                if (nilaiKontrak > paguAnggaran) {
+                    // Error: kontrak lebih besar dari pagu
+                    kontrakField.style.borderColor = 'var(--danger)';
+                    helpText.style.color = 'var(--danger)';
+                    helpText.innerHTML = '⚠️ Nilai kontrak tidak boleh lebih besar dari Pagu Anggaran!';
+                    return false;
+                } else {
+                    // Valid: kontrak <= pagu
+                    kontrakField.style.borderColor = 'var(--success)';
+                    helpText.style.color = 'var(--success)';
+                    const percentage = ((nilaiKontrak / paguAnggaran) * 100).toFixed(1);
+                    helpText.innerHTML = `✅ Valid - ${percentage}% dari Pagu Anggaran`;
+                    return true;
+        }
+
+        // Validate progress fisik
+        function validateProgressFisik() {
+            const progressFisik = parseFloat(document.getElementById('progressFisik').value) || 0;
+            const progressField = document.getElementById('progressFisik');
+            const helpText = progressField.parentNode.nextElementSibling;
+            
+            if (progressFisik < 0 || progressFisik > 100) {
+                // Error: di luar range 0-100
+                progressField.style.borderColor = 'var(--danger)';
+                helpText.style.color = 'var(--danger)';
+                helpText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Progress fisik harus antara 0-100%!';
+                return false;
+            } else if (progressFisik >= 0 && progressFisik <= 100) {
+                // Valid: dalam range 0-100
+                progressField.style.borderColor = 'var(--success)';
+                helpText.style.color = 'var(--label-secondary)';
+                
+                // Dynamic help text based on progress
+                let statusText = '';
+                if (progressFisik === 0) statusText = 'Belum Mulai';
+                else if (progressFisik > 0 && progressFisik <= 25) statusText = 'Tahap Awal';
+                else if (progressFisik > 25 && progressFisik <= 50) statusText = 'Tahap Menengah';
+                else if (progressFisik > 50 && progressFisik <= 75) statusText = 'Tahap Lanjut';
+                else if (progressFisik > 75 && progressFisik < 100) statusText = 'Hampir Selesai';
+                else if (progressFisik === 100) statusText = 'Selesai';
+                
+                helpText.innerHTML = `<i class="fas fa-info-circle"></i> ${progressFisik}% - ${statusText}`;
+                return true;
+            }
+            return true;                }
+            } else {
+                // Reset to default
+                kontrakField.style.borderColor = '';
+                helpText.style.color = '#666';
+                helpText.innerHTML = 'Nilai kontrak harus ≤ Pagu Anggaran';
+                return true;
+        }
+
+        // Validate progress fisik
+        function validateProgressFisik() {
+            const progressFisik = parseFloat(document.getElementById('progressFisik').value) || 0;
+            const progressField = document.getElementById('progressFisik');
+            const helpText = progressField.parentNode.nextElementSibling;
+            
+            if (progressFisik < 0 || progressFisik > 100) {
+                // Error: di luar range 0-100
+                progressField.style.borderColor = 'var(--danger)';
+                helpText.style.color = 'var(--danger)';
+                helpText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Progress fisik harus antara 0-100%!';
+                return false;
+            } else if (progressFisik >= 0 && progressFisik <= 100) {
+                // Valid: dalam range 0-100
+                progressField.style.borderColor = 'var(--success)';
+                helpText.style.color = 'var(--label-secondary)';
+                
+                // Dynamic help text based on progress
+                let statusText = '';
+                if (progressFisik === 0) statusText = 'Belum Mulai';
+                else if (progressFisik > 0 && progressFisik <= 25) statusText = 'Tahap Awal';
+                else if (progressFisik > 25 && progressFisik <= 50) statusText = 'Tahap Menengah';
+                else if (progressFisik > 50 && progressFisik <= 75) statusText = 'Tahap Lanjut';
+                else if (progressFisik > 75 && progressFisik < 100) statusText = 'Hampir Selesai';
+                else if (progressFisik === 100) statusText = 'Selesai';
+                
+                helpText.innerHTML = `<i class="fas fa-info-circle"></i> ${progressFisik}% - ${statusText}`;
+                return true;
+            }
+            return true;            }
+        }
+
+        // Setup form handlers
+        function setupFormHandlers() {
+            const form = document.getElementById('progressForm');
+            form.addEventListener('submit', handleFormSubmit);
+            
+            // File upload drag & drop
+            const fileUpload = document.querySelector('.file-upload');
+            fileUpload.addEventListener('dragover', handleDragOver);
+            fileUpload.addEventListener('dragleave', handleDragLeave);
+            fileUpload.addEventListener('drop', handleFileDrop);
+        }
+
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+            
+            const formData = collectFormData();
+            saveProgressData(formData);
+        }
+
+        // Validate form
+        function validateForm() {
+            const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+            
+            // Special validation for super admin satker selection
+            if (currentUser.role === 'super_admin') {
+                const satkerSelection = document.getElementById('selectedSatker');
+                if (!satkerSelection.value) {
+                    showMessage('Super Admin harus memilih Satuan Kerja terlebih dahulu', 'error');
+                    satkerSelection.style.borderColor = 'var(--danger)';
+                    return false;
+                } else {
+                    satkerSelection.style.borderColor = 'var(--gray-4)';
+                }
+                
+                // Critical validation: Check if currentSatker is properly set
+                if (!currentSatker) {
+                    console.warn('⚠️ currentSatker is null, trying to reload...');
+                    // Try to reload currentSatker based on selection
+                    updateSatkerDetails();
+                    
+                    // If still null after reload, show error
+                    if (!currentSatker) {
+                        console.error('🚨 VALIDATION ERROR: currentSatker is still null after reload');
+                    console.error('🚨 Selected value:', satkerSelection.value);
+                    showMessage('Error: Data satker tidak ter-load. Silakan pilih ulang Satuan Kerja.', 'error');
+                    return false;
+                    } else {
+                        console.log('✅ currentSatker successfully reloaded');
+                    }
+                }
+                
+                console.log('✅ Super admin validation passed:');
+                console.log(`  - Selected index: ${satkerSelection.value}`);
+                console.log(`  - Current satker:`, currentSatker);
+                console.log(`  - Will save with satkerCode: ${currentSatker.code || 'NO CODE'}`);
+            }
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = 'var(--danger)';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = 'var(--gray-4)';
+                }
+            });
+            
+            if (!isValid) {
+                showMessage('Mohon lengkapi semua field yang wajib diisi (bertanda *)', 'error');
+                return false;
+            }
+            
+            // Validate nilai kontrak <= pagu anggaran
+            if (!validateKontrak()) {
+            
+            // Validate progress fisik range
+            if (!validateProgressFisik()) {
+                showMessage('Progress fisik harus antara 0-100%!', 'error');
+                return false;
+            }                showMessage('Nilai kontrak tidak boleh lebih besar dari Pagu Anggaran!', 'error');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Validate progress fisik
+        function validateProgressFisik() {
+            const progressFisik = parseFloat(document.getElementById('progressFisik').value) || 0;
+            const progressField = document.getElementById('progressFisik');
+            const helpText = progressField.parentNode.nextElementSibling;
+            
+            if (progressFisik < 0 || progressFisik > 100) {
+                // Error: di luar range 0-100
+                progressField.style.borderColor = 'var(--danger)';
+                helpText.style.color = 'var(--danger)';
+                helpText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Progress fisik harus antara 0-100%!';
+                return false;
+            } else if (progressFisik >= 0 && progressFisik <= 100) {
+                // Valid: dalam range 0-100
+                progressField.style.borderColor = 'var(--success)';
+                helpText.style.color = 'var(--label-secondary)';
+                
+                // Dynamic help text based on progress
+                let statusText = '';
+                if (progressFisik === 0) statusText = 'Belum Mulai';
+                else if (progressFisik > 0 && progressFisik <= 25) statusText = 'Tahap Awal';
+                else if (progressFisik > 25 && progressFisik <= 50) statusText = 'Tahap Menengah';
+                else if (progressFisik > 50 && progressFisik <= 75) statusText = 'Tahap Lanjut';
+                else if (progressFisik > 75 && progressFisik < 100) statusText = 'Hampir Selesai';
+                else if (progressFisik === 100) statusText = 'Selesai';
+                
+                helpText.innerHTML = `<i class="fas fa-info-circle"></i> ${progressFisik}% - ${statusText}`;
+                return true;
+            }
+            return true;        }
+
+        // Generate satkerCode from location data - FIXED to use consistent codes
+        function generateSatkerCode(provinsi, kabupaten, satkerName) {
+            // Try to find matching satker in master data first
+            if (typeof completeSatkerData !== 'undefined') {
+                const matchingSatker = completeSatkerData.find(satker => 
+                    satker.name === satkerName ||
+                    (satker.provinsi === provinsi && satker.kabupaten === kabupaten)
+                );
+                
+                if (matchingSatker && matchingSatker.code) {
+                    console.log(`✅ Found matching satker code: ${matchingSatker.code}`);
+                    return matchingSatker.code;
+                }
+            }
+            
+            // Fallback: generate consistent code
+            const cleanProvinsi = provinsi?.replace(/\s+/g, '_').toUpperCase() || 'UNKNOWN_PROV';
+            const cleanKabupaten = kabupaten?.replace(/\s+/g, '_').toUpperCase() || 'UNKNOWN_KAB';
+            const cleanSatker = satkerName?.replace(/\s+/g, '_').toUpperCase().slice(0, 10) || 'UNKNOWN';
+            
+            // Use consistent format without timestamp for better matching
+            return `${cleanProvinsi}_${cleanKabupaten}_${cleanSatker}`;
+        }
+
+        // Collect form data - FIXED for consistent satkerCode
+        function collectFormData() {
+            // Determine satker based on user role
+            let satkerCode, satkerName;
+            if (currentUser.role === 'super_admin' && currentSatker) {
+                // Super admin: use selected satker - ENHANCED LOGIC
+                satkerCode = currentSatker.code || currentSatker.satkerCode;
+                satkerName = currentSatker.name || currentSatker.satkerName || document.getElementById('namaUnitKerja').value;
+                
+                // CRITICAL CHECK: Never use "ALL" for specific satker data
+                if (!satkerCode || satkerCode === 'ALL') {
+                    console.warn('⚠️ No valid satkerCode found, generating from master data...');
+                    
+                    // Try to find matching satker in master data
+                    if (typeof completeSatkerData !== 'undefined') {
+                        const matchingSatker = completeSatkerData.find(satker => 
+                            satker.name === satkerName ||
+                            satker.name === currentSatker.name
+                        );
+                        
+                        if (matchingSatker && matchingSatker.code) {
+                            satkerCode = matchingSatker.code;
+                            console.log(`✅ Found matching satker code from master data: ${satkerCode}`);
+                        } else {
+                            // Generate specific satkerCode from location
+                            const provinsi = document.getElementById('provinsi').value;
+                            const kabupaten = document.getElementById('kabupaten').value;
+                            satkerCode = generateSatkerCode(provinsi, kabupaten, satkerName);
+                            console.log(`✅ Generated satkerCode: ${satkerCode}`);
+                        }
+                    } else {
+                        // Fallback: generate from form data
+                        const provinsi = document.getElementById('provinsi').value;
+                        const kabupaten = document.getElementById('kabupaten').value;
+                        satkerCode = generateSatkerCode(provinsi, kabupaten, satkerName);
+                        console.log(`✅ Generated satkerCode (fallback): ${satkerCode}`);
+                    }
+                }
+                
+                console.log(`👑 Super admin saving for: ${satkerCode} (${satkerName})`);
+            } else {
+                // Regular satker admin: use own satker - DATABASE-FIRST APPROACH
+                satkerCode = currentUser.satkerCode;
+                satkerName = currentUser.satkerName;
+                
+                // CRITICAL VALIDATION: Ensure we have verified code
+                if (!satkerCode || satkerCode === 'UNKNOWN' || satkerCode.startsWith('SATKER_DINAS_')) {
+                    throw new Error(`❌ No verified satkerCode for user: ${currentUser.username}. Please check database!`);
+                }
+                
+                console.log(`👤 Regular admin saving with verified code: ${satkerCode} (${satkerName})`);
+            }
+            
+            const formData = {
+                id: `progress_${Date.now()}`,
+                satkerCode: satkerCode,
+                satkerName: satkerName,
+                submittedBy: currentUser.username,
+                submittedAt: new Date().toISOString(),
+                
+                // DUAL-ACCESS SYSTEM: Data bisa diakses oleh superadmin DAN satker terkait
+                viewableBy: currentUser.role === 'super_admin' && currentSatker ? 
+                    ["ALL", currentSatker.code || satkerCode] : 
+                    [currentUser.satkerCode],
+                
+                // Basic info
+                nomor: document.getElementById('nomor').value,
+                provinsi: document.getElementById('provinsi').value,
+                kabupaten: document.getElementById('kabupaten').value,
+                namaUnitKerja: document.getElementById('namaUnitKerja').value,
+                kodeSatker: document.getElementById('kodeSatker').value,
+                
+                // Officials
+                kepalaUnitKerja: document.getElementById('kepalaUnitKerja').value,
+                nipKepalaUnitKerja: document.getElementById('nipKepalaUnitKerja').value,
+                namaKPA: document.getElementById('namaKPA').value,
+                nipKPA: document.getElementById('nipKPA').value,
+                namaPPK: document.getElementById('namaPPK').value,
+                nipPPK: document.getElementById('nipPPK').value,
+                namaPPSPM: document.getElementById('namaPPSPM').value,
+                nipPPSPM: document.getElementById('nipPPSPM').value,
+                namaBendahara: document.getElementById('namaBendahara').value,
+                nipBendahara: document.getElementById('nipBendahara').value,
+                
+                // Activity details
+                namaKegiatan: document.getElementById('namaKegiatan').value,
+                namaPaket: document.getElementById('namaPaket').value,
+                // Dual write untuk compatibility
+                nilaiAnggaran: parseFloat(document.getElementById('paguAnggaran').value), // Old field name (compatibility)
+                paguAnggaran: parseFloat(document.getElementById('paguAnggaran').value),   // New field name
+                nilaiKontrak: parseFloat(document.getElementById('nilaiKontrak').value),   // New field
+                uraianOutput: document.getElementById('uraianOutput').value,
+                indikator: document.getElementById('indikator').value,
+                targetOutput: document.getElementById('targetOutput').value,
+                lokasiKegiatan: document.getElementById('lokasiKegiatan').value,
+                picProgram: document.getElementById('picProgram').value,
+                
+                // Timeline
+                tanggalSelesaiLelang: document.getElementById('tanggalSelesaiLelang').value,
+                tanggalPenetapanPemenang: document.getElementById('tanggalPenetapanPemenang').value,
+                tanggalKontrak: document.getElementById('tanggalKontrak').value,
+                tanggalProgres0: document.getElementById('tanggalProgres0').value,
+                
+                // Progress
+                progressKeuangan: parseFloat(document.getElementById('progressKeuangan').value),
+                progressFisik: parseFloat(document.getElementById('progressFisik').value) || 0,
+                persentasePenyerapan: document.getElementById('persentasePenyerapan').textContent,
+                
+                // Documentation & issues
+                hambatan: document.getElementById('hambatan').value,
+                mitigasi: document.getElementById('mitigasi').value,
+                // Enhanced documentation with categories
+                dokumentasi: {
+                    fotoBefore: uploadedFiles.filter(f => f.category === 'before').map(file => ({
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                        data: file.data,
+                        uploadedAt: new Date().toISOString()
+                    })),
+                    fotoAfter: uploadedFiles.filter(f => f.category === 'after').map(file => ({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        data: file.data,
+                        uploadedAt: new Date().toISOString()
+                    })),
+                    dokumenTambahan: uploadedFiles.filter(f => f.category === 'tambahan').map(file => ({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        data: file.data,
+                        uploadedAt: new Date().toISOString()
+                    }))
+                }
+            };
+            
+            return formData;
+        }
+
+        // Save progress data to Firebase Firestore
+        async function saveProgressData(formData) {
+            try {
+                // Show loading state
+                showMessage('Menyimpan data ke Firebase...', 'info');
+                
+                // Check Firebase readiness
+                if (!window.firebaseReady || !window.db || !window.firebase) {
+                    throw new Error('Firebase not ready');
+                }
+                
+                console.log('🔧 Firebase debug check:');
+                console.log('- window.firebaseReady:', window.firebaseReady);
+                console.log('- window.db:', !!window.db);
+                console.log('- window.firebase:', !!window.firebase);
+                console.log('- window.firebase.addDoc:', !!window.firebase.addDoc);
+                console.log('- window.firebase.collection:', !!window.firebase.collection);
+                
+                // Add server timestamp
+                formData.createdAt = new Date().toISOString();
+                formData.updatedAt = new Date().toISOString();
+                
+                // Add metadata for nationwide deployment
+                formData.deploymentRegion = 'Indonesia';
+                formData.systemVersion = '2.0-Firebase';
+                
+                // Debug: Log satker assignment
+                console.log('📊 Data assignment debug:');
+                console.log(`- User role: ${currentUser.role}`);
+                console.log(`- Current user satker: ${currentUser.satkerCode} (${currentUser.satkerName})`);
+                console.log(`- Selected satker: ${formData.satkerCode} (${formData.satkerName})`);
+                console.log(`- Current satker object:`, currentSatker);
+                console.log(`- Form kodeSatker field: ${document.getElementById('kodeSatker').value}`);
+                console.log(`- Form namaUnitKerja field: ${document.getElementById('namaUnitKerja').value}`);
+                
+                // CRITICAL CHECK: Verify satker assignment is working
+                if (currentUser.role === 'super_admin' && (!currentSatker || formData.satkerCode === 'ALL')) {
+                    console.error('🚨 CRITICAL: Super admin data still using super admin satkerCode!');
+                    console.error('🚨 Expected: Selected satker code');
+                    console.error('🚨 Actual: ALL (super admin code)');
+                    console.error('🚨 This will cause data filtering issues!');
+                }
+                
+                // Save to Firebase Firestore
+                console.log('💾 Saving to Firebase with data:', {
+                    satkerCode: formData.satkerCode,
+                    satkerName: formData.satkerName,
+                    namaKegiatan: formData.namaKegiatan,
+                    viewableBy: formData.viewableBy
+                });
+                
+                const docRef = await window.firebase.addDoc(window.firebase.collection(window.db, 'progress_data'), formData);
+                console.log('✅ Firebase save successful, docId:', docRef.id);
+                
+                // Also save to localStorage as backup
+                const storageKey = 'satker_progress_data';
+                const existingData = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                formData.firebaseId = docRef.id; // Add Firebase ID
+                existingData.push(formData);
+                localStorage.setItem(storageKey, JSON.stringify(existingData));
+                console.log('✅ localStorage backup saved, total entries:', existingData.length);
+                
+                // Log activity (simplified)
+                console.log('✅ Progress data submitted:', {
+                    progressId: formData.id,
+                    satker: formData.satkerCode,
+                    kegiatan: formData.namaKegiatan,
+                    firebaseDocId: docRef?.id,
+                    submittedBy: currentUser.username
+                });
+                
+                showMessage('✅ Data berhasil disimpan ke Firebase Cloud! Tersinkronisasi untuk seluruh Indonesia.', 'success');
+                
+                console.log('🌏 Data saved to Firebase for nationwide access:', {
+                    docId: docRef?.id,
+                    satker: formData.satkerCode,
+                    region: formData.provinsi
+                });
+                
+                // Redirect to dashboard with refresh parameter
+                setTimeout(() => {
+                    window.location.href = 'progress-dashboard.html?refresh=true';
+                }, 2500);
+                
+            } catch (error) {
+                console.error('❌ Firebase error:', error);
+                
+                // Check for specific error types
+                if (error.code === 'permission-denied' || error.message.includes('insufficient permissions')) {
+                    console.error('🚫 FIRESTORE PERMISSION ERROR - Security rules blocking access');
+                    showMessage('❌ Firestore permission denied. Security rules need to be configured. Data saved locally.', 'error');
+                } else {
+                    console.error('🔥 Firebase save error:', error.code || 'unknown', error.message);
+                }
+                
+                // Fallback to localStorage if Firebase fails
+                try {
+                    const storageKey = 'satker_progress_data';
+                    const existingData = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                    existingData.push(formData);
+                    localStorage.setItem(storageKey, JSON.stringify(existingData));
+                    
+                    if (error.code === 'permission-denied' || error.message.includes('insufficient permissions')) {
+                        showMessage('💾 Data saved locally. Fix Firebase permissions to enable cloud sync. See FIREBASE-PERMISSION-FIX.md', 'warning');
+                    } else {
+                        showMessage('⚠️ Data disimpan lokal (Firebase offline). Akan sync otomatis saat online.', 'warning');
+                    }
+                    
+                    // Still redirect to dashboard with refresh
+                    setTimeout(() => {
+                        window.location.href = 'progress-dashboard.html?refresh=true';
+                    }, 3000);
+                    
+                } catch (localError) {
+                    console.error('❌ LocalStorage fallback failed:', localError);
+                    showMessage('❌ Gagal menyimpan data. Periksa koneksi internet dan coba lagi.', 'error');
+                }
+            }
+        }
+
+        // File upload handlers
+        function handleFileUpload(event, type = 'tambahan') {
+            const files = Array.from(event.target.files);
+            processFiles(files, type);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+        }
+
+        function handleFileDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            
+            const files = Array.from(e.dataTransfer.files);
+            processFiles(files);
+        }
+
+        function processFiles(files, type = 'tambahan') {
+            files.forEach(file => {
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    showMessage(`File ${file.name} terlalu besar (max 5MB)`, 'error');
+                    return;
+                }
+                
+                // For before/after photos, only allow images
+                if (type === 'before' || type === 'after') {
+                    if (!file.type.match(/^image\//)) {
+                        showMessage(`Foto ${type} harus berformat gambar (JPG, PNG)`, 'error');
+                        return;
+                    }
+                } else {
+                    // For additional docs, allow images and PDF
+                if (!file.type.match(/^image\//) && file.type !== 'application/pdf') {
+                    showMessage(`File ${file.name} format tidak didukung`, 'error');
+                    return;
+                    }
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = {
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        data: e.target.result,
+                        category: type // 'before', 'after', or 'tambahan'
+                    };
+                    
+                    // For before/after, replace existing file if any
+                    if (type === 'before' || type === 'after') {
+                        // Remove existing file of same type
+                        uploadedFiles = uploadedFiles.filter(f => f.category !== type);
+                    }
+                    
+                    uploadedFiles.push(fileData);
+                    displayFilePreview(fileData, type);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function displayFilePreview(fileData, type = 'tambahan') {
+            // Get the correct preview container based on type
+            let previewId;
+            let categoryLabel;
+            
+            switch(type) {
+                case 'before':
+                    previewId = 'fotoBeforePreview';
+                    categoryLabel = '📸 SEBELUM';
+                    break;
+                case 'after':
+                    previewId = 'fotoAfterPreview';
+                    categoryLabel = '📸 SESUDAH';
+                    break;
+                default:
+                    previewId = 'dokumenTambahanPreview';
+                    categoryLabel = '📄 DOKUMEN';
+            }
+            
+            const preview = document.getElementById(previewId);
+            
+            // For before/after, clear existing preview first
+            if (type === 'before' || type === 'after') {
+                preview.innerHTML = '';
+            }
+            
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="file-icon">
+                    <i class="fas fa-${fileData.type.startsWith('image/') ? 'image' : 'file-pdf'}"></i>
+                </div>
+                <div class="file-info">
+                    <div class="file-category">${categoryLabel}</div>
+                    <div class="file-name">${fileData.name}</div>
+                    <div class="file-size">${formatFileSize(fileData.size)}</div>
+                </div>
+                <button type="button" class="file-remove" onclick="removeFile('${fileData.name}', '${type}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            preview.appendChild(fileItem);
+        }
+
+        function removeFile(fileName, type = 'tambahan') {
+            uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+            
+            // Get the correct preview container and remove the file item
+            let previewId;
+            switch(type) {
+                case 'before':
+                    previewId = 'fotoBeforePreview';
+                    break;
+                case 'after':
+                    previewId = 'fotoAfterPreview';
+                    break;
+                default:
+                    previewId = 'dokumenTambahanPreview';
+            }
+            
+            const preview = document.getElementById(previewId);
+            const fileItems = preview.querySelectorAll('.file-item');
+            fileItems.forEach(item => {
+                if (item.querySelector('.file-name').textContent === fileName) {
+                    item.remove();
+                }
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Utility functions
+        function resetForm() {
+            if (confirm('Yakin ingin reset form? Semua data yang sudah diisi akan hilang.')) {
+                document.getElementById('progressForm').reset();
+                uploadedFiles = [];
+                document.getElementById('filePreview').innerHTML = '';
+                document.getElementById('persentasePenyerapan').textContent = '0%';
+                loadSatkerData(); // Reload satker data
+                showMessage('Form berhasil direset', 'success');
+            }
+        }
+
+        function saveAsDraft() {
+            if (!validateForm()) {
+                return;
+            }
+            
+            const formData = collectFormData();
+            formData.status = 'draft';
+            formData.savedAt = new Date().toISOString();
+            
+            // Save as draft
+            const draftKey = `draft_${currentUser.satkerCode}`;
+            localStorage.setItem(draftKey, JSON.stringify(formData));
+            
+            // Log draft save (simplified)
+            console.log('✅ Draft saved:', {
+                satker: formData.satkerCode,
+                kegiatan: formData.namaKegiatan,
+                savedBy: currentUser.username
+            });
+            
+            showMessage('Data berhasil disimpan sebagai draft', 'success');
+        }
+
+        function showMessage(message, type = 'info') {
+            const messageContainer = document.getElementById('messageContainer');
+            
+            // Clear existing messages
+            messageContainer.innerHTML = '';
+            
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 
+                        type === 'error' ? 'exclamation-triangle' : 
+                        type === 'warning' ? 'exclamation-circle' :
+                        'info-circle';
+            
+            messageElement.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            messageContainer.appendChild(messageElement);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (messageElement.parentNode) {
+                    messageElement.style.opacity = '0';
+                    setTimeout(() => {
+                        if (messageElement.parentNode) {
+                            messageElement.parentNode.removeChild(messageElement);
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        function redirectToLogin() {
+            window.location.href = 'login.html';
+        }
+
+        // Make updateSatkerDetails available globally for onchange event
+        window.updateSatkerDetails = updateSatkerDetails;
+
+        // Console helper
+        console.log(`
+📋 FORM PROGRESS KEGIATAN LOADED
+
+👤 Current User: ${currentUser ? currentUser.fullName : 'Not logged in'}
+🏢 Satker: ${currentUser ? currentUser.satkerName : 'None'}
+📊 Features:
+• 30 form fields
+• Auto-calculate percentage
+• File upload (images & PDF)
+• Form validation
+• Save as draft
+• Data persistence
+        `);
+    </script>
+</body>
+</html>
+
