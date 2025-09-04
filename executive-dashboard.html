@@ -286,25 +286,48 @@
         /* Flexible Grid for Coverage & Performance Sections */
         .metrics-grid-flexible {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 16px;
             margin-bottom: 48px;
             width: 100%;
             max-width: 100%;
         }
 
-        /* Desktop: Adaptive columns based on content */
-        @media (min-width: 768px) {
+        /* Small Mobile (up to 480px) */
+        @media (max-width: 480px) {
             .metrics-grid-flexible {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 24px;
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-bottom: 32px;
+            }
+            
+            .metrics-grid-flexible .metric-card {
+                min-height: 160px;
+                padding: 16px 14px;
             }
         }
 
+        /* Mobile (481px to 767px) */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .metrics-grid-flexible {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 16px;
+            }
+        }
+
+        /* Tablet (768px to 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .metrics-grid-flexible {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        /* Desktop (1024px and up) */
         @media (min-width: 1024px) {
             .metrics-grid-flexible {
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                gap: 28px;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 24px;
                 max-width: 1400px;
                 margin-left: auto;
                 margin-right: auto;
@@ -314,7 +337,7 @@
         @media (min-width: 1400px) {
             .metrics-grid-flexible {
                 max-width: 1600px;
-                gap: 32px;
+                gap: 28px;
             }
         }
 
@@ -326,19 +349,28 @@
             justify-content: flex-start;
         }
 
-        /* Special handling for 4-card sections (Coverage Analysis) */
-        .metrics-grid-flexible:has(.metric-card:nth-child(4):not(.metric-card:nth-child(5))) {
+        /* Special handling for 4-card sections - fallback without :has() */
+        .metrics-grid-flexible.four-cards {
             grid-template-columns: repeat(4, 1fr);
         }
 
-        /* Alternative approach for better distribution */
-        @media (min-width: 1024px) {
-            .metrics-grid-flexible {
-                justify-content: center;
+        /* Mobile override for 4-card sections */
+        @media (max-width: 767px) {
+            .metrics-grid-flexible.four-cards {
+                grid-template-columns: 1fr;
             }
-            
-            /* For 4 cards: use 4 columns */
-            .metrics-grid-flexible:has(.metric-card:nth-child(4):not(.metric-card:nth-child(5))) {
+        }
+
+        /* Tablet override for 4-card sections */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .metrics-grid-flexible.four-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Desktop for 4-card sections */
+        @media (min-width: 1024px) {
+            .metrics-grid-flexible.four-cards {
                 grid-template-columns: repeat(4, minmax(280px, 300px));
                 justify-content: center;
                 gap: 24px;
@@ -346,10 +378,9 @@
         }
 
         @media (min-width: 1400px) {
-            /* For 4 cards on large screens */
-            .metrics-grid-flexible:has(.metric-card:nth-child(4):not(.metric-card:nth-child(5))) {
+            .metrics-grid-flexible.four-cards {
                 grid-template-columns: repeat(4, minmax(320px, 350px));
-                gap: 32px;
+                gap: 28px;
             }
         }
 
@@ -677,7 +708,132 @@
             }
         }
 
-        @media (max-width: 768px) {
+        /* Mobile Small (max-width: 480px) */
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: var(--space-3);
+            }
+
+            .dashboard-header {
+                padding: var(--space-4) var(--space-3);
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.75rem;
+                line-height: 1.2;
+            }
+
+            .dashboard-header p {
+                font-size: 0.9rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .metric-card {
+                padding: 16px 14px;
+                min-height: 140px;
+            }
+
+            .metric-value {
+                font-size: 1.8rem;
+            }
+
+            .metric-label {
+                font-size: 0.8rem;
+            }
+
+            .metric-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .regional-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .alerts-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .chart-card {
+                padding: var(--space-4);
+            }
+
+            .dashboard-meta {
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+
+            .navbar-content {
+                flex-direction: column;
+                gap: var(--space-3);
+                padding: var(--space-3);
+            }
+
+            .section-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .section-header p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Mobile Medium (481px to 767px) */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .dashboard-container {
+                padding: var(--space-4);
+            }
+
+            .dashboard-header {
+                padding: var(--space-5) var(--space-4);
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.9rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 16px;
+            }
+
+            .regional-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .alerts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-meta {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+
+            .navbar-content {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+        }
+
+        /* Tablet (768px to 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
             .dashboard-container {
                 padding: var(--space-4);
             }
@@ -691,7 +847,7 @@
             }
 
             .metrics-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
 
             .regional-grid {
@@ -699,17 +855,11 @@
             }
 
             .alerts-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .charts-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .dashboard-meta {
-                flex-direction: column;
-                gap: var(--space-3);
-            }
-
-            .navbar-content {
-                flex-direction: column;
-                gap: var(--space-4);
             }
         }
 
@@ -905,7 +1055,7 @@
             </div>
         </div>
 
-        <div class="metrics-grid-flexible">
+        <div class="metrics-grid-flexible four-cards">
             <div class="metric-card">
                 <div class="metric-header">
                     <div class="metric-icon" style="background: #6b7280; color: white;">
@@ -988,7 +1138,7 @@
             </div>
         </div>
 
-        <div class="metrics-grid-flexible">
+        <div class="metrics-grid-flexible four-cards">
             <div class="metric-card">
                 <div class="metric-header">
                     <div class="metric-icon" style="background: #10b981; color: white;">
