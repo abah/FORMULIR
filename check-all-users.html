@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check All Users - Complete Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #000;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .satker-code {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .role-admin {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .role-satker {
+            color: #007bff;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+        }
+        .stat-card h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .stat-card p {
+            margin: 5px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔍 Check All Users - Complete Database</h1>
+        
+        <div style="margin: 20px 0;">
+            <button class="btn btn-success" onclick="loadAllUsers()">
+                📊 Load All Users
+            </button>
+            <button class="btn btn-warning" onclick="exportToCSV()">
+                📄 Export to CSV
+            </button>
+            <button class="btn" onclick="testLogin()">
+                🔐 Test Login
+            </button>
+        </div>
+
+        <div id="stats" class="stats" style="display: none;">
+            <div class="stat-card">
+                <h3 id="totalUsers">0</h3>
+                <p>Total Users</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="adminUsers">0</h3>
+                <p>Admin Users</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="satkerUsers">0</h3>
+                <p>Satker Users</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="uniqueSatkers">0</h3>
+                <p>Unique Satkers</p>
+            </div>
+        </div>
+
+        <input type="text" id="searchBox" class="search-box" placeholder="🔍 Search by username, satker name, or code..." onkeyup="filterTable()">
+
+        <div id="userTable"></div>
+    </div>
+
+    <!-- EMBEDDED SCRIPTS -->
+    <script>
+        // COMPLETE SATKER DATA FROM FIREBASE - REAL DATA
+        const completeSatkerData = [
+            // TINGKAT PUSAT - BIRO
+            { name: "Biro Perencanaan, Kerjasama, dan Hubungan Masyarakat", code: "BIRO_PERENCANAAN", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Umum dan Layanan Pengadaan", code: "BIRO_UMUM", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Keuangan dan BMN", code: "BIRO_KEUANGAN", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Organisasi, SDM, dan Reformasi Birokrasi", code: "BIRO_ORGANISASI", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Hukum", code: "BIRO_HUKUM", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            
+            // TINGKAT PUSAT - PUSAT
+            { name: "Pusat Strategi Kebijakan Transmigrasi", code: "SATKER_JAKARTAP_694924", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Pusat Data dan Informasi Transmigrasi", code: "SATKER_JAKARTAP_697054", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Pusat Pengembangan SDM", code: "SATKER_JAKARTAP_694108", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            
+            // TINGKAT PUSAT - BALAI
+            { name: "Balai Besar Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Yogyakarta", code: "SATKER_YOGYAKAR_699607", type: "pusat", category: "balai", provinsi: "DI Yogyakarta", kabupaten: "Yogyakarta" },
+            { name: "Balai Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Banjarmasin", code: "SATKER_BANJARMA_699723", type: "pusat", category: "balai", provinsi: "Kalimantan Selatan", kabupaten: "Banjarmasin" },
+            { name: "Balai Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Denpasar", code: "SATKER_DENPASAR_691055", type: "pusat", category: "balai", provinsi: "Bali", kabupaten: "Denpasar" },
+            { name: "Balai Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Pekanbaru", code: "SATKER_PEKANBAR_695378", type: "pusat", category: "balai", provinsi: "Riau", kabupaten: "Pekanbaru" },
+            
+            // SAMPLE SATKER DARI DATA LENGKAP - UNTUK TESTING
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Poso", code: "SATKER_POSO_696994", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Poso" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Merauke", code: "SATKER_MERAUKE_693160", type: "kabupaten", category: "dinas", provinsi: "Papua Selatan", kabupaten: "Merauke" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sukamara", code: "NAKER_SUKAMARA_163", type: "kabupaten", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Sukamara" },
+            { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Banyuasin", code: "SATKER_BANYUASI_696032", type: "kabupaten", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Banyuasin" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Lamandau", code: "SATKER_LAMANDAU_691458", type: "kabupaten", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Lamandau" },
+            { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Toraja Utara", code: "SATKER_TORAJAUT_696576", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Toraja Utara" },
+            { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Timur", code: "SATKER_SUMBATIM_699921", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Timur" },
+            { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Barat", code: "SATKER_SUMBABAR_693413", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sumba Barat Daya", code: "SATKER_SUMBABAR_693306", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat Daya" },
+            { name: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Bengkulu Selatan", code: "SATKER_BENGKULU_698653", type: "kabupaten", category: "dinas", provinsi: "Bengkulu", kabupaten: "Bengkulu Selatan" },
+            { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Aceh Barat", code: "SATKER_ACEHBARA_691092", type: "kabupaten", category: "dinas", provinsi: "Aceh", kabupaten: "Aceh Barat" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Gorontalo", code: "SATKER_GORONTAL_695833", type: "kabupaten", category: "dinas", provinsi: "Gorontalo", kabupaten: "Gorontalo" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jambi", code: "SATKER_JAMBI_695791", type: "provinsi", category: "dinas", provinsi: "Jambi", kabupaten: "Jambi" },
+            
+            // ADMIN ACCOUNTS
+            { name: "admin", code: "ADMIN", type: "admin", category: "admin", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "superadmin", code: "SUPER_ADMIN", type: "admin", category: "admin", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" }
+        ];
+
+        // EMBEDDED SIMPLE AUTH SYSTEM - SAME AS LOGIN.HTML
+        window.SimpleAuth = {
+            generateUsername: function(satkerName) {
+                return satkerName
+                    .toLowerCase()
+                    .replace(/dinas|biro|pusat|direktorat|balai|inspektorat/g, '')
+                    .replace(/tenaga kerja dan transmigrasi|transmigrasi dan tenaga kerja/g, 'naker')
+                    .replace(/kementerian|provinsi|kabupaten|kota/g, '')
+                    .replace(/[^a-z0-9\\s]/g, '')
+                    .replace(/\\s+/g, '')
+                    .substring(0, 20);
+            },
+
+            createAllUsers: function() {
+                const users = [];
+               
+                // Add super admin
+                users.push({
+                    username: 'superadmin',
+                    password: 'admin123',
+                    fullName: 'Super Administrator',
+                    role: 'super_admin',
+                    satkerCode: 'ALL',
+                    satkerName: 'All Satuan Kerja'
+                });
+               
+                // Create users from satker data
+                completeSatkerData.forEach((satker, index) => {
+                    const username = this.generateUsername(satker.name);
+                    users.push({
+                        username: username,
+                        password: 'password123', // Default password
+                        fullName: satker.name,
+                        role: 'satker_admin',
+                        satkerCode: satker.code || username.toUpperCase(),
+                        satkerName: satker.name,
+                        satkerData: satker
+                    });
+                });
+               
+                return users;
+            }
+        };
+
+        let allUsers = [];
+        let filteredUsers = [];
+
+        function loadAllUsers() {
+            console.log('🔄 Loading all users...');
+            allUsers = window.SimpleAuth.createAllUsers();
+            filteredUsers = [...allUsers];
+            
+            console.log('✅ Loaded users:', allUsers.length);
+            
+            updateStats();
+            displayUsers();
+            document.getElementById('stats').style.display = 'flex';
+        }
+
+        function updateStats() {
+            const adminUsers = allUsers.filter(u => u.role.includes('admin')).length;
+            const satkerUsers = allUsers.filter(u => u.role === 'satker_admin').length;
+            const uniqueSatkers = new Set(allUsers.map(u => u.satkerCode)).size;
+
+            document.getElementById('totalUsers').textContent = allUsers.length;
+            document.getElementById('adminUsers').textContent = adminUsers;
+            document.getElementById('satkerUsers').textContent = satkerUsers;
+            document.getElementById('uniqueSatkers').textContent = uniqueSatkers;
+        }
+
+        function displayUsers() {
+            const tableDiv = document.getElementById('userTable');
+            
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Satker Code</th>
+                            <th>Satker Name</th>
+                            <th>Provinsi</th>
+                            <th>Kabupaten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            filteredUsers.forEach((user, index) => {
+                const roleClass = user.role.includes('admin') ? 'role-admin' : 'role-satker';
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><strong>${user.username}</strong></td>
+                        <td>${user.password}</td>
+                        <td><span class="${roleClass}">${user.role}</span></td>
+                        <td><span class="satker-code">${user.satkerCode}</span></td>
+                        <td>${user.satkerName}</td>
+                        <td>${user.satkerData?.provinsi || '-'}</td>
+                        <td>${user.satkerData?.kabupaten || '-'}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+                <p><strong>Total: ${filteredUsers.length} users</strong></p>
+            `;
+
+            tableDiv.innerHTML = html;
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredUsers = [...allUsers];
+            } else {
+                filteredUsers = allUsers.filter(user => 
+                    user.username.toLowerCase().includes(searchTerm) ||
+                    user.satkerName.toLowerCase().includes(searchTerm) ||
+                    user.satkerCode.toLowerCase().includes(searchTerm) ||
+                    (user.satkerData?.provinsi || '').toLowerCase().includes(searchTerm) ||
+                    (user.satkerData?.kabupaten || '').toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            displayUsers();
+        }
+
+        function exportToCSV() {
+            if (allUsers.length === 0) {
+                alert('Please load users first!');
+                return;
+            }
+
+            let csv = 'No,Username,Password,Role,Satker Code,Satker Name,Provinsi,Kabupaten\\n';
+            
+            allUsers.forEach((user, index) => {
+                csv += `${index + 1},"${user.username}","${user.password}","${user.role}","${user.satkerCode}","${user.satkerName}","${user.satkerData?.provinsi || ''}","${user.satkerData?.kabupaten || ''}"\\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'all-users-database.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function testLogin() {
+            const testUsers = [
+                'superadmin',
+                'nakerposo',
+                'nakermerauke',
+                'nakersukamara'
+            ];
+
+            let testResults = 'Test Login Results:\\n\\n';
+            
+            testUsers.forEach(username => {
+                const user = allUsers.find(u => u.username === username);
+                if (user) {
+                    testResults += `✅ ${username} / ${user.password} → ${user.satkerCode}\\n`;
+                } else {
+                    testResults += `❌ ${username} → NOT FOUND\\n`;
+                }
+            });
+
+            alert(testResults);
+        }
+
+        // Auto-load on page ready
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllUsers();
+        });
+    </script>
+</body>
+</html>

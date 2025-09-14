@@ -104,7 +104,7 @@ const completeSatkerData = [
     // ========================================
     { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Selatan", type: "provinsi", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Palembang" },
     { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Lahat", type: "kabupaten", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Lahat" },
-    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Banyuasin", type: "kabupaten", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Banyuasin" },
+    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Banyuasin", code: "694559", type: "kabupaten", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Banyuasin" },
     { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Ogan Ilir", type: "kabupaten", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Ogan Ilir" },
     { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Ogan Komering Ulu Timur", type: "kabupaten", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Ogan Komering Ulu Timur" },
     { name: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Penukal Abab Lematang Ilir", type: "kabupaten", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Penukal Abab Lematang Ilir" },
@@ -161,7 +161,7 @@ const completeSatkerData = [
     { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Kapuas", type: "kabupaten", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Kapuas" },
     { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Kotawaringin Barat", type: "kabupaten", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Kotawaringin Barat" },
     { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sukamara", code: "NAKER_SUKAMARA_163", type: "kabupaten", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Sukamara" },
-    { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Lamandau", type: "kabupaten", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Lamandau" },
+    { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Lamandau", code: "694546", type: "kabupaten", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Lamandau" },
     
     // ========================================
     // KALIMANTAN SELATAN (3)
@@ -186,8 +186,8 @@ const completeSatkerData = [
     // ========================================
     // SULAWESI TENGAH (8)
     // ========================================
-    { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sulawesi Tengah", type: "provinsi", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Palu" },
-    { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Poso", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Poso" },
+    { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sulawesi Tengah", code: "694567", type: "provinsi", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Palu" },
+    { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Poso", code: "694568", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Poso" },
     { name: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Sigi", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Sigi" },
     { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Tojo Una-Una", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Tojo Una-Una" },
     { name: "Dinas Transmigrasi Kabupaten Toli-Toli", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Toli-Toli" },
@@ -202,7 +202,7 @@ const completeSatkerData = [
     { name: "Dinas Koperasi, Usaha Kecil Menengah, Tenaga Kerja, dan Transmigrasi Kabupaten Sidenreng Rappang", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Sidenreng Rappang" },
     { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Luwu Utara", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Luwu Utara" },
     { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Luwu Timur", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Luwu Timur" },
-    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Toraja Utara", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Toraja Utara" },
+    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Toraja Utara", code: "694618", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Toraja Utara" },
     { name: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Wajo", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Wajo" },
     { name: "Dinas Koperasi, Usaha Kecil Menengah, Tenaga Kerja dan Transmigrasi Kabupaten Enrekang", type: "kabupaten", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Enrekang" },
     
@@ -251,9 +251,9 @@ const completeSatkerData = [
     // ========================================
     { name: "Dinas Ketenagakerjaan dan Transmigrasi Provinsi Nusa Tenggara Timur", type: "provinsi", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Kupang" },
     { name: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Malaka", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Malaka" },
-    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Timur", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Timur" },
-    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Barat", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat" },
-    { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sumba Barat Daya", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat Daya" },
+    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Timur", code: "694577", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Timur" },
+    { name: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Barat", code: "694575", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat" },
+    { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sumba Barat Daya", code: "691673", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat Daya" },
     { name: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Timor Tengah Utara", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Timor Tengah Utara" },
     { name: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Timor Tengah Selatan", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Timor Tengah Selatan" },
     { name: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Belu", type: "kabupaten", category: "dinas", provinsi: "Nusa Tenggara Timur", kabupaten: "Belu" },

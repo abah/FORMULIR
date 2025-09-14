@@ -2933,6 +2933,155 @@
         </div>
     </div>
 
+    <!-- MODAL DUPLIKAT DIHAPUS -->
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close" onclick="closeViewModal()">&times;</span>
+            <div class="modal-header">
+                <h3><i class="fas fa-eye"></i> Detail Kegiatan</h3>
+            </div>
+            
+            <div class="view-content">
+                <!-- Header Section -->
+                <div class="view-section">
+                    <div class="view-header">
+                        <h4 id="view_namaKegiatan">-</h4>
+                        <div class="view-badges">
+                            <span class="badge" id="view_statusBadge">-</span>
+                            <span class="badge secondary" id="view_satkerBadge">-</span>
+                        </div>
+                    </div>
+                    <p class="view-subtitle" id="view_namaPaket">-</p>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="view-section">
+                    <h5><i class="fas fa-chart-line"></i> Progress & Keuangan</h5>
+                    <div class="progress-grid">
+                        <div class="progress-card">
+                            <div class="progress-label">Progress Fisik</div>
+                            <div class="progress-value" id="view_progressFisik">0%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="view_progressFisikBar"></div>
+                            </div>
+                        </div>
+                        <div class="progress-card">
+                            <div class="progress-label">Penyerapan Keuangan</div>
+                            <div class="progress-value" id="view_progressKeuangan">0%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="view_progressKeuanganBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Section -->
+                <div class="view-section">
+                    <h5><i class="fas fa-money-bill-wave"></i> Informasi Keuangan</h5>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Pagu Anggaran</div>
+                            <div class="info-value" id="view_paguAnggaran">Rp 0</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Nilai Kontrak</div>
+                            <div class="info-value" id="view_nilaiKontrak">Rp 0</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Realisasi</div>
+                            <div class="info-value" id="view_realisasi">Rp 0</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Sisa Anggaran</div>
+                            <div class="info-value" id="view_sisaAnggaran">Rp 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location & PIC Section -->
+                <div class="view-section">
+                    <h5><i class="fas fa-map-marker-alt"></i> Lokasi & Penanggung Jawab</h5>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Lokasi Kegiatan</div>
+                            <div class="info-value" id="view_lokasiKegiatan">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">PIC Program</div>
+                            <div class="info-value" id="view_picProgram">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Provinsi</div>
+                            <div class="info-value" id="view_provinsi">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Kabupaten/Kota</div>
+                            <div class="info-value" id="view_kabupaten">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output & Target Section -->
+                <div class="view-section">
+                    <h5><i class="fas fa-bullseye"></i> Output & Target</h5>
+                    <div class="view-text-item">
+                        <div class="info-label">Uraian Output</div>
+                        <div class="info-text" id="view_uraianOutput">-</div>
+                    </div>
+                    <div class="view-text-item">
+                        <div class="info-label">Indikator</div>
+                        <div class="info-text" id="view_indikator">-</div>
+                    </div>
+                    <div class="view-text-item">
+                        <div class="info-label">Target Output</div>
+                        <div class="info-text" id="view_targetOutput">-</div>
+                    </div>
+                </div>
+
+                <!-- Issues & Solutions Section -->
+                <div class="view-section">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Hambatan & Mitigasi</h5>
+                    <div class="view-text-item">
+                        <div class="info-label">Hambatan</div>
+                        <div class="info-text" id="view_hambatan">-</div>
+                    </div>
+                    <div class="view-text-item">
+                        <div class="info-label">Mitigasi</div>
+                        <div class="info-text" id="view_mitigasi">-</div>
+                    </div>
+                </div>
+
+                <!-- Timeline Section -->
+                <div class="view-section">
+                    <h5><i class="fas fa-calendar-alt"></i> Timeline</h5>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Tanggal Mulai</div>
+                            <div class="info-value" id="view_tanggalMulai">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Tanggal Selesai</div>
+                            <div class="info-value" id="view_tanggalSelesai">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Dibuat</div>
+                            <div class="info-value" id="view_createdAt">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Terakhir Update</div>
+                            <div class="info-value" id="view_updatedAt">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeViewModal()">
+                    <i class="fas fa-times"></i> Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- EMBEDDED SCRIPTS - NO EXTERNAL DEPENDENCIES -->
     <script>
         // EMBEDDED SATKER DATA

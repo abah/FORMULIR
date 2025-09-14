@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistem Monitoring dan Evaluasi Program Kontraktual - Itjen Kementerian Transmigrasi RI</title>
+    <title>Login - TC-More (Trans Continuous Monitoring & Reporting) - Inspektorat Jenderal Kementerian Transmigrasi RI</title>
     
     <!-- Favicon dan Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
@@ -19,15 +19,15 @@
     <link rel="apple-touch-icon" sizes="57x57" href="logo/logo.png">
     
     <!-- Meta Tags untuk Social Media dan WhatsApp -->
-    <meta name="description" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta name="description" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
     <meta name="keywords" content="Itjen, Inspektorat Jenderal, Kementerian Transmigrasi, Monitoring, Evaluasi, Program Kontraktual, Kontrak">
     <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
-    <meta property="og:title" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Itjen Kementerian Transmigrasi RI">
-    <meta property="og:description" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta property="og:title" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi RI">
+    <meta property="og:description" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
     <meta property="og:image" content="logo/logo.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -36,8 +36,8 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="">
-    <meta property="twitter:title" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Itjen Kementerian Transmigrasi RI">
-    <meta property="twitter:description" content="Sistem Monitoring dan Evaluasi Program Kontraktual - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta property="twitter:title" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi RI">
+    <meta property="twitter:description" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
     <meta property="twitter:image" content="logo/logo.png">
     
     <!-- WhatsApp Meta Tags -->
@@ -600,9 +600,9 @@
             <div class="logo-icon">
                 <img src="logo/logo.png" alt="Logo Inspektorat Jenderal Kementerian Transmigrasi" style="width: 80px; height: 80px; object-fit: contain;">
             </div>
-            <h1 class="logo-title" style="font-size: 1.8rem; font-weight: 800; color: #0d47a1; margin-bottom: 0.5rem;">ITJEN KEMENTERIAN TRANSMIGRASI</h1>
-            <p class="logo-subtitle" style="font-size: 1.1rem; font-weight: 600; color: var(--label-secondary); margin-bottom: 0.3rem;">Republik Indonesia</p>
-            <p class="logo-subtitle" style="font-size: 0.95rem; font-weight: 500; color: #1976d2;">Sistem Monitoring dan Evaluasi Program Kontraktual</p>
+            <h1 class="logo-title" style="font-size: 1.8rem; font-weight: 800; color: #0d47a1; margin-bottom: 0.5rem;">TC-More</h1>
+            <p class="logo-subtitle" style="font-size: 1.1rem; font-weight: 600; color: var(--label-secondary); margin-bottom: 0.3rem;">Trans Continuous Monitoring & Reporting</p>
+            <p class="logo-subtitle" style="font-size: 0.95rem; font-weight: 500; color: #1976d2;">Inspektorat Jenderal Kementerian Transmigrasi RI</p>
         </div>
 
         <!-- Message Container -->
@@ -657,15 +657,357 @@
         </div>
     </div>
 
-    <!-- Load Dependencies -->
-    <script src="indonesia-regions-complete.js"></script>
-    <script src="satker-data-complete.js"></script>
-    <script src="simple_auth.js"></script>
+    <!-- EMBEDDED SCRIPTS - NO EXTERNAL DEPENDENCIES -->
+    <script>
+        // EMBEDDED SATKER DATA
+        const completeSatkerData = [
+            // TINGKAT PUSAT - BIRO (5)
+            { name: "Biro Perencanaan, Kerjasama, dan Hubungan Masyarakat", code: "BIRO_PERENCANAAN", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Umum dan Layanan Pengadaan", code: "BIRO_UMUM", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Keuangan dan BMN", code: "BIRO_KEUANGAN", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Organisasi, SDM, dan Reformasi Birokrasi", code: "BIRO_ORGANISASI", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Hukum", code: "BIRO_HUKUM", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            
+            // TINGKAT PUSAT - PUSAT (3)
+            { name: "Pusat Strategi Kebijakan Transmigrasi", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Pusat Data dan Informasi Transmigrasi", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Pusat Pengembangan SDM", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            
+            // COMPLETE TEST SATKER - MAPPED TO REAL FIREBASE CODES
+            { name: "nakerposo", code: "694568", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Poso" },
+            { name: "nakermerauke", code: "694578", type: "satker", category: "satker", provinsi: "Papua Selatan", kabupaten: "Merauke" },
+            { name: "nakersukamara", code: "694601", type: "satker", category: "satker", provinsi: "Kalimantan Tengah", kabupaten: "Sukamara" },
+            { name: "nakerbanyuasin", code: "694559", type: "satker", category: "satker", provinsi: "Sumatera Selatan", kabupaten: "Banyuasin" },
+            { name: "nakerlamandau", code: "694546", type: "satker", category: "satker", provinsi: "Kalimantan Tengah", kabupaten: "Lamandau" },
+            { name: "nakertoraja", code: "694618", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Toraja Utara" },
+            { name: "nakersumbatimur", code: "694577", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Timur" },
+            { name: "nakersumbabarat", code: "694575", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat" },
+            { name: "nakersumbabaratdaya", code: "691673", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat Daya" },
+            { name: "nakerbengkuluselatan", code: "694596", type: "satker", category: "satker", provinsi: "Bengkulu", kabupaten: "Bengkulu Selatan" },
+            { name: "nakeracehbarat", code: "691643", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Aceh Barat" },
+            { name: "nakergorontalo", code: "694584", type: "satker", category: "satker", provinsi: "Gorontalo", kabupaten: "Gorontalo" },
+            { name: "nakerjambi", code: "691649", type: "satker", category: "satker", provinsi: "Jambi", kabupaten: "Jambi" },
+            { name: "nakermamasa", code: "694599", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Mamasa" },
+            
+            // BATCH 1 - 10 SATKER TAMBAHAN (BERTAHAP)
+            { name: "nakerpengembangan1", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerpemberdayaan1", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerproduk1", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerbatam", code: "691702", type: "satker", category: "satker", provinsi: "Kepulauan Riau", kabupaten: "Batam" },
+            { name: "nakerpromosi1", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerkeerom", code: "691698", type: "satker", category: "satker", provinsi: "Papua", kabupaten: "Keerom" },
+            { name: "nakerpolewali", code: "691698", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Polewali Mandar" },
+            { name: "nakerbenermeriah", code: "691701", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Bener Meriah" },
+            { name: "nakermalukuutara", code: "691692", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Ternate" },
+            { name: "nakersumbatimur2", code: "691700", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Timur" },
+            
+            // BATCH 2 - 10 SATKER TAMBAHAN (BERTAHAP)
+            { name: "nakerkutaitimur", code: "691696", type: "satker", category: "satker", provinsi: "Kalimantan Timur", kabupaten: "Kutai Timur" },
+            { name: "nakermesuji", code: "691694", type: "satker", category: "satker", provinsi: "Lampung", kabupaten: "Mesuji" },
+            { name: "nakersekretaris1", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakeraceh", code: "694544", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Banda Aceh" },
+            { name: "nakeracehselatan", code: "694556", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Aceh Selatan" },
+            { name: "nakeracehutara", code: "691641", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Aceh Utara" },
+            { name: "nakerbenermeriah2", code: "691642", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Bener Meriah" },
+            { name: "nakersimeulue", code: "694589", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Simeulue" },
+            { name: "nakersubulussalam", code: "691640", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Subulussalam" },
+            { name: "nakerbangkabelitung", code: "694635", type: "satker", category: "satker", provinsi: "Bangka Belitung", kabupaten: "Pangkal Pinang" },
+            
+            // BATCH 3 - 10 SATKER TAMBAHAN (BERTAHAP)
+            { name: "nakerbangkaselatan", code: "694664", type: "satker", category: "satker", provinsi: "Bangka Belitung", kabupaten: "Bangka Selatan" },
+            { name: "nakerbanten", code: "694582", type: "satker", category: "satker", provinsi: "Banten", kabupaten: "Serang" },
+            { name: "nakerbengkulu", code: "694579", type: "satker", category: "satker", provinsi: "Bengkulu", kabupaten: "Bengkulu" },
+            { name: "nakerbengkuluutara", code: "694662", type: "satker", category: "satker", provinsi: "Bengkulu", kabupaten: "Bengkulu Utara" },
+            { name: "nakerjakarta", code: "694644", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerboalemo", code: "691663", type: "satker", category: "satker", provinsi: "Gorontalo", kabupaten: "Boalemo" },
+            { name: "nakergorontaloprov", code: "694583", type: "satker", category: "satker", provinsi: "Gorontalo", kabupaten: "Gorontalo" },
+            { name: "nakergorontalokab", code: "694584", type: "satker", category: "satker", provinsi: "Gorontalo", kabupaten: "Gorontalo" },
+            { name: "nakergorontaloutara", code: "694595", type: "satker", category: "satker", provinsi: "Gorontalo", kabupaten: "Gorontalo Utara" },
+            { name: "nakertanjungjabungtimur", code: "691650", type: "satker", category: "satker", provinsi: "Jambi", kabupaten: "Tanjung Jabung Timur" },
+            
+            // BATCH 4 - SATKER SISANYA (FINAL BATCH)
+            { name: "nakerjawabaratprov", code: "694552", type: "satker", category: "satker", provinsi: "Jawa Barat", kabupaten: "Bandung" },
+            { name: "nakerjawatengahprov", code: "694553", type: "satker", category: "satker", provinsi: "Jawa Tengah", kabupaten: "Semarang" },
+            { name: "nakerjawaTimurprov", code: "694555", type: "satker", category: "satker", provinsi: "Jawa Timur", kabupaten: "Surabaya" },
+            { name: "nakerkalimantan_barat", code: "694562", type: "satker", category: "satker", provinsi: "Kalimantan Barat", kabupaten: "Pontianak" },
+            { name: "nakerkayongutara", code: "691657", type: "satker", category: "satker", provinsi: "Kalimantan Barat", kabupaten: "Kayong Utara" },
+            { name: "nakerkuburaya", code: "691656", type: "satker", category: "satker", provinsi: "Kalimantan Barat", kabupaten: "Kubu Raya" },
+            { name: "nakersambas", code: "691655", type: "satker", category: "satker", provinsi: "Kalimantan Barat", kabupaten: "Sambas" },
+            { name: "nakersintang", code: "694597", type: "satker", category: "satker", provinsi: "Kalimantan Barat", kabupaten: "Sintang" },
+            { name: "nakerbaritokuala", code: "694565", type: "satker", category: "satker", provinsi: "Kalimantan Selatan", kabupaten: "Barito Kuala" },
+            { name: "nakerkalimantan_selatan", code: "691661", type: "satker", category: "satker", provinsi: "Kalimantan Selatan", kabupaten: "Banjarmasin" },
+            { name: "nakertanahbumbu", code: "694654", type: "satker", category: "satker", provinsi: "Kalimantan Selatan", kabupaten: "Tanah Bumbu" },
+            { name: "nakerkalimantan_tengah", code: "694564", type: "satker", category: "satker", provinsi: "Kalimantan Tengah", kabupaten: "Palangka Raya" },
+            { name: "nakerkapuas", code: "694563", type: "satker", category: "satker", provinsi: "Kalimantan Tengah", kabupaten: "Kapuas" },
+            { name: "nakerkotawaringinbarat", code: "691658", type: "satker", category: "satker", provinsi: "Kalimantan Tengah", kabupaten: "Kotawaringin Barat" },
+            { name: "nakerkalimantan_timur", code: "691659", type: "satker", category: "satker", provinsi: "Kalimantan Timur", kabupaten: "Samarinda" },
+            { name: "nakerkalimantan_utara", code: "694591", type: "satker", category: "satker", provinsi: "Kalimantan Utara", kabupaten: "Tarakan" },
+            { name: "nakerpaser", code: "694566", type: "satker", category: "satker", provinsi: "Kalimantan Timur", kabupaten: "Paser" },
+            { name: "nakerbulungan", code: "694592", type: "satker", category: "satker", provinsi: "Kalimantan Utara", kabupaten: "Bulungan" },
+            { name: "nakerkepri", code: "691647", type: "satker", category: "satker", provinsi: "Kepulauan Riau", kabupaten: "Tanjung Pinang" },
+            
+            // BATCH 30-1: 30 SATKER BERIKUTNYA
+            { name: "nakerlampung", code: "694561", type: "satker", category: "satker", provinsi: "Lampung", kabupaten: "Bandar Lampung" },
+            { name: "nakermaluku", code: "691681", type: "satker", category: "satker", provinsi: "Maluku", kabupaten: "Ambon" },
+            { name: "nakermalukutengah", code: "691682", type: "satker", category: "satker", provinsi: "Maluku", kabupaten: "Maluku Tengah" },
+            { name: "nakerhalmaherapselatan", code: "691685", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Halmahera Selatan" },
+            { name: "nakerhalmaheratengah", code: "694631", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Halmahera Tengah" },
+            { name: "nakerhalmahearatimur", code: "694632", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Halmahera Timur" },
+            { name: "nakerhalmaherautara", code: "691684", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Halmahera Utara" },
+            { name: "nakerkepulauansula", code: "694658", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Kepulauan Sula" },
+            { name: "nakerpulaumorotai", code: "691683", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Pulau Morotai" },
+            { name: "nakertidorekepulauan", code: "694581", type: "satker", category: "satker", provinsi: "Maluku Utara", kabupaten: "Tidore Kepulauan" },
+            { name: "nakerbima", code: "694622", type: "satker", category: "satker", provinsi: "Nusa Tenggara Barat", kabupaten: "Bima" },
+            { name: "nakerlomboktimur", code: "691669", type: "satker", category: "satker", provinsi: "Nusa Tenggara Barat", kabupaten: "Lombok Timur" },
+            { name: "nakerntb", code: "694621", type: "satker", category: "satker", provinsi: "Nusa Tenggara Barat", kabupaten: "Mataram" },
+            { name: "nakersumbabarat", code: "694575", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat" },
+            { name: "nakeralor", code: "691672", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Alor" },
+            { name: "nakerbelu", code: "694625", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Belu" },
+            { name: "nakerenda", code: "691671", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Ende" },
+            { name: "nakerflorestimur", code: "691677", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Flores Timur" },
+            { name: "nakerkupang", code: "691679", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Kupang" },
+            { name: "nakermalaka", code: "694548", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Malaka" },
+            { name: "nakermanggaraibarat", code: "691670", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Manggarai Barat" },
+            { name: "nakernagekeo", code: "694649", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Nagekeo" },
+            { name: "nakerngada", code: "691676", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Ngada" },
+            { name: "nakerntt", code: "694576", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Kupang" },
+            { name: "nakerrotendao", code: "691680", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Rote Ndao" },
+            { name: "nakersaburaijua", code: "691675", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sabu Raijua" },
+            { name: "nakertimortengahselatan", code: "691678", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Timor Tengah Selatan" },
+            { name: "nakertimortengahutara", code: "691674", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Timor Tengah Utara" },
+            { name: "nakerjayapura", code: "691690", type: "satker", category: "satker", provinsi: "Papua", kabupaten: "Jayapura" },
+            { name: "nakerpapua", code: "691689", type: "satker", category: "satker", provinsi: "Papua", kabupaten: "Jayapura" },
+            { name: "nakerfakfak", code: "694586", type: "satker", category: "satker", provinsi: "Papua Barat", kabupaten: "Fak-Fak" },
+            
+            // BATCH 30-2: 30 SATKER BERIKUTNYA
+            { name: "nakermanokwari", code: "691687", type: "satker", category: "satker", provinsi: "Papua Barat", kabupaten: "Manokwari" },
+            { name: "nakermanokwariselatan", code: "691688", type: "satker", category: "satker", provinsi: "Papua Barat", kabupaten: "Manokwari Selatan" },
+            { name: "nakerpapuabarat", code: "694585", type: "satker", category: "satker", provinsi: "Papua Barat", kabupaten: "Manokwari" },
+            { name: "nakertelukwondama", code: "694587", type: "satker", category: "satker", provinsi: "Papua Barat", kabupaten: "Teluk Wondama" },
+            { name: "nakerpapuabaratdaya", code: "691686", type: "satker", category: "satker", provinsi: "Papua Barat Daya", kabupaten: "Sorong" },
+            { name: "nakersorong", code: "694656", type: "satker", category: "satker", provinsi: "Papua Barat Daya", kabupaten: "Sorong" },
+            { name: "nakerpapuaselatan", code: "694663", type: "satker", category: "satker", provinsi: "Papua Selatan", kabupaten: "Merauke" },
+            { name: "nakerbengkalis", code: "691646", type: "satker", category: "satker", provinsi: "Riau", kabupaten: "Bengkalis" },
+            { name: "nakerriau", code: "691645", type: "satker", category: "satker", provinsi: "Riau", kabupaten: "Pekanbaru" },
+            { name: "nakermajene", code: "694549", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Majene" },
+            { name: "nakermamuju", code: "691664", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Mamuju" },
+            { name: "nakermamujutengah", code: "694551", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Mamuju Tengah" },
+            { name: "nakerpasangkayu", code: "694550", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Pasangkayu" },
+            { name: "nakersulawesibarat", code: "694588", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Mamuju" },
+            { name: "nakerenrekang", code: "691667", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Enrekang" },
+            { name: "nakerluwutimur", code: "694572", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Luwu Timur" },
+            { name: "nakerluwuutara", code: "694616", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Luwu Utara" },
+            { name: "nakersidenrengrappang", code: "694594", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Sidenreng Rappang" },
+            { name: "nakersulawesiselatan", code: "694570", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Makassar" },
+            { name: "nakerwajo", code: "694571", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Wajo" },
+            { name: "nakerbuol", code: "694661", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Buol" },
+            { name: "nakermorowali", code: "691666", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Morowali" },
+            { name: "nakermorowaliutara", code: "691665", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Morowali Utara" },
+            { name: "nakersigi", code: "694569", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Sigi" },
+            { name: "nakersulawesitengah", code: "694567", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Palu" },
+            { name: "nakertojouna", code: "694655", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Tojo Una-Una" },
+            { name: "nakertolitoli", code: "694593", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Toli-Toli" },
+            { name: "nakerkonawe", code: "694573", type: "satker", category: "satker", provinsi: "Sulawesi Tenggara", kabupaten: "Konawe" },
+            { name: "nakerkonaweutara", code: "694574", type: "satker", category: "satker", provinsi: "Sulawesi Tenggara", kabupaten: "Konawe Utara" },
+            { name: "nakerkonaweselatan", code: "691668", type: "satker", category: "satker", provinsi: "Sulawesi Tenggara", kabupaten: "Konawe Selatan" },
+            { name: "nakermuna", code: "694600", type: "satker", category: "satker", provinsi: "Sulawesi Tenggara", kabupaten: "Muna" },
+            
+            // BATCH 30-3 (FINAL): SATKER SISANYA
+            { name: "nakersulawesitenggara", code: "694547", type: "satker", category: "satker", provinsi: "Sulawesi Tenggara", kabupaten: "Kendari" },
+            { name: "nakerpesisirselatan", code: "691644", type: "satker", category: "satker", provinsi: "Sumatera Barat", kabupaten: "Pesisir Selatan" },
+            { name: "nakersijunjung", code: "694558", type: "satker", category: "satker", provinsi: "Sumatera Barat", kabupaten: "Sijunjung" },
+            { name: "nakersumaterabarat", code: "694557", type: "satker", category: "satker", provinsi: "Sumatera Barat", kabupaten: "Padang" },
+            { name: "nakerlahat", code: "691652", type: "satker", category: "satker", provinsi: "Sumatera Selatan", kabupaten: "Lahat" },
+            { name: "nakeroganilir", code: "691651", type: "satker", category: "satker", provinsi: "Sumatera Selatan", kabupaten: "Ogan Ilir" },
+            { name: "nakerokuTimur", code: "691653", type: "satker", category: "satker", provinsi: "Sumatera Selatan", kabupaten: "OKU Timur" },
+            { name: "nakerpali", code: "694545", type: "satker", category: "satker", provinsi: "Sumatera Selatan", kabupaten: "PALI" },
+            { name: "nakersumateraselatan", code: "694560", type: "satker", category: "satker", provinsi: "Sumatera Selatan", kabupaten: "Palembang" },
+            { name: "nakeryogyakarta", code: "694554", type: "satker", category: "satker", provinsi: "DI Yogyakarta", kabupaten: "Yogyakarta" },
+            { name: "nakersulawesiutara", code: "691110", type: "satker", category: "satker", provinsi: "Sulawesi Utara", kabupaten: "Manado" },
+            { name: "nakerdirjenpengembangan", code: "694590", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerdirjenpembangunan1", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerdirjenpembangunan2", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerdirjenpembangunan3", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerdirjenpembangunan4", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerdirjenpembangunan5", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerdirjenpembangunan6", code: "694652", type: "satker", category: "satker", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "nakerbalaiYogyakarta", code: "699607", type: "satker", category: "satker", provinsi: "DI Yogyakarta", kabupaten: "Yogyakarta" },
+            { name: "nakerbalaibanjarmasin", code: "699723", type: "satker", category: "satker", provinsi: "Kalimantan Selatan", kabupaten: "Banjarmasin" },
+            { name: "nakerbalaidenpasar", code: "691055", type: "satker", category: "satker", provinsi: "Bali", kabupaten: "Denpasar" },
+            { name: "nakerbalaipekanbaru", code: "695378", type: "satker", category: "satker", provinsi: "Riau", kabupaten: "Pekanbaru" },
+            { name: "nakersumaterautara", code: "699681", type: "satker", category: "satker", provinsi: "Sumatera Utara", kabupaten: "Medan" },
+            { name: "nakerbali", code: "695650", type: "satker", category: "satker", provinsi: "Bali", kabupaten: "Denpasar" },
+            
+            // TAMBAHAN SATKER POPULER LAINNYA
+            { name: "Dinas Tenaga Kerja dan Mobilitas Penduduk Provinsi Aceh", code: "SATKER_BANDAACE_696171", type: "provinsi", category: "dinas", provinsi: "Aceh", kabupaten: "Banda Aceh" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Utara", code: "SATKER_MEDAN_699681", type: "provinsi", category: "dinas", provinsi: "Sumatera Utara", kabupaten: "Medan" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Barat", code: "SATKER_PADANG_693212", type: "provinsi", category: "dinas", provinsi: "Sumatera Barat", kabupaten: "Padang" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Riau", code: "SATKER_PEKANBAR_692892", type: "provinsi", category: "dinas", provinsi: "Riau", kabupaten: "Pekanbaru" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Bengkulu", code: "SATKER_BENGKULU_694031", type: "provinsi", category: "dinas", provinsi: "Bengkulu", kabupaten: "Bengkulu" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Selatan", code: "SATKER_PALEMBAN_699741", type: "provinsi", category: "dinas", provinsi: "Sumatera Selatan", kabupaten: "Palembang" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jawa Barat", code: "SATKER_BANDUNG_690833", type: "provinsi", category: "dinas", provinsi: "Jawa Barat", kabupaten: "Bandung" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jawa Tengah", code: "SATKER_SEMARANG_699725", type: "provinsi", category: "dinas", provinsi: "Jawa Tengah", kabupaten: "Semarang" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jawa Timur", code: "SATKER_SURABAYA_695199", type: "provinsi", category: "dinas", provinsi: "Jawa Timur", kabupaten: "Surabaya" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Barat", code: "SATKER_PONTIANA_695263", type: "provinsi", category: "dinas", provinsi: "Kalimantan Barat", kabupaten: "Pontianak" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Tengah", code: "SATKER_PALANGKA_693653", type: "provinsi", category: "dinas", provinsi: "Kalimantan Tengah", kabupaten: "Palangka Raya" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Selatan", code: "SATKER_BANJARMA_693915", type: "provinsi", category: "dinas", provinsi: "Kalimantan Selatan", kabupaten: "Banjarmasin" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Timur", code: "SATKER_SAMARIND_695489", type: "provinsi", category: "dinas", provinsi: "Kalimantan Timur", kabupaten: "Samarinda" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sulawesi Tengah", code: "SATKER_PALU_691553", type: "provinsi", category: "dinas", provinsi: "Sulawesi Tengah", kabupaten: "Palu" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sulawesi Selatan", code: "SATKER_MAKASSAR_692129", type: "provinsi", category: "dinas", provinsi: "Sulawesi Selatan", kabupaten: "Makassar" },
+            { name: "admin", code: "ADMIN", type: "admin", category: "admin", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "superadmin", code: "SUPER_ADMIN", type: "admin", category: "admin", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" }
+        ];
+
+        // EMBEDDED SIMPLE AUTH SYSTEM
+        window.SimpleAuth = {
+            getCurrentUser: function() {
+                try {
+                    const userData = localStorage.getItem('satker_current_user');
+                    if (userData) {
+                        const user = JSON.parse(userData);
+                        if (user && user.username) {
+                            return user;
+                        }
+                    }
+                    return null;
+                } catch (error) {
+                    console.warn('Error getting user:', error);
+                    return null;
+                }
+            },
+
+            login: function(username, password) {
+                try {
+                    const users = this.getUsers();
+                    const user = users.find(u => u.username === username && u.password === password);
+                   
+                    if (user) {
+                        localStorage.setItem('satker_current_user', JSON.stringify(user));
+                        return { success: true, user: user };
+                    } else {
+                        return { success: false, error: 'Username atau password salah' };
+                    }
+                } catch (error) {
+                    return { success: false, error: 'System error' };
+                }
+            },
+
+            logout: function() {
+                try {
+                    localStorage.removeItem('satker_current_user');
+                    localStorage.removeItem('satker_progress_data');
+                    sessionStorage.clear();
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            },
+
+            getUsers: function() {
+                try {
+                    // FORCE REFRESH - Always recreate users to use latest satker codes
+                    console.log('🔧 Creating users from latest completeSatkerData...');
+                    const users = this.createAllUsers();
+                    
+                    // Clear old cache and save new data
+                    localStorage.removeItem('satker_users_db');
+                    localStorage.setItem('satker_users_db', JSON.stringify(users));
+                    console.log('💾 Users refreshed with latest satker codes');
+                   
+                    return users;
+                } catch (error) {
+                    console.error('Error loading users:', error);
+                    return this.createAllUsers();
+                }
+            },
+
+            createAllUsers: function() {
+                const users = [];
+               
+                // Add super admin
+                users.push({
+                    username: 'superadmin',
+                    password: 'admin123',
+                    fullName: 'Super Administrator',
+                    role: 'super_admin',
+                    satkerCode: 'ALL',
+                    satkerName: 'All Satuan Kerja'
+                });
+               
+                // Create users from satker data
+                completeSatkerData.forEach((satker, index) => {
+                    const username = this.generateUsername(satker.name);
+                   
+                    users.push({
+                        username: username,
+                        password: 'password123', // Default password
+                        fullName: satker.name,
+                        role: 'satker_admin',
+                        satkerCode: satker.code || username.toUpperCase(),
+                        satkerName: satker.name,
+                        satkerData: satker
+                    });
+                });
+               
+                console.log(`✅ Created ${users.length} users from satker data`);
+                return users;
+            },
+
+            generateUsername: function(name) {
+                return name.toLowerCase()
+                    .replace(/[^a-z0-9\\s]/g, '')
+                    .replace(/\\s+/g, '')
+                    .substring(0, 20);
+            }
+        };
+
+        console.log('✅ All scripts embedded successfully - no external dependencies!');
+    </script>
 
     <!-- Login Logic -->
     <script>
         // ===================================================================
         // LOGIN PAGE LOGIC
+
+        // Initialize login with embedded scripts
+        function initializeLogin() {
+            console.log('🚀 Initializing login system with embedded scripts...');
+            
+            // SimpleAuth is now embedded and available
+            try {
+                // Check if user is already logged in
+                const currentUser = window.SimpleAuth.getCurrentUser();
+                if (currentUser) {
+                    console.log('👤 User already logged in:', currentUser);
+                    redirectToDashboard();
+                    return;
+                }
+                
+                console.log('✅ Login system ready with embedded SimpleAuth');
+                
+                // Load users to populate dropdown if needed
+                const users = window.SimpleAuth.getUsers();
+                console.log(`📊 Total users available: ${users.length}`);
+                
+            } catch (error) {
+                console.error('❌ Error initializing login system:', error);
+            }
+        }
+
+        // Redirect to dashboard
+        function redirectToDashboard(user) {
+            const currentUser = user || JSON.parse(localStorage.getItem('satker_current_user') || '{}');
+            if (currentUser && currentUser.role) {
+                if (currentUser.role === 'super_admin') {
+                    window.location.href = 'executive-dashboard.html';
+                } else {
+                    window.location.href = 'progress-dashboard.html';
+                }
+            } else {
+                // Default redirect to progress dashboard
+                window.location.href = 'progress-dashboard.html';
+            }
+        }
         // ===================================================================
 
         let isLoading = false;
@@ -727,7 +1069,7 @@
         }
 
         function continueTodashboard(role) {
-            // Redirect semua role ke executive dashboard
+            // Redirect semua user ke executive dashboard
             window.location.href = 'executive-dashboard.html';
         }
 
@@ -770,22 +1112,28 @@
                 // Simulate network delay for better UX
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                console.log('🔐 Attempting simple login:', username);
+                console.log('🔐 Attempting login:', username);
                 
-                // Use SIMPLE auth - no complications
+                // Use embedded SimpleAuth (always available)
+                console.log('🔐 Using embedded SimpleAuth system...');
                 const result = window.SimpleAuth.login(username, password);
                 
-                if (result.success) {
+                if (result && result.success) {
                     showMessage('Login berhasil! Mengalihkan ke dashboard...', 'success');
                     console.log('✅ Login successful, redirecting...', result.user);
+                    
+                    // Store user data
+                    if (result.user) {
+                        localStorage.setItem('satker_current_user', JSON.stringify(result.user));
+                    }
                     
                     // Redirect to dashboard after brief delay
                     setTimeout(() => {
                         redirectToDashboard(result.user);
                     }, 1500);
                 } else {
-                    console.error('❌ Login failed:', result.error);
-                    showMessage(result.error || 'Username atau password salah!', 'error');
+                    console.error('❌ Login failed:', result ? result.error : 'Unknown error');
+                    showMessage(result ? result.error : 'Username atau password salah!', 'error');
                     setLoadingState(false);
                 }
             } catch (error) {
@@ -987,7 +1335,7 @@
                 return;
             }
             
-            // Default redirect - semua role ke executive dashboard
+            // Redirect semua user ke executive dashboard
             window.location.href = 'executive-dashboard.html';
         }
 
@@ -1107,6 +1455,13 @@
 • window.authManager.login('username', 'password') - Test login
 • refreshDemoUsers() - Reload demo users
         `);
+
+        // Initialize login when everything is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeLogin);
+        } else {
+            initializeLogin();
+        }
     </script>
 </body>
 </html>

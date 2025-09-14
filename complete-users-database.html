@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Users Database - All 155+ Satker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #000;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .satker-code {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+        .role-admin {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .role-satker {
+            color: #007bff;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+        }
+        .stat-card h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .stat-card p {
+            margin: 5px 0 0 0;
+        }
+        .table-container {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔍 Complete Users Database - All 155+ Satker</h1>
+        <p><strong>Data lengkap semua username, password, dan kode satker dari Firebase</strong></p>
+        
+        <div style="margin: 20px 0;">
+            <button class="btn btn-success" onclick="loadAllUsers()">
+                📊 Load All Users (155+)
+            </button>
+            <button class="btn btn-warning" onclick="exportToCSV()">
+                📄 Export to CSV
+            </button>
+            <button class="btn" onclick="showSampleLogins()">
+                🔐 Show Sample Logins
+            </button>
+        </div>
+
+        <div id="stats" class="stats" style="display: none;"></div>
+
+        <input type="text" id="searchBox" class="search-box" placeholder="🔍 Search by username, satker name, code, provinsi, atau kabupaten..." onkeyup="filterTable()">
+
+        <div class="table-container">
+            <div id="userTable"></div>
+        </div>
+    </div>
+
+    <!-- EMBEDDED SCRIPTS -->
+    <script>
+        // COMPLETE SATKER DATA FROM YOUR PROVIDED DATA - ALL 155+ ENTRIES
+        const rawSatkerData = [
+            { satkerName: "Biro Perencanaan, Kerjasama, dan Hubungan Masyarakat", satkerCode: "BIRO_PERENCANAAN", username: "perencanaankerj", provinsi: "DKI Jakarta" },
+            { satkerName: "Biro Umum dan Layanan Pengadaan", satkerCode: "BIRO_UMUM", username: "umumdanlayananp", provinsi: "DKI Jakarta" },
+            { satkerName: "Biro Keuangan dan BMN", satkerCode: "BIRO_KEUANGAN", username: "keuangandanbmn", provinsi: "DKI Jakarta" },
+            { satkerName: "Biro Organisasi, SDM, dan Reformasi Birokrasi", satkerCode: "BIRO_ORGANISASI", username: "organisasisdmda", provinsi: "DKI Jakarta" },
+            { satkerName: "Biro Hukum", satkerCode: "BIRO_HUKUM", username: "hukum", provinsi: "DKI Jakarta" },
+            { satkerName: "Pusat Strategi Kebijakan Transmigrasi", satkerCode: "SATKER_JAKARTAP_694924", username: "strategikebijak", provinsi: "DKI Jakarta" },
+            { satkerName: "Pusat Data dan Informasi Transmigrasi", satkerCode: "SATKER_JAKARTAP_697054", username: "datadaninformas", provinsi: "DKI Jakarta" },
+            { satkerName: "Pusat Pengembangan SDM", satkerCode: "SATKER_JAKARTAP_694108", username: "pengembangansdm", provinsi: "DKI Jakarta" },
+            { satkerName: "Balai Besar Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Yogyakarta", satkerCode: "SATKER_YOGYAKAR_699607", username: "besarpelatihand", provinsi: "DI Yogyakarta" },
+            { satkerName: "Balai Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Banjarmasin", satkerCode: "SATKER_BANJARMA_699723", username: "pelatihandanpem", provinsi: "Kalimantan Selatan" },
+            { satkerName: "Balai Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Denpasar", satkerCode: "SATKER_DENPASAR_691055", username: "pelatihandanpem", provinsi: "Bali" },
+            { satkerName: "Balai Pelatihan dan Pemberdayaan Masyarakat Transmigrasi Pekanbaru", satkerCode: "SATKER_PEKANBAR_695378", username: "pelatihandanpem", provinsi: "Riau" },
+            { satkerName: "Sekretariat Direktorat Jenderal Pembangunan dan Pengembangan Kawasan Transmigrasi", satkerCode: "SATKER_JAKARTAP_699783", username: "sekretariatjend", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Perencanaan Perwujudan Kawasan Transmigrasi", satkerCode: "SATKER_JAKARTAP_699706", username: "perencanaanperw", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Pembangunan Kawasan Transmigrasi", satkerCode: "SATKER_JAKARTAP_690745", username: "pembangunankawa", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Fasilitasi Penataan Persebaran Penduduk di Kawasan Transmigrasi", satkerCode: "SATKER_JAKARTAP_692552", username: "fasilitasipenat", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Pengembangan Satuan Permukiman dan Pusat Satuan Kawasan Pengembangan", satkerCode: "SATKER_JAKARTAP_698530", username: "pengembangansat", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Pengembangan Kawasan Transmigrasi", satkerCode: "SATKER_JAKARTAP_698238", username: "pengembangankaw", provinsi: "DKI Jakarta" },
+            { satkerName: "Sekretariat Direktorat Jenderal Pengembangan Ekonomi dan Pemberdayaan Masyarakat Transmigrasi", satkerCode: "SATKER_JAKARTAP_696698", username: "sekretariatjend", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Perencanaan Teknis Pengembangan Ekonomi dan Pemberdayaan Masyarakat Transmigrasi", satkerCode: "SATKER_JAKARTAP_699976", username: "perencanaantekn", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Pengembangan Kelembagaan Ekonomi Transmigrasi", satkerCode: "SATKER_JAKARTAP_696788", username: "pengembangankel", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Pengembangan Produk Unggulan Transmigrasi", satkerCode: "SATKER_JAKARTAP_697522", username: "pengembanganpro", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Promosi dan Pemasaran Produk Unggulan Transmigrasi", satkerCode: "SATKER_JAKARTAP_694623", username: "promosidanpemas", provinsi: "DKI Jakarta" },
+            { satkerName: "Direktorat Pemberdayaan Masyarakat Transmigrasi", satkerCode: "SATKER_JAKARTAP_692976", username: "pemberdayaanmas", provinsi: "DKI Jakarta" },
+            { satkerName: "Sekretariat Itjen", satkerCode: "SATKER_JAKARTAP_695929", username: "sekretariatitje", provinsi: "DKI Jakarta" },
+            { satkerName: "Inspektorat I", satkerCode: "SATKER_JAKARTAP_696807", username: "i", provinsi: "DKI Jakarta" },
+            { satkerName: "Inspektorat II", satkerCode: "SATKER_JAKARTAP_695260", username: "ii", provinsi: "DKI Jakarta" },
+            { satkerName: "Dinas Tenaga Kerja dan Mobilitas Penduduk Provinsi Aceh", satkerCode: "SATKER_BANDAACE_696171", username: "tenagakerjadanm", provinsi: "Aceh" },
+            { satkerName: "Dinas Penanaman Modal, Transmigrasi dan Tenaga Kerja Kabupaten Aceh Utara", satkerCode: "SATKER_ACEHUTAR_690783", username: "penanamanmodaln", provinsi: "Aceh" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Aceh Barat", satkerCode: "SATKER_ACEHBARA_691092", username: "nakeracehbarat", provinsi: "Aceh" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Bener Meriah", satkerCode: "SATKER_BENERMER_697022", username: "nakerbenermeria", provinsi: "Aceh" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Aceh Selatan", satkerCode: "SATKER_ACEHSELA_699079", username: "nakeracehselata", provinsi: "Aceh" },
+            { satkerName: "Dinas Keluarga Sejahtera, Mobilitas Penduduk, dan Transmigrasi Kabupaten Simeulue", satkerCode: "SATKER_SIMEULUE_699050", username: "keluargasejahte", provinsi: "Aceh" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kota Subulussalam", satkerCode: "SATKER_SUBULUSS_695609", username: "nakersubulussal", provinsi: "Aceh" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Utara", satkerCode: "SATKER_MEDAN_699681", username: "nakersumateraut", provinsi: "Sumatera Utara" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Barat", satkerCode: "SATKER_PADANG_693212", username: "nakersumateraba", provinsi: "Sumatera Barat" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Sijunjung", satkerCode: "SATKER_SIJUNJUN_699086", username: "ketenagakerjaan", provinsi: "Sumatera Barat" },
+            { satkerName: "Dinas Perdagangan dan Transmigrasi Kabupaten Pesisir Selatan", satkerCode: "SATKER_PESISIRS_696962", username: "perdagangandant", provinsi: "Sumatera Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Riau", satkerCode: "SATKER_PEKANBAR_692892", username: "nakerriau", provinsi: "Riau" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kepulauan Riau", satkerCode: "SATKER_TANJUNGP_692201", username: "nakerkepulauanr", provinsi: "Kepulauan Riau" },
+            { satkerName: "Dinas Perumahan, Kawasan Permukiman, dan Pertamanan Kota Batam", satkerCode: "SATKER_BATAM_699506", username: "perumahankawasa", provinsi: "Kepulauan Riau" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Bengkalis", satkerCode: "SATKER_BENGKALI_691291", username: "nakerbengkalis", provinsi: "Riau" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Bengkulu", satkerCode: "SATKER_BENGKULU_694031", username: "nakerbengkulu", provinsi: "Bengkulu" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Bengkulu Utara", satkerCode: "SATKER_BENGKULU_696052", username: "ketenagakerjaan", provinsi: "Bengkulu" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Bengkulu Selatan", satkerCode: "SATKER_BENGKULU_698653", username: "ketenagakerjaan", provinsi: "Bengkulu" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kepulauan Bangka Belitung", satkerCode: "SATKER_PANGKALP_695869", username: "nakerkepulauanb", provinsi: "Bangka Belitung" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Bangka Selatan", satkerCode: "SATKER_BANGKASE_694304", username: "nakerbangkasela", provinsi: "Bangka Belitung" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jambi", satkerCode: "SATKER_JAMBI_695791", username: "nakerjambi", provinsi: "Jambi" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Tanjung Jabung Timur", satkerCode: "SATKER_TANJUNGJ_697504", username: "nakertanjungjab", provinsi: "Jambi" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Selatan", satkerCode: "SATKER_PALEMBAN_699741", username: "nakersumaterase", provinsi: "Sumatera Selatan" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Lahat", satkerCode: "SATKER_LAHAT_691800", username: "nakerlahat", provinsi: "Sumatera Selatan" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Banyuasin", satkerCode: "SATKER_BANYUASI_696032", username: "nakerbanyuasin", provinsi: "Sumatera Selatan" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Ogan Ilir", satkerCode: "SATKER_OGANILIR_692298", username: "nakeroganilir", provinsi: "Sumatera Selatan" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Ogan Komering Ulu Timur", satkerCode: "SATKER_OGANKOME_697107", username: "nakerogankomeri", provinsi: "Sumatera Selatan" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Penukal Abab Lematang Ilir", satkerCode: "SATKER_PENUKALA_697389", username: "ketenagakerjaan", provinsi: "Sumatera Selatan" },
+            { satkerName: "Dinas Pemberdayaan Masyarakat, Desa dan Transmigrasi Provinsi Lampung", satkerCode: "SATKER_BANDARLA_695547", username: "pemberdayaanmas", provinsi: "Lampung" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Mesuji", satkerCode: "SATKER_MESUJI_699002", username: "nakermesuji", provinsi: "Lampung" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Daerah Khusus Jakarta", satkerCode: "SATKER_JAKARTAP_690137", username: "nakerdaerahkhus", provinsi: "DKI Jakarta" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Banten", satkerCode: "SATKER_SERANG_697081", username: "nakerbanten", provinsi: "Banten" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jawa Barat", satkerCode: "SATKER_BANDUNG_690833", username: "nakerjawabarat", provinsi: "Jawa Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jawa Tengah", satkerCode: "SATKER_SEMARANG_699725", username: "nakerjawatengah", provinsi: "Jawa Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Daerah Istimewa Yogyakarta", satkerCode: "SATKER_YOGYAKAR_695650", username: "nakerdaerahisti", provinsi: "DI Yogyakarta" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Jawa Timur", satkerCode: "SATKER_SURABAYA_695199", username: "nakerjawatimur", provinsi: "Jawa Timur" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Barat", satkerCode: "SATKER_PONTIANA_695263", username: "nakerkalimantan", provinsi: "Kalimantan Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sambas", satkerCode: "SATKER_SAMBAS_691742", username: "nakersambas", provinsi: "Kalimantan Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sintang", satkerCode: "SATKER_SINTANG_697352", username: "nakersintang", provinsi: "Kalimantan Barat" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Kubu Raya", satkerCode: "SATKER_KUBURAYA_695264", username: "nakerkuburaya", provinsi: "Kalimantan Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Kayong Utara", satkerCode: "SATKER_KAYONGUT_692418", username: "nakerkayongutar", provinsi: "Kalimantan Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Tengah", satkerCode: "SATKER_PALANGKA_693653", username: "nakerkalimantan", provinsi: "Kalimantan Tengah" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Kapuas", satkerCode: "SATKER_KAPUAS_696744", username: "nakerkapuas", provinsi: "Kalimantan Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Kotawaringin Barat", satkerCode: "SATKER_KOTAWARI_697808", username: "nakerwaringinba", provinsi: "Kalimantan Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sukamara", satkerCode: "NAKER_SUKAMARA_163", username: "nakersukamara", provinsi: "Kalimantan Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Lamandau", satkerCode: "SATKER_LAMANDAU_691458", username: "nakerlamandau", provinsi: "Kalimantan Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Selatan", satkerCode: "SATKER_BANJARMA_693915", username: "nakerkalimantan", provinsi: "Kalimantan Selatan" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Barito Kuala", satkerCode: "SATKER_BARITOKU_699888", username: "nakerbaritokual", provinsi: "Kalimantan Selatan" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Tanah Bumbu", satkerCode: "SATKER_TANAHBUM_694001", username: "nakertanahbumbu", provinsi: "Kalimantan Selatan" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Timur", satkerCode: "SATKER_SAMARIND_695489", username: "nakerkalimantan", provinsi: "Kalimantan Timur" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Paser", satkerCode: "SATKER_PASER_696184", username: "nakerpaser", provinsi: "Kalimantan Timur" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Kutai Timur", satkerCode: "SATKER_KUTAITIM_695871", username: "nakerkutaitimur", provinsi: "Kalimantan Timur" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Kalimantan Utara", satkerCode: "SATKER_TARAKAN_699568", username: "nakerkalimantan", provinsi: "Kalimantan Utara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Bulungan", satkerCode: "SATKER_BULUNGAN_698286", username: "nakerbulungan", provinsi: "Kalimantan Utara" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sulawesi Tengah", satkerCode: "SATKER_PALU_691553", username: "nakersulawesite", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Poso", satkerCode: "SATKER_POSO_696994", username: "nakerposo", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Sigi", satkerCode: "SATKER_SIGI_691653", username: "ketenagakerjaan", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Tojo Una-Una", satkerCode: "SATKER_TOJOUNAU_694776", username: "nakertojounauna", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Transmigrasi Kabupaten Toli-Toli", satkerCode: "SATKER_TOLITOLI_698115", username: "transmigrasitol", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Buol", satkerCode: "SATKER_BUOL_698280", username: "nakerbuol", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Daerah Kabupaten Morowali", satkerCode: "SATKER_MOROWALI_696099", username: "nakerdaerahmoro", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Morowali Utara", satkerCode: "SATKER_MOROWALI_691701", username: "nakermorowaliut", provinsi: "Sulawesi Tengah" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sulawesi Selatan", satkerCode: "SATKER_MAKASSAR_692129", username: "nakersulawesise", provinsi: "Sulawesi Selatan" },
+            { satkerName: "Dinas Koperasi, Usaha Kecil Menengah, Tenaga Kerja, dan Transmigrasi Kabupaten Sidenreng Rappang", satkerCode: "SATKER_SIDENREN_690047", username: "koperasiusahake", provinsi: "Sulawesi Selatan" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Luwu Utara", satkerCode: "SATKER_LUWUUTAR_695965", username: "nakerluwuutara", provinsi: "Sulawesi Selatan" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Luwu Timur", satkerCode: "SATKER_LUWUTIMU_696066", username: "nakerluwutimur", provinsi: "Sulawesi Selatan" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Toraja Utara", satkerCode: "SATKER_TORAJAUT_696576", username: "nakertorajautar", provinsi: "Sulawesi Selatan" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Wajo", satkerCode: "SATKER_WAJO_693699", username: "ketenagakerjaan", provinsi: "Sulawesi Selatan" },
+            { satkerName: "Dinas Koperasi, Usaha Kecil Menengah, Tenaga Kerja dan Transmigrasi Kabupaten Enrekang", satkerCode: "SATKER_ENREKANG_690443", username: "koperasiusahake", provinsi: "Sulawesi Selatan" },
+            { satkerName: "Dinas Transmigrasi Daerah Provinsi Sulawesi Barat", satkerCode: "SATKER_MAMUJU_695784", username: "transmigrasidae", provinsi: "Sulawesi Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Majene", satkerCode: "SATKER_MAJENE_696412", username: "nakermajene", provinsi: "Sulawesi Barat" },
+            { satkerName: "Dinas Transmigrasi, Tenaga Kerja, dan Energi Sumber Daya Mineral Kabupaten Polewali Mandar", satkerCode: "SATKER_POLEWALI_694226", username: "transmigrasiten", provinsi: "Sulawesi Barat" },
+            { satkerName: "Dinas Tenaga Kerja, Perindustrian, dan Transmigrasi Kabupaten Pasangkayu", satkerCode: "SATKER_PASANGKA_691432", username: "tenagakerjaperi", provinsi: "Sulawesi Barat" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Mamasa", satkerCode: "SATKER_MAMASA_690938", username: "nakermamasa", provinsi: "Sulawesi Barat" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Mamuju", satkerCode: "SATKER_MAMUJU_699612", username: "nakermamuju", provinsi: "Sulawesi Barat" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Mamuju Tengah", satkerCode: "SATKER_MAMUJUTE_699124", username: "nakermamujuteng", provinsi: "Sulawesi Barat" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Provinsi Sulawesi Tenggara", satkerCode: "SATKER_KENDARI_693701", username: "nakersulawesite", provinsi: "Sulawesi Tenggara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Muna", satkerCode: "SATKER_MUNA_694460", username: "nakermuna", provinsi: "Sulawesi Tenggara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Konawe", satkerCode: "SATKER_KONAWE_698168", username: "nakerkonawe", provinsi: "Sulawesi Tenggara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Konawe Utara", satkerCode: "SATKER_KONAWEUT_690104", username: "nakerkonaweutar", provinsi: "Sulawesi Tenggara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Konawe Selatan", satkerCode: "SATKER_KONAWESE_696012", username: "nakerkonawesela", provinsi: "Sulawesi Tenggara" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Daerah Provinsi Sulawesi Utara", satkerCode: "SATKER_MANADO_691110", username: "nakerdaerahsula", provinsi: "Sulawesi Utara" },
+            { satkerName: "Dinas Tenaga Kerja Energi Sumber Daya Mineral dan Transmigrasi Provinsi Gorontalo", satkerCode: "SATKER_GORONTAL_693117", username: "tenagakerjaener", provinsi: "Gorontalo" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Gorontalo", satkerCode: "SATKER_GORONTAL_695833", username: "nakergorontalo", provinsi: "Gorontalo" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Gorontalo Utara", satkerCode: "SATKER_GORONTAL_697726", username: "nakergorontalou", provinsi: "Gorontalo" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Boalemo", satkerCode: "SATKER_BOALEMO_691182", username: "nakerboalemo", provinsi: "Gorontalo" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Nusa Tenggara Barat", satkerCode: "SATKER_MATARAM_695306", username: "nakernusatengga", provinsi: "Nusa Tenggara Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Bima", satkerCode: "SATKER_BIMA_699938", username: "nakerbima", provinsi: "Nusa Tenggara Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Lombok Timur", satkerCode: "SATKER_LOMBOKTI_695066", username: "nakerlomboktimu", provinsi: "Nusa Tenggara Barat" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Provinsi Nusa Tenggara Timur", satkerCode: "SATKER_KUPANG_694147", username: "ketenagakerjaan", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Malaka", satkerCode: "SATKER_MALAKA_696051", username: "ketenagakerjaan", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Timur", satkerCode: "SATKER_SUMBATIM_699921", username: "nakersumbatimur", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Sumba Barat", satkerCode: "SATKER_SUMBABAR_693413", username: "nakersumbabarat", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sumba Barat Daya", satkerCode: "SATKER_SUMBABAR_693306", username: "nakersumbabarat", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Timor Tengah Utara", satkerCode: "SATKER_TIMORTEN_696545", username: "nakertimortenga", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Timor Tengah Selatan", satkerCode: "SATKER_TIMORTEN_699481", username: "ketenagakerjaan", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Belu", satkerCode: "SATKER_BELU_697485", username: "ketenagakerjaan", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Rote Ndao", satkerCode: "SATKER_ROTENDAO_692778", username: "nakerrotendao", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Nagekeo", satkerCode: "SATKER_NAGEKEO_696078", username: "nakernagekeo", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Transmigrasi Dan Tenaga Kerja Kabupaten Ende", satkerCode: "SATKER_ENDE_696930", username: "nakerende", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Transmigrasi, Koperasi, Usaha Kecil Menengah, dan Tenaga Kerja Kabupaten Sabu Raijua", satkerCode: "SATKER_SABURAIJ_690855", username: "transmigrasikop", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Ketenagakerjaan dan Transmigrasi Kabupaten Kupang", satkerCode: "SATKER_KUPANG_697661", username: "ketenagakerjaan", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Ngada", satkerCode: "SATKER_NGADA_695522", username: "nakerngada", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Tenaga Kerja Kabupaten Flores Timur", satkerCode: "SATKER_FLORESTI_699699", username: "tenagakerjaflor", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Tenaga Kerja, Transmigrasi, Koperasi, dan Usaha Kecil Menengah Kabupaten Manggarai Barat", satkerCode: "SATKER_MANGGARA_698076", username: "tenagakerjatran", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Alor", satkerCode: "SATKER_ALOR_692100", username: "nakeralor", provinsi: "Nusa Tenggara Timur" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Maluku", satkerCode: "SATKER_AMBON_698947", username: "nakermaluku", provinsi: "Maluku" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Maluku Tengah", satkerCode: "SATKER_MALUKUTE_695964", username: "nakermalukuteng", provinsi: "Maluku" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Maluku Utara", satkerCode: "SATKER_TERNATE_696180", username: "nakermalukuutar", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Pulau Morotai", satkerCode: "SATKER_PULAUMOR_690757", username: "nakerpulaumorot", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Halmahera Timur", satkerCode: "SATKER_HALMAHER_695672", username: "nakerhalmaherat", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Halmahera Selatan", satkerCode: "SATKER_HALMAHER_695027", username: "nakerhalmaheras", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Kepulauan Sula", satkerCode: "SATKER_KEPULAUA_697673", username: "nakerkepulauans", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Halmahera Utara", satkerCode: "SATKER_HALMAHER_690534", username: "nakerhalmaherau", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Halmahera Tengah", satkerCode: "SATKER_HALMAHER_694220", username: "nakerhalmaherat", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kota Tidore Kepulauan", satkerCode: "SATKER_TIDOREKE_695998", username: "nakertidorekepu", provinsi: "Maluku Utara" },
+            { satkerName: "Dinas Tenaga Kerja, Koperasi, Usaha Kecil dan Menengah Provinsi Papua", satkerCode: "SATKER_JAYAPURA_690580", username: "tenagakerjakope", provinsi: "Papua" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Jayapura", satkerCode: "SATKER_JAYAPURA_695566", username: "nakerjayapura", provinsi: "Papua" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Keerom", satkerCode: "SATKER_KEEROM_692158", username: "nakerkeerom", provinsi: "Papua" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Provinsi Papua Barat", satkerCode: "SATKER_MANOKWAR_696920", username: "nakerpapuabarat", provinsi: "Papua Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Manokwari", satkerCode: "SATKER_MANOKWAR_694721", username: "nakermanokwari", provinsi: "Papua Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Sorong", satkerCode: "SATKER_SORONG_690668", username: "nakersorong", provinsi: "Papua Barat" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Fak-Fak", satkerCode: "SATKER_FAKFAK_696485", username: "nakerfakfak", provinsi: "Papua Barat" },
+            { satkerName: "Dinas Transmigrasi dan Tenaga Kerja Kabupaten Teluk Wondama", satkerCode: "SATKER_TELUKWON_690945", username: "nakertelukwonda", provinsi: "Papua Barat" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Manokwari Selatan", satkerCode: "SATKER_MANOKWAR_697531", username: "nakermanokwaris", provinsi: "Papua Barat" },
+            { satkerName: "Dinas Tenaga Kerja, Transmigrasi, Energi, dan Sumber Daya Mineral Provinsi Papua Barat Daya", satkerCode: "SATKER_SORONG_698496", username: "tenagakerjatran", provinsi: "Papua Barat Daya" },
+            { satkerName: "Dinas Tenaga Kerja, Transmigrasi, Energi, dan Sumber Daya Mineral Provinsi Papua Selatan", satkerCode: "SATKER_MERAUKE_690605", username: "tenagakerjatran", provinsi: "Papua Selatan" },
+            { satkerName: "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Merauke", satkerCode: "SATKER_MERAUKE_693160", username: "nakermerauke", provinsi: "Papua Selatan" }
+        ];
+
+        let allUsers = [];
+        let filteredUsers = [];
+
+        function loadAllUsers() {
+            console.log('🔄 Loading all users from complete data...');
+            allUsers = [];
+
+            // Add super admin
+            allUsers.push({
+                username: 'superadmin',
+                password: 'admin123',
+                fullName: 'Super Administrator',
+                role: 'super_admin',
+                satkerCode: 'ALL',
+                satkerName: 'All Satuan Kerja',
+                provinsi: 'System',
+                kabupaten: 'System'
+            });
+
+            // Add admin
+            allUsers.push({
+                username: 'admin',
+                password: 'admin123',
+                fullName: 'Administrator',
+                role: 'admin',
+                satkerCode: 'ADMIN',
+                satkerName: 'Administrator',
+                provinsi: 'System',
+                kabupaten: 'System'
+            });
+
+            // Add all satker users
+            rawSatkerData.forEach((satker, index) => {
+                allUsers.push({
+                    username: satker.username,
+                    password: 'password123',
+                    fullName: satker.satkerName,
+                    role: 'satker_admin',
+                    satkerCode: satker.satkerCode,
+                    satkerName: satker.satkerName,
+                    provinsi: satker.provinsi,
+                    kabupaten: '-'
+                });
+            });
+            
+            filteredUsers = [...allUsers];
+            
+            console.log('✅ Loaded users:', allUsers.length);
+            
+            updateStats();
+            displayUsers();
+            document.getElementById('stats').style.display = 'flex';
+        }
+
+        function updateStats() {
+            const adminUsers = allUsers.filter(u => u.role.includes('admin')).length;
+            const satkerUsers = allUsers.filter(u => u.role === 'satker_admin').length;
+            const uniqueProvinsi = new Set(allUsers.map(u => u.provinsi)).size;
+            const uniqueSatkers = new Set(allUsers.map(u => u.satkerCode)).size;
+
+            const statsDiv = document.getElementById('stats');
+            statsDiv.innerHTML = `
+                <div class="stat-card">
+                    <h3>${allUsers.length}</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${adminUsers}</h3>
+                    <p>Admin Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${satkerUsers}</h3>
+                    <p>Satker Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${uniqueProvinsi}</h3>
+                    <p>Provinsi</p>
+                </div>
+            `;
+        }
+
+        function displayUsers() {
+            const tableDiv = document.getElementById('userTable');
+            
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Satker Code</th>
+                            <th>Satker Name</th>
+                            <th>Provinsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            filteredUsers.forEach((user, index) => {
+                const roleClass = user.role.includes('admin') ? 'role-admin' : 'role-satker';
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><strong>${user.username}</strong></td>
+                        <td>${user.password}</td>
+                        <td><span class="${roleClass}">${user.role}</span></td>
+                        <td><span class="satker-code">${user.satkerCode}</span></td>
+                        <td title="${user.satkerName}">${user.satkerName.length > 50 ? user.satkerName.substring(0, 50) + '...' : user.satkerName}</td>
+                        <td>${user.provinsi}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+                <p><strong>Showing: ${filteredUsers.length} of ${allUsers.length} users</strong></p>
+            `;
+
+            tableDiv.innerHTML = html;
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredUsers = [...allUsers];
+            } else {
+                filteredUsers = allUsers.filter(user => 
+                    user.username.toLowerCase().includes(searchTerm) ||
+                    user.satkerName.toLowerCase().includes(searchTerm) ||
+                    user.satkerCode.toLowerCase().includes(searchTerm) ||
+                    user.provinsi.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            displayUsers();
+        }
+
+        function exportToCSV() {
+            if (allUsers.length === 0) {
+                alert('Please load users first!');
+                return;
+            }
+
+            let csv = 'No,Username,Password,Role,Satker Code,Satker Name,Provinsi\\n';
+            
+            allUsers.forEach((user, index) => {
+                csv += `${index + 1},"${user.username}","${user.password}","${user.role}","${user.satkerCode}","${user.satkerName}","${user.provinsi}"\\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'complete-users-database-155-satker.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function showSampleLogins() {
+            const samples = [
+                'superadmin / admin123',
+                'nakerposo / password123',
+                'nakermerauke / password123',
+                'nakersukamara / password123',
+                'nakerbanyuasin / password123',
+                'nakergorontalo / password123',
+                'nakerjambi / password123'
+            ];
+
+            alert('Sample Logins:\\n\\n' + samples.join('\\n'));
+        }
+
+        // Auto-load on page ready
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllUsers();
+        });
+    </script>
+</body>
+</html>

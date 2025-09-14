@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Progress Kegiatan - Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementrans</title>
+    <title>Form Progress Kegiatan - TC-More (Trans Continuous Monitoring & Reporting) - Inspektorat Jenderal Kementrans</title>
     
     <!-- Favicon dan Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
@@ -19,14 +19,14 @@
     <link rel="apple-touch-icon" sizes="57x57" href="logo/logo.png">
     
     <!-- Meta Tags untuk Social Media dan WhatsApp -->
-    <meta name="description" content="Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
+    <meta name="description" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
     <meta name="keywords" content="Inspektorat Jenderal, Kementrans, Transmigrasi, Dashboard, Monitoring, Program, Anggaran">
     <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
-    <meta property="og:title" content="Form Progress Kegiatan - Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementrans">
+    <meta property="og:title" content="Form Progress Kegiatan - TC-More (Trans Continuous Monitoring & Reporting) - Inspektorat Jenderal Kementrans">
     <meta property="og:description" content="Sistem monitoring dan pelaporan program serta anggaran Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
     <meta property="og:image" content="logo/logo.png">
     <meta property="og:image:width" content="1200">
@@ -36,7 +36,7 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="">
-    <meta property="twitter:title" content="Form Progress Kegiatan - Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementrans">
+    <meta property="twitter:title" content="Form Progress Kegiatan - TC-More (Trans Continuous Monitoring & Reporting) - Inspektorat Jenderal Kementrans">
     <meta property="twitter:description" content="Sistem monitoring dan pelaporan program serta anggaran Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia">
     <meta property="twitter:image" content="logo/logo.png">
     
@@ -448,6 +448,33 @@
         .file-upload-hint {
             color: var(--gray-1);
             font-size: 0.85rem;
+        }
+
+        /* Link Preview */
+        .link-preview {
+            margin-top: var(--space-2);
+            padding: var(--space-3);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-light);
+            display: none;
+        }
+
+        .link-preview.show {
+            display: block;
+        }
+
+        .link-preview img {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .link-preview-text {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: var(--space-2);
         }
 
         .file-preview {
@@ -1042,52 +1069,40 @@
                         </div>
                         <div>
                             <div class="section-title">Dokumentasi & Kendala</div>
-                            <div class="section-subtitle">Upload foto dan uraian hambatan</div>
+                            <div class="section-subtitle">Link dokumentasi foto dan uraian hambatan</div>
                         </div>
                     </div>
 
                     <div class="form-grid">
-                        <!-- Foto Before (Sebelum Kegiatan) -->
+                        <!-- Link Foto Before (Sebelum Kegiatan) -->
                         <div class="form-group">
-                            <label for="fotoBefore">📸 Foto Sebelum Kegiatan <span class="required">*</span></label>
-                            <div class="file-upload" onclick="document.getElementById('fotoBeforeInput').click()">
-                                <div class="file-upload-icon">
-                                    <i class="fas fa-camera"></i>
-                                </div>
-                                <div class="file-upload-text">Upload foto kondisi awal</div>
-                                <div class="file-upload-hint">JPG, PNG (Max: 5MB)</div>
-                            </div>
-                            <input type="file" id="fotoBeforeInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'before')" required>
-                            <div id="fotoBeforePreview" class="file-preview"></div>
+                            <label for="linkFotoBefore">📸 Link Foto Sebelum Kegiatan <span class="required">*</span></label>
+                            <input type="url" id="linkFotoBefore" name="linkFotoBefore" placeholder="https://example.com/foto-sebelum.jpg" required>
+                            <small style="color: #6b7280; font-size: 0.85rem;">
+                                <i class="fas fa-info-circle"></i> Upload foto ke Google Drive, Dropbox, atau layanan cloud lain, lalu paste linknya di sini
+                            </small>
+                            <div id="fotoBeforePreview" class="link-preview" style="margin-top: 8px;"></div>
                         </div>
 
-                        <!-- Foto After (Sesudah Kegiatan) -->
+                        <!-- Link Foto After (Sesudah Kegiatan) -->
                         <div class="form-group">
-                            <label for="fotoAfter">📸 Foto Sesudah Kegiatan</label>
-                            <div class="file-upload" onclick="document.getElementById('fotoAfterInput').click()">
-                                <div class="file-upload-icon">
-                                    <i class="fas fa-camera"></i>
-                                </div>
-                                <div class="file-upload-text">Upload foto progress/hasil</div>
-                                <div class="file-upload-hint">JPG, PNG (Max: 5MB)</div>
-                            </div>
-                            <input type="file" id="fotoAfterInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'after')">
-                            <div id="fotoAfterPreview" class="file-preview"></div>
+                            <label for="linkFotoAfter">📸 Link Foto Sesudah Kegiatan</label>
+                            <input type="url" id="linkFotoAfter" name="linkFotoAfter" placeholder="https://example.com/foto-sesudah.jpg">
+                            <small style="color: #6b7280; font-size: 0.85rem;">
+                                <i class="fas fa-info-circle"></i> Upload foto progress/hasil ke cloud storage, lalu paste linknya di sini
+                            </small>
+                            <div id="fotoAfterPreview" class="link-preview" style="margin-top: 8px;"></div>
                             <small style="color: #6b7280;">Upload saat progress sudah berjalan</small>
                         </div>
 
-                        <!-- Dokumentasi Tambahan -->
+                        <!-- Link Dokumentasi Tambahan -->
                         <div class="form-group full-width">
-                            <label for="dokumentasiTambahan">📄 Dokumentasi Tambahan (Opsional)</label>
-                            <div class="file-upload" onclick="document.getElementById('dokumenTambahanInput').click()">
-                                <div class="file-upload-icon">
-                                    <i class="fas fa-file-upload"></i>
-                                </div>
-                                <div class="file-upload-text">Upload dokumen pendukung</div>
-                                <div class="file-upload-hint">JPG, PNG, PDF (Max: 5MB per file)</div>
-                            </div>
-                            <input type="file" id="dokumenTambahanInput" multiple accept="image/*,.pdf" style="display: none;" onchange="handleFileUpload(event, 'tambahan')">
-                            <div id="dokumenTambahanPreview" class="file-preview"></div>
+                            <label for="linkDokumentasi">📄 Link Dokumentasi Tambahan (Opsional)</label>
+                            <textarea id="linkDokumentasi" name="linkDokumentasi" rows="3" placeholder="https://example.com/dokumen1.pdf&#10;https://example.com/dokumen2.jpg&#10;https://example.com/dokumen3.png"></textarea>
+                            <small style="color: #6b7280; font-size: 0.85rem;">
+                                <i class="fas fa-info-circle"></i> Upload dokumen ke cloud storage (Google Drive, Dropbox, dll), lalu paste link-linknya di sini (satu link per baris)
+                            </small>
+                            <div id="dokumenTambahanPreview" class="link-preview" style="margin-top: 8px;"></div>
                         </div>
 
                         <div class="form-group full-width">
@@ -1198,7 +1213,6 @@
 
         let currentUser = null;
         let currentSatker = null;
-        let uploadedFiles = [];
 
         // Initialize form
         document.addEventListener('DOMContentLoaded', function() {
@@ -1747,11 +1761,20 @@
             const form = document.getElementById('progressForm');
             form.addEventListener('submit', handleFormSubmit);
             
-            // File upload drag & drop
-            const fileUpload = document.querySelector('.file-upload');
-            fileUpload.addEventListener('dragover', handleDragOver);
-            fileUpload.addEventListener('dragleave', handleDragLeave);
-            fileUpload.addEventListener('drop', handleFileDrop);
+            // Link preview handlers
+            const linkFotoBefore = document.getElementById('linkFotoBefore');
+            const linkFotoAfter = document.getElementById('linkFotoAfter');
+            const linkDokumentasi = document.getElementById('linkDokumentasi');
+            
+            if (linkFotoBefore) {
+                linkFotoBefore.addEventListener('input', (e) => handleLinkPreview(e, 'fotoBeforePreview'));
+            }
+            if (linkFotoAfter) {
+                linkFotoAfter.addEventListener('input', (e) => handleLinkPreview(e, 'fotoAfterPreview'));
+            }
+            if (linkDokumentasi) {
+                linkDokumentasi.addEventListener('input', (e) => handleMultiLinkPreview(e, 'dokumenTambahanPreview'));
+            }
         }
 
         // Handle form submission
@@ -2001,27 +2024,10 @@
                 mitigasi: document.getElementById('mitigasi').value,
                 // Enhanced documentation with categories
                 dokumentasi: {
-                    fotoBefore: uploadedFiles.filter(f => f.category === 'before').map(file => ({
-                    name: file.name,
-                    size: file.size,
-                    type: file.type,
-                        data: file.data,
-                        uploadedAt: new Date().toISOString()
-                    })),
-                    fotoAfter: uploadedFiles.filter(f => f.category === 'after').map(file => ({
-                        name: file.name,
-                        size: file.size,
-                        type: file.type,
-                        data: file.data,
-                        uploadedAt: new Date().toISOString()
-                    })),
-                    dokumenTambahan: uploadedFiles.filter(f => f.category === 'tambahan').map(file => ({
-                        name: file.name,
-                        size: file.size,
-                        type: file.type,
-                        data: file.data,
-                        uploadedAt: new Date().toISOString()
-                    }))
+                    linkFotoBefore: document.getElementById('linkFotoBefore').value.trim(),
+                    linkFotoAfter: document.getElementById('linkFotoAfter').value.trim(),
+                    linkDokumentasi: document.getElementById('linkDokumentasi').value.trim().split('\n').filter(link => link.trim()),
+                    uploadedAt: new Date().toISOString()
                 }
             };
             
@@ -2148,10 +2154,89 @@
             }
         }
 
-        // File upload handlers
-        function handleFileUpload(event, type = 'tambahan') {
-            const files = Array.from(event.target.files);
-            processFiles(files, type);
+        // Link preview handlers
+        function handleLinkPreview(event, previewId) {
+            const url = event.target.value.trim();
+            const previewContainer = document.getElementById(previewId);
+            
+            if (!url || !isValidUrl(url)) {
+                previewContainer.classList.remove('show');
+                previewContainer.innerHTML = '';
+                return;
+            }
+            
+            // Check if it's an image URL
+            if (isImageUrl(url)) {
+                previewContainer.innerHTML = `
+                    <img src="${url}" alt="Preview" onerror="this.style.display='none'">
+                    <div class="link-preview-text">
+                        <i class="fas fa-link"></i> ${url}
+                    </div>
+                `;
+                previewContainer.classList.add('show');
+            } else {
+                previewContainer.innerHTML = `
+                    <div class="link-preview-text">
+                        <i class="fas fa-file"></i> ${url}
+                    </div>
+                `;
+                previewContainer.classList.add('show');
+            }
+        }
+
+        function handleMultiLinkPreview(event, previewId) {
+            const urls = event.target.value.trim().split('\n').filter(url => url.trim());
+            const previewContainer = document.getElementById(previewId);
+            
+            if (!urls.length) {
+                previewContainer.classList.remove('show');
+                previewContainer.innerHTML = '';
+                return;
+            }
+            
+            let previewHtml = '';
+            urls.forEach((url, index) => {
+                const trimmedUrl = url.trim();
+                if (isValidUrl(trimmedUrl)) {
+                    if (isImageUrl(trimmedUrl)) {
+                        previewHtml += `
+                            <div style="margin-bottom: 10px;">
+                                <img src="${trimmedUrl}" alt="Preview ${index + 1}" style="max-width: 150px; max-height: 100px; object-fit: cover; border-radius: 4px;" onerror="this.style.display='none'">
+                                <div class="link-preview-text">
+                                    <i class="fas fa-image"></i> Dokumen ${index + 1}: ${trimmedUrl}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        previewHtml += `
+                            <div class="link-preview-text" style="margin-bottom: 8px;">
+                                <i class="fas fa-file"></i> Dokumen ${index + 1}: ${trimmedUrl}
+                            </div>
+                        `;
+                    }
+                }
+            });
+            
+            if (previewHtml) {
+                previewContainer.innerHTML = previewHtml;
+                previewContainer.classList.add('show');
+            } else {
+                previewContainer.classList.remove('show');
+                previewContainer.innerHTML = '';
+            }
+        }
+
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        function isImageUrl(url) {
+            return /\.(jpg|jpeg|png|gif|webp|bmp|svg)(\?.*)?$/i.test(url);
         }
 
         function handleDragOver(e) {
@@ -2298,8 +2383,11 @@
         function resetForm() {
             if (confirm('Yakin ingin reset form? Semua data yang sudah diisi akan hilang.')) {
                 document.getElementById('progressForm').reset();
-                uploadedFiles = [];
-                document.getElementById('filePreview').innerHTML = '';
+                // Clear link previews
+                document.querySelectorAll('.link-preview').forEach(preview => {
+                    preview.classList.remove('show');
+                    preview.innerHTML = '';
+                });
                 document.getElementById('persentasePenyerapan').textContent = '0%';
                 loadSatkerData(); // Reload satker data
                 showMessage('Form berhasil direset', 'success');
@@ -2379,7 +2467,7 @@
 📊 Features:
 • 30 form fields
 • Auto-calculate percentage
-• File upload (images & PDF)
+• Link-based documentation (cloud storage)
 • Form validation
 • Save as draft
 • Data persistence

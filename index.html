@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoring Program dan Anggaran - Inspektorat Jenderal Kementerian Transmigrasi RI</title>
+    <title>TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi RI</title>
     
     <!-- Favicon dan Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
@@ -20,15 +20,15 @@
     <link rel="apple-touch-icon" sizes="57x57" href="logo/logo.png">
     
     <!-- Meta Tags untuk Social Media dan WhatsApp -->
-    <meta name="description" content="Sistem Monitoring dan Evaluasi Program dan Anggaran - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia. Platform digital untuk memantau progress kegiatan dan anggaran secara real-time.">
+    <meta name="description" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia. Platform digital untuk memantau progress kegiatan dan anggaran secara real-time.">
     <meta name="keywords" content="Itjen, Inspektorat Jenderal, Kementerian Transmigrasi, Monitoring, Evaluasi, Program, Anggaran, Dashboard, Kontrak">
     <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
-    <meta property="og:title" content="Monitoring Program dan Anggaran - Itjen Kementerian Transmigrasi RI">
-    <meta property="og:description" content="Sistem Monitoring dan Evaluasi Program dan Anggaran - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia. Platform digital untuk memantau progress kegiatan dan anggaran secara real-time.">
+    <meta property="og:title" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi RI">
+    <meta property="og:description" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia. Platform digital untuk memantau progress kegiatan dan anggaran secara real-time.">
     <meta property="og:image" content="logo/logo.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -37,16 +37,51 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="">
-    <meta property="twitter:title" content="Monitoring Program dan Anggaran - Itjen Kementerian Transmigrasi RI">
-    <meta property="twitter:description" content="Sistem Monitoring dan Evaluasi Program dan Anggaran - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia.">
+    <meta property="twitter:title" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi RI">
+    <meta property="twitter:description" content="TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia.">
     <meta property="twitter:image" content="logo/logo.png">
     
     <!-- WhatsApp Meta Tags -->
     <meta property="og:image:alt" content="Logo Inspektorat Jenderal Kementerian Transmigrasi">
     <meta name="thumbnail" content="logo/logo.png">
     
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
     <style>
+        :root {
+            /* Colors - Consistent with dashboard */
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #6b7280;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            
+            /* Backgrounds */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            
+            /* Text */
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-tertiary: #94a3b8;
+            
+            /* Borders */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -54,105 +89,548 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            min-height: 100vh;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
+        /* Header Navigation */
+        .navbar {
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-light);
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
-        .nav-container {
-            max-width: 1200px;
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 0 2rem;
-        }
-
-        .logo {
             display: flex;
             align-items: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #1976d2;
+            justify-content: space-between;
+            height: 80px;
         }
 
-        .logo img {
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .navbar-logo {
+            width: 50px;
             height: 50px;
-            width: auto;
-            margin-right: 1rem;
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
         }
 
-        .logo-text {
+        .navbar-logo img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .navbar-text {
             display: flex;
             flex-direction: column;
+        }
+
+        .navbar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
             line-height: 1.2;
         }
 
-        .logo-main {
-            font-size: 1.1rem;
-            color: #1976d2;
-        }
-
-        .logo-sub {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #0d47a1;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
+        .navbar-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
             font-weight: 500;
-            transition: color 0.3s;
+            line-height: 1.2;
         }
 
-        .nav-links a:hover {
-            color: #1976d2;
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Hero Section */
         .hero {
             padding: 120px 2rem 80px;
+            background: linear-gradient(135deg, 
+                rgba(59, 130, 246, 0.05) 0%, 
+                rgba(16, 185, 129, 0.05) 50%, 
+                rgba(245, 158, 11, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%233b82f6" fill-opacity="0.03"><circle cx="30" cy="30" r="2"/></g></g></svg>');
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border-medium);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+        }
+
+        .dashboard-preview {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success), var(--warning));
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .preview-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .preview-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-metric {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 12px;
             text-align: center;
-            max-width: 1200px;
+            border: 1px solid var(--border-light);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .preview-chart {
+            height: 120px;
+            background: linear-gradient(135deg, 
+                var(--primary-light) 0%, 
+                rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: end;
+            gap: 0.5rem;
+            height: 60px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            opacity: 0.8;
+            animation: growUp 2s ease-out;
+        }
+
+        .chart-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+        .chart-bar:nth-child(2) { height: 70%; animation-delay: 0.2s; background: var(--success); }
+        .chart-bar:nth-child(3) { height: 55%; animation-delay: 0.3s; }
+        .chart-bar:nth-child(4) { height: 85%; animation-delay: 0.4s; background: var(--warning); }
+        .chart-bar:nth-child(5) { height: 60%; animation-delay: 0.5s; }
+
+        @keyframes growUp {
+            from { height: 0; }
+            to { height: inherit; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .features-container {
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #1976d2;
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
             margin-bottom: 1rem;
             line-height: 1.2;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 3rem;
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--success);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .stat-description {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-top: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
         }
 
         .cta-buttons {
@@ -162,153 +640,38 @@
             flex-wrap: wrap;
         }
 
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1976d2, #42a5f5);
-            color: white;
-            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.9);
-            color: #1976d2;
-            border: 2px solid #1976d2;
-        }
-
-        .btn-secondary:hover {
-            background: #1976d2;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 2rem;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .features-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #1976d2;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
+        .btn-white {
             background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
+            color: var(--primary);
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
+        .btn-white:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-2px);
         }
 
-        .feature-icon {
-            font-size: 3rem;
-            color: #1976d2;
-            margin-bottom: 1rem;
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
         }
 
-        .feature-card h3 {
-            font-size: 1.3rem;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 80px 2rem;
-            text-align: center;
-        }
-
-        .stats-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .stats h2 {
-            font-size: 2.5rem;
-            color: #1976d2;
-            margin-bottom: 3rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #1976d2;
-            display: block;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
+        .btn-outline-white:hover {
+            background: white;
+            color: var(--primary);
         }
 
         /* Footer */
         .footer {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--text-primary);
+            color: white;
             padding: 3rem 2rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(25, 118, 210, 0.1);
         }
 
         .footer-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .footer-links {
@@ -320,188 +683,268 @@
         }
 
         .footer-links a {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
 
         .footer-links a:hover {
-            color: #1976d2;
+            color: white;
         }
 
-        .footer p {
-            color: #666;
-            font-size: 0.9rem;
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            line-height: 1.6;
         }
 
-        /* Responsive */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
+            .navbar-content {
+                padding: 0 1rem;
             }
-            
-            .hero h2 {
-                font-size: 1.5rem !important;
+
+            .navbar-nav {
+                display: none;
             }
-            
-            .hero h3 {
-                font-size: 1.1rem !important;
+
+            .hero {
+                padding: 100px 1rem 60px;
             }
-            
-            .hero p {
-                font-size: 1rem;
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
             }
-            
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .cta-title {
+                font-size: 2.25rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .logo {
-                font-size: 1rem;
-            }
-            
-            .logo img {
-                height: 40px;
-            }
-            
-            .logo-main {
-                font-size: 0.9rem;
-            }
-            
-            .logo-sub {
-                font-size: 1.1rem;
-            }
-            
-            .features h2,
-            .stats h2 {
-                font-size: 2rem;
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
             }
         }
 
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
         }
 
-        .hero,
-        .feature-card,
-        .stat-item {
-            animation: fadeInUp 0.8s ease-out;
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .feature-card:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .feature-card:nth-child(3) {
-            animation-delay: 0.2s;
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            height: 4px;
+            background: var(--primary);
+            z-index: 999;
+            transition: width 0.1s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <div class="logo">
-                <img src="logo/logo.png" alt="Logo Kementerian Transmigrasi RI">
-                <div class="logo-text">
-                    <div class="logo-main">Monitoring Program dan Anggaran</div>
-                    <div class="logo-sub">Inspektorat Jenderal</div>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-content">
+            <a href="#" class="navbar-brand">
+                <div class="navbar-logo">
+                    <img src="logo/logo.png" alt="Logo Itjen">
                 </div>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#features">Fitur</a></li>
-                    <li><a href="#stats">Statistik</a></li>
-                    <li><a href="form-progress-kegiatan.html">Input Data</a></li>
-                </ul>
-            </nav>
+                <div class="navbar-text">
+                    <div class="navbar-title">TC-More</div>
+                    <div class="navbar-subtitle">Trans Continuous Monitoring & Reporting</div>
+                    <div class="navbar-subtitle" style="font-size: 0.75rem; margin-top: 2px;">Inspektorat Jenderal Kementerian Transmigrasi RI</div>
+                </div>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="#features" class="nav-link">Fitur</a></li>
+                <li><a href="#stats" class="nav-link">Statistik</a></li>
+                <li><a href="form-progress-kegiatan.html" class="nav-link">Input Data</a></li>
+                <li><a href="login.html" class="nav-link nav-cta">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Masuk Dashboard
+                </a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Monitoring Program dan Anggaran</h1>
-        <h2 style="font-size: 2rem; color: #0d47a1; font-weight: 800; margin-bottom: 1rem;">
-            INSPEKTORAT JENDERAL
-        </h2>
-        <h3 style="font-size: 1.3rem; color: #1976d2; margin-bottom: 2rem;">
-            Kementerian Transmigrasi Republik Indonesia
-        </h3>
-        <p>
-            Platform terpadu untuk memantau dan mengelola program serta anggaran satuan kerja 
-            dengan dashboard analytics yang powerful dan real-time reporting.
-        </p>
-        <div class="cta-buttons">
-            <a href="login.html" class="btn btn-primary">
-                <i class="fas fa-sign-in-alt"></i>
-                Masuk ke Sistem
-            </a>
-            <a href="#features" class="btn btn-secondary">
-                <i class="fas fa-info-circle"></i>
-                Pelajari Lebih Lanjut
-            </a>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-chart-line"></i>
+                    Sistem Monitoring Program Kontraktual
+                </div>
+                <h1 class="hero-title">
+                    Trans Continuous Monitoring & Reporting
+                    <span style="color: var(--primary);">Kementerian Transmigrasi RI</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Platform digital terintegrasi untuk memantau progress kegiatan dan anggaran 
+                    program kontraktual Inspektorat Jenderal Kementerian Transmigrasi secara 
+                    real-time dengan akurasi tinggi dan pelaporan yang komprehensif.
+                </p>
+                <div class="hero-cta">
+                    <a href="login.html" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Akses Dashboard
+                    </a>
+                    <a href="#features" class="btn btn-outline">
+                        <i class="fas fa-play"></i>
+                        Lihat Fitur
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="dashboard-preview fade-in">
+                    <div class="preview-header">
+                        <div class="preview-title">📊 Executive Dashboard</div>
+                    </div>
+                    <div class="preview-metrics">
+                        <div class="preview-metric">
+                            <div class="metric-value">1.2K+</div>
+                            <div class="metric-label">Total Program</div>
+                        </div>
+                        <div class="preview-metric">
+                            <div class="metric-value">89%</div>
+                            <div class="metric-label">Progress Rata-rata</div>
+                        </div>
+                    </div>
+                    <div class="preview-chart">
+                        <div class="chart-bars">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="features-container">
-            <h2>Fitur Unggulan</h2>
+            <div class="section-header fade-in">
+                <div class="section-badge">
+                    <i class="fas fa-cogs"></i>
+                    Fitur Utama
+                </div>
+                <h2 class="section-title">Fitur Monitoring Program Kontraktual</h2>
+                <p class="section-subtitle">
+                    Platform yang dirancang untuk memenuhi kebutuhan monitoring 
+                    program dan anggaran kontraktual dengan standar pemerintahan yang baik.
+                </p>
+            </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
-                        <i class="fas fa-tachometer-alt"></i>
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Dashboard Real-time</h3>
-                    <p>Pantau progress kegiatan secara real-time dengan visualisasi data yang interaktif dan mudah dipahami.</p>
+                    <h3 class="feature-title">Dashboard Real-time</h3>
+                    <p class="feature-description">
+                        Dashboard executive dan progress yang menampilkan data program kontraktual 
+                        terkini dengan visualisasi yang jelas dan metrics yang komprehensif untuk 
+                        mendukung pengambilan keputusan yang tepat.
+                    </p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-bar"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Analytics & Reporting</h3>
-                    <p>Generate laporan komprehensif dengan analytics mendalam untuk pengambilan keputusan yang tepat.</p>
+                    <h3 class="feature-title">Keamanan Data</h3>
+                    <p class="feature-description">
+                        Sistem keamanan dengan autentikasi multi-level, enkripsi data, 
+                        dan kontrol akses yang sesuai dengan standar keamanan informasi 
+                        pemerintah untuk melindungi data program kontraktual.
+                    </p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Multi-User Management</h3>
-                    <p>Kelola multiple satuan kerja dengan sistem role-based access control yang aman dan terpercaya.</p>
-                </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>Responsive Design</h3>
-                    <p>Akses sistem dari perangkat apapun dengan tampilan yang optimal di desktop, tablet, dan mobile.</p>
+                    <h3 class="feature-title">Mobile Responsive</h3>
+                    <p class="feature-description">
+                        Akses sistem dari berbagai perangkat dengan desain responsif yang 
+                        optimal untuk desktop, tablet, dan smartphone untuk mendukung 
+                        mobilitas pegawai dalam melakukan monitoring.
+                    </p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
-                        <i class="fas fa-cloud"></i>
+                        <i class="fas fa-download"></i>
                     </div>
-                    <h3>Cloud Integration</h3>
-                    <p>Data tersimpan aman di cloud dengan backup otomatis dan sinkronisasi real-time antar perangkat.</p>
+                    <h3 class="feature-title">Export & Pelaporan</h3>
+                    <p class="feature-description">
+                        Fitur export data dalam format CSV dan JSON, serta pelaporan 
+                        yang dapat disesuaikan untuk keperluan audit, evaluasi, 
+                        dan presentasi kepada pimpinan.
+                    </p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3>Smart Notifications</h3>
-                    <p>Notifikasi cerdas untuk deadline, milestone, dan update penting lainnya langsung ke dashboard Anda.</p>
+                    <h3 class="feature-title">Manajemen Pengguna</h3>
+                    <p class="feature-description">
+                        Sistem manajemen pengguna dengan kontrol akses berbasis peran, 
+                        memungkinkan kolaborasi antar unit kerja dengan pembagian 
+                        wewenang yang jelas dan jejak audit yang lengkap.
+                    </p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Sinkronisasi Data</h3>
+                    <p class="feature-description">
+                        Sinkronisasi data otomatis dengan cloud database untuk memastikan 
+                        konsistensi data real-time, backup otomatis, dan pemulihan data 
+                        yang handal untuk kontinuitas operasional.
+                    </p>
                 </div>
             </div>
         </div>
@@ -510,24 +953,59 @@
     <!-- Stats Section -->
     <section id="stats" class="stats">
         <div class="stats-container">
-            <h2>Dipercaya Oleh</h2>
+            <div class="section-header fade-in">
+                <div class="section-badge">
+                    <i class="fas fa-chart-bar"></i>
+                    Data Statistik
+                </div>
+                <h2 class="section-title">Statistik Penggunaan Sistem</h2>
+                <p class="section-subtitle">
+                    Data statistik penggunaan sistem monitoring program kontraktual 
+                    di lingkungan Kementerian Transmigrasi.
+                </p>
+            </div>
             <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number">150+</span>
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-count="150">0</span>
                     <div class="stat-label">Satuan Kerja</div>
+                    <div class="stat-description">Aktif menggunakan sistem</div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">1,200+</span>
-                    <div class="stat-label">Kegiatan Aktif</div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-count="1200">0</span>
+                    <div class="stat-label">Program Aktif</div>
+                    <div class="stat-description">Dipantau secara real-time</div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">98%</span>
-                    <div class="stat-label">Akurasi Data</div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-count="98">0</span>
+                    <div class="stat-label">Akurasi Data (%)</div>
+                    <div class="stat-description">Tingkat akurasi data</div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <div class="stat-label">Monitoring</div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-count="24">0</span>
+                    <div class="stat-label">Jam Monitoring</div>
+                    <div class="stat-description">Pemantauan 24/7 non-stop</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container fade-in">
+            <h2 class="cta-title">Akses Sistem Monitoring Program Kontraktual</h2>
+            <p class="cta-subtitle">
+                Sistem monitoring program kontraktual untuk mendukung transparansi 
+                dan akuntabilitas pengelolaan anggaran di Kementerian Transmigrasi.
+            </p>
+            <div class="cta-buttons">
+                <a href="login.html" class="btn btn-white">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Masuk Sistem
+                </a>
+                <a href="user-registration.html" class="btn btn-outline-white">
+                    <i class="fas fa-user-plus"></i>
+                    Registrasi
+                </a>
             </div>
         </div>
     </section>
@@ -541,81 +1019,118 @@
                 <a href="executive-dashboard.html">Executive Dashboard</a>
                 <a href="progress-dashboard.html">Progress Dashboard</a>
             </div>
-            <p>&copy; 2024 Monitoring Program dan Anggaran - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia. All rights reserved.</p>
-    </div>
+            <p class="footer-text">
+                &copy; 2024 TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi Republik Indonesia. 
+                <br>All rights reserved. Developed with excellence for government transparency and accountability.
+            </p>
+        </div>
     </footer>
 
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        // Scroll Progress Indicator
+        function updateScrollIndicator() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        }
 
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
+        // Navbar scroll effect
+        function updateNavbar() {
+            const navbar = document.getElementById('navbar');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.classList.add('scrolled');
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.classList.remove('scrolled');
             }
-        });
+        }
 
-        // Animate stats when visible
+        // Intersection Observer for animations
         const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const statNumbers = entry.target.querySelectorAll('.stat-number');
-                    statNumbers.forEach(stat => {
-                        const finalNumber = stat.textContent;
-                        const isPercentage = finalNumber.includes('%');
-                        const isTime = finalNumber.includes('/');
-                        
-                        if (!isPercentage && !isTime) {
-                            const number = parseInt(finalNumber.replace(/[^\d]/g, ''));
-                            animateNumber(stat, 0, number, 2000, finalNumber.includes('+') ? '+' : '');
-                        }
-                    });
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) {
-            observer.observe(statsSection);
+        // Counter animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
         }
 
-        function animateNumber(element, start, end, duration, suffix = '') {
-            const startTime = performance.now();
-            
-            function updateNumber(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                const current = Math.floor(start + (end - start) * progress);
-                element.textContent = current.toLocaleString() + suffix;
-                
-                if (progress < 1) {
-                    requestAnimationFrame(updateNumber);
+        // Stats counter observer
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const target = parseInt(stat.getAttribute('data-count'));
+                        animateCounter(stat, target);
+                    });
+                    statsObserver.unobserve(entry.target);
                 }
-            }
-            
-            requestAnimationFrame(updateNumber);
+            });
+        }, { threshold: 0.5 });
+
+        // Smooth scrolling
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Observe stats section
+            const statsSection = document.querySelector('.stats');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+
+            // Smooth scroll for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('href');
+                    if (target !== '#') {
+                        smoothScroll(target);
+                    }
+                });
+            });
+        });
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateScrollIndicator();
+            updateNavbar();
+        });
+
+        // Initial calls
+        updateScrollIndicator();
+        updateNavbar();
     </script>
 </body>
 </html>

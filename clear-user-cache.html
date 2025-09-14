@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear User Cache - Fix Satker Mapping</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔧 Clear User Cache - Fix Satker Mapping</h1>
+        
+        <div class="alert alert-info">
+            <strong>Masalah:</strong> User cache menyimpan satker code lama yang tidak sesuai dengan data Firebase terbaru.
+        </div>
+
+        <div id="currentStatus">
+            <h3>📊 Current User Status:</h3>
+            <div id="userInfo"></div>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <h3>🛠️ Actions:</h3>
+            <button class="btn btn-danger" onclick="clearUserCache()">
+                🗑️ Clear User Cache
+            </button>
+            <button class="btn btn-success" onclick="testLogin()">
+                🔐 Test Login (nakerposo)
+            </button>
+            <button class="btn" onclick="goToLogin()">
+                📝 Go to Login Page
+            </button>
+            <button class="btn" onclick="goToDashboard()">
+                📊 Go to Dashboard
+            </button>
+        </div>
+
+        <div id="results"></div>
+
+        <div class="alert alert-warning">
+            <strong>Langkah-langkah:</strong><br>
+            1. Klik "Clear User Cache" untuk hapus data lama<br>
+            2. Klik "Test Login" untuk login ulang dengan data terbaru<br>
+            3. Klik "Go to Dashboard" untuk cek apakah data muncul
+        </div>
+    </div>
+
+    <script>
+        // Check current user status
+        function checkCurrentUser() {
+            const userData = localStorage.getItem('satker_current_user');
+            const userInfo = document.getElementById('userInfo');
+            
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    userInfo.innerHTML = `
+                        <strong>✅ User Found:</strong><br>
+                        Username: ${user.username}<br>
+                        Role: ${user.role}<br>
+                        Satker Code: <span style="color: ${user.satkerCode === '694568' ? 'green' : 'red'}">${user.satkerCode}</span><br>
+                        <small>Expected for nakerposo: 694568</small>
+                    `;
+                } catch (error) {
+                    userInfo.innerHTML = `<span style="color: red;">❌ Invalid user data in cache</span>`;
+                }
+            } else {
+                userInfo.innerHTML = `<span style="color: orange;">⚠️ No user data in cache</span>`;
+            }
+        }
+
+        function clearUserCache() {
+            localStorage.removeItem('satker_current_user');
+            localStorage.removeItem('satker_users_cache');
+            
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <div class="alert alert-success">
+                    ✅ User cache cleared successfully!<br>
+                    All stored user data has been removed.
+                </div>
+            `;
+            
+            checkCurrentUser();
+        }
+
+        function testLogin() {
+            // Simulate login with nakerposo
+            const testUser = {
+                username: 'nakerposo',
+                role: 'satker_admin',
+                satkerCode: '694568', // CORRECT CODE
+                satkerName: 'Dinas Tenaga Kerja dan Transmigrasi Kabupaten Poso',
+                provinsi: 'Sulawesi Tengah',
+                kabupaten: 'Poso'
+            };
+            
+            localStorage.setItem('satker_current_user', JSON.stringify(testUser));
+            
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <div class="alert alert-success">
+                    ✅ Test login successful!<br>
+                    User: nakerposo<br>
+                    Satker Code: 694568 (CORRECT)<br>
+                    Ready to test dashboard!
+                </div>
+            `;
+            
+            checkCurrentUser();
+        }
+
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+
+        function goToDashboard() {
+            window.location.href = 'progress-dashboard.html';
+        }
+
+        // Initialize
+        checkCurrentUser();
+    </script>
+</body>
+</html>

@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive Dashboard - Dashboard Monitoring Program dan Anggaran - Inspektorat Jenderal Kementrans</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Executive Dashboard - TC-More (Trans Continuous Monitoring & Reporting) - Inspektorat Jenderal Kementerian Transmigrasi RI</title>
     
     <!-- Favicon dan Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
@@ -961,7 +964,9 @@
                 <div class="navbar-icon">
                     <img src="logo/logo.png" alt="Logo Inspektorat Jenderal" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-md);">
                 </div>
-                <div class="navbar-title">Executive Dashboard</div>
+                <div class="navbar-title">TC-More</div>
+                <div class="navbar-subtitle" style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">Trans Continuous Monitoring & Reporting</div>
+                <div class="navbar-subtitle" style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 1px;">Inspektorat Jenderal Kementerian Transmigrasi RI</div>
             </a>
             
             <div class="navbar-actions">
@@ -1130,7 +1135,7 @@
                 </div>
                 <div class="risk-indicator" id="riskIndicator" style="width: 100%; height: 4px; border-radius: 2px; margin-top: 8px; background: var(--text-tertiary);"></div>
                 <div class="metric-calculation" style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 8px; padding: 4px 8px; background: rgba(0,0,0,0.05); border-radius: 4px;">
-                    💡 Berdasarkan: Coverage program & anggaran. AMAN ≥80%, PERHATIAN 60-79%, BERBAHAYA <60%
+                    💡 Berdasarkan: Coverage program & anggaran. AMAN ≥80%, ATENSI 60-79%, ATENSI LEBIH <60%
                 </div>
             </div>
 
@@ -1293,7 +1298,7 @@
     <!-- Load Dependencies -->
     <script src="indonesia-regions-complete.js"></script>
     <script src="satker-data-complete.js"></script>
-    <script src="user-auth-system.js"></script>
+    <script src="simple_auth.js"></script>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -1347,11 +1352,11 @@
             console.log('🚀 Executive Dashboard initializing... (VERSION: COVERAGE-ANALYSIS-FIXED-v2)');
             
             try {
-                // Use existing global authSystem or create new one
-                userAuthSystem = window.authSystem || new UserAuthSystem();
-                console.log('✅ Auth system loaded');
+                // Use SimpleAuth system
+                userAuthSystem = window.SimpleAuth;
+                console.log('✅ SimpleAuth system loaded');
             } catch (error) {
-                console.warn('⚠️ Auth system not available:', error);
+                console.warn('⚠️ SimpleAuth system not available:', error);
             }
 
             // Wait for Firebase or start immediately
@@ -1397,15 +1402,71 @@
                 
             } catch (error) {
                 console.error('❌ Dashboard initialization error:', error);
-                console.error('❌ Error stack:', error.stack);
-                showFallbackMessage();
+                document.getElementById('dashboardStatus').textContent = 'Status: Error ❌';
             }
         }
+        
+        // ===== FLEXIBLE MATCHING FUNCTIONS =====
+        
+        function isCodeMatch(userCode, dataCode) {
+            // Exact match
+            if (userCode === dataCode) return true;
+            
+            // Both are "ALL"
+            if (userCode === 'ALL' || dataCode === 'ALL') return true;
+            
+            // Extract location parts for matching
+            const userLocation = extractLocationFromCode(userCode);
+            const dataLocation = extractLocationFromCode(dataCode);
+            
+            // Location-based match (e.g., NAKER_SUKAMARA_123 matches NAKER_SUKAMARA_163)
+            if (userLocation && dataLocation && userLocation === dataLocation) {
+                return true;
+            }
+            
+            // Pattern-based match for similar structures
+            if (userCode.includes('NAKER') && dataCode.includes('NAKER')) {
+                const userParts = userCode.split('_');
+                const dataParts = dataCode.split('_');
+                
+                // Match if location (second part) is same
+                if (userParts[1] && dataParts[1] && userParts[1] === dataParts[1]) {
+                    return true;
+                }
+            }
+            
+            // SATKER pattern matching
+            if (userCode.includes('SATKER') && dataCode.includes('SATKER')) {
+                // For now, allow any SATKER to match any SATKER (can be refined)
+                return true;
+            }
+            
+            return false;
+        }
+        
+        function extractLocationFromCode(code) {
+            if (!code) return '';
+            const parts = code.split('_');
+            return parts.length >= 2 ? parts[1] : '';
+        }
+
+        function showFallbackMessage() {
+            document.getElementById('dashboardStatus').textContent = 'Status: Error Loading Data ❌';
+            console.error('❌ Dashboard error - showing fallback message');
+        }
+
 
         async function loadProgressData() {
             try {
-                // Check user permissions first
-                const currentUser = userAuthSystem ? userAuthSystem.getCurrentUser() : null;
+                // Check user permissions first with error handling
+                let currentUser = null;
+                try {
+                    currentUser = userAuthSystem ? userAuthSystem.getCurrentUser() : null;
+                } catch (userError) {
+                    console.warn('⚠️ Error getting current user:', userError);
+                    currentUser = null;
+                }
+                console.log('🔧 Current user:', currentUser);
                 let allData = [];
                 
                 // Try localStorage first
@@ -1437,27 +1498,29 @@
 
                 // Filter data based on user permissions
                 if (currentUser && userAuthSystem) {
-                    if (userAuthSystem.hasPermission('view_all_reports') || userAuthSystem.hasPermission('view_all_satker')) {
-                        // Super admin sees all data
+                    if (currentUser.role === 'super_admin') {
+                        // Super admin sees ALL data (including viewableBy: ["ALL"])
                         progressData = allData;
                         console.log(`👑 Super admin: viewing all ${progressData.length} records`);
-                        document.getElementById('dataSource').textContent = 'Data Source: All Satkers (Executive View)';
+                        document.getElementById('dataSource').textContent = 'Data Source: All Satkers (Super Admin View)';
                     } else {
-                        // Regular satker admin sees only their own data
+                        // Satker admin sees ONLY their own data (NO "ALL" access)
+                        const userSatkerCode = currentUser.satkerCode || '';
                         progressData = allData.filter(item => {
-                            // DUAL-ACCESS SYSTEM: Check viewableBy array
+                            // STRICT FILTERING: Only exact satkerCode match
                             if (item.viewableBy && Array.isArray(item.viewableBy)) {
-                                return item.viewableBy.includes(currentUser.satkerCode) || 
-                                       item.viewableBy.includes("ALL");
+                                // ONLY exact match, NO "ALL" access for satker
+                                return item.viewableBy.includes(userSatkerCode);
                             } else {
-                                // Fallback untuk data lama tanpa viewableBy
-                                return item.satkerCode === currentUser.satkerCode;
+                                // Fallback: direct satkerCode match
+                                return item.satkerCode === userSatkerCode;
                             }
                         });
-                        console.log(`👤 Satker admin (${currentUser.satkerCode}): viewing ${progressData.length} own records`);
-                        document.getElementById('dataSource').textContent = `Data Source: ${currentUser.satkerName} (Satker View)`;
+                        console.log(`👤 Satker (${userSatkerCode}): viewing ${progressData.length} own records only`);
+                        const userSatkerName = currentUser.satkerName || currentUser.username || 'Unknown Satker';
+                        document.getElementById('dataSource').textContent = `Data Source: ${userSatkerName} (Satker View)`;
                         
-                        // Check if all data has "ALL" satkerCode - indicates need for regional assignment
+                        // Check if no data found
                         if (progressData.length === 0 && allData.length > 0) {
                             const allCodes = [...new Set(allData.map(d => d.satkerCode))];
                             if (allCodes.length === 1 && allCodes[0] === 'ALL') {
@@ -1472,6 +1535,8 @@
                     console.log(`🔓 No auth: viewing all ${progressData.length} records`);
                     document.getElementById('dataSource').textContent = 'Data Source: All Data (Public View)';
                 }
+
+                console.log(`🕐 Executive Dashboard Updated: ${new Date().toLocaleString()}`);
 
                 // If no data found, show empty state (no more sample data)
                 if (progressData.length === 0) {
@@ -1491,41 +1556,54 @@
 
         // ===== SMART GETTER FUNCTIONS FOR FIREBASE SYNC =====
         
-        // Smart getter untuk Pagu Anggaran (backward compatibility)
-        function getPaguAnggaran(item) {
-            return parseFloat(item.paguAnggaran || item.nilaiAnggaran) || 0;
-        }
-        
-        // Smart getter untuk Nilai Kontrak (dengan fallback)
-        function getNilaiKontrak(item) {
-            return parseFloat(item.nilaiKontrak) || getPaguAnggaran(item);
-        }
-        
-        // Smart getter untuk Progress Fisik (handle old/new formats)
-        function getProgressFisik(item) {
-            if (typeof item.progressFisik === 'number') {
-                return item.progressFisik; // New format: exact number
-            } else if (typeof item.progressFisik === 'string') {
-                // Old format: convert range to middle value
-                const rangeMap = {
-                    "0": 0, "1-25": 12.5, "26-50": 37.5, 
-                    "51-75": 62.5, "76-85": 80, "86-95": 90, "96-100": 98
-                };
-                return rangeMap[item.progressFisik] || 0;
+        // Safe data access helper
+        function safeAccess(item, property, defaultValue = 0) {
+            try {
+                if (!item || item === null || item === undefined) return defaultValue;
+                const value = item[property];
+                if (value === null || value === undefined) return defaultValue;
+                return value;
+            } catch (error) {
+                console.warn(`⚠️ Safe access error for property ${property}:`, error);
+                return defaultValue;
             }
-            return 0;
+        }
+        
+        // Smart getter untuk Pagu Anggaran (langsung dari Firebase)
+        function getPaguAnggaran(item) {
+            if (!item) return 0;
+            return parseFloat(item.paguAnggaran) || 0;
+        }
+        
+        // Smart getter untuk Nilai Kontrak (langsung dari Firebase)
+        function getNilaiKontrak(item) {
+            if (!item) return 0;
+            return parseFloat(item.nilaiKontrak) || 0;
+        }
+        
+        // Smart getter untuk Progress Fisik (langsung dari Firebase)
+        function getProgressFisik(item) {
+            if (!item) return 0;
+            return parseFloat(item.progressFisik) || 0;
         }
 
         function calculateMetrics() {
-            if (progressData.length === 0) {
+            try {
+                if (!progressData || progressData.length === 0) {
+                    showEmptyState();
+                    return;
+                }
+                
+                console.log(`📊 Calculating metrics for ${progressData.length} records`);
+            } catch (error) {
+                console.error('❌ Error in calculateMetrics:', error);
                 showEmptyState();
                 return;
             }
 
-            // Total Pagu Anggaran (using smart getter)
-            const totalBudget = progressData.reduce((sum, item) => {
-                return sum + getPaguAnggaran(item);
-            }, 0);
+            // Total Pagu Anggaran (langsung dari Firebase)
+            const totalBudget = progressData.reduce((sum, item) => 
+                sum + (parseFloat(item.paguAnggaran) || 0), 0);
 
             // ✅ FAKTUAL: Total Nilai Kontrak HANYA dari yang benar-benar ada kontrak
             const kegiatanSudahKontrak = progressData.filter(item => {
@@ -1533,14 +1611,12 @@
                 return nilaiKontrak > 0;
             });
             
-            const totalKontrak = kegiatanSudahKontrak.reduce((sum, item) => {
-                return sum + (parseFloat(item.nilaiKontrak) || 0);
-            }, 0);
+            const totalKontrak = kegiatanSudahKontrak.reduce((sum, item) => 
+                sum + (parseFloat(item.nilaiKontrak) || 0), 0);
 
-            // Total Absorption/Realisasi
-            const totalAbsorption = progressData.reduce((sum, item) => {
-                return sum + (parseFloat(item.progressKeuangan) || 0);
-            }, 0);
+            // Total Absorption/Realisasi (langsung dari Firebase)
+            const totalAbsorption = progressData.reduce((sum, item) => 
+                sum + (parseFloat(item.progressKeuangan) || 0), 0);
 
             // 🎯 SMART CALCULATION: Separate tracking untuk akurasi
             let avgAbsorptionRate = 0;
@@ -1783,7 +1859,7 @@
             const uncontractedPrograms_coverage = totalPrograms_coverage - contractedPrograms_coverage;
             
             // Calculate totals
-            const totalBudget_coverage = progressData.reduce((sum, item) => sum + getPaguAnggaran(item), 0);
+            const totalBudget_coverage = progressData.reduce((sum, item) => sum + (parseFloat(item.paguAnggaran) || 0), 0);
             const totalKontrak_coverage = kegiatanSudahKontrak_coverage.reduce((sum, item) => sum + (parseFloat(item.nilaiKontrak) || 0), 0);
             const gapAmount_coverage = totalBudget_coverage - totalKontrak_coverage;
             
@@ -1797,11 +1873,11 @@
             let riskDescription = 'Coverage memadai';
             
             if (programCoverage < 60 || budgetCoverage < 60) {
-                riskLevel = 'BERBAHAYA';
+                riskLevel = 'ATENSI LEBIH';
                 riskColor = 'var(--danger)';
                 riskDescription = 'Coverage rendah, perlu tindakan segera';
             } else if (programCoverage < 80 || budgetCoverage < 80) {
-                riskLevel = 'PERHATIAN';
+                riskLevel = 'ATENSI';
                 riskColor = 'var(--warning)';
                 riskDescription = 'Coverage perlu ditingkatkan';
             }
@@ -1991,7 +2067,7 @@
                     const itemDate = new Date(item.createdAt || item.submittedAt);
                     return itemDate.getMonth() <= index;
                 });
-                return monthProgress.reduce((sum, item) => sum + getPaguAnggaran(item), 0) / 1000000; // Dalam jutaan
+                return monthProgress.reduce((sum, item) => sum + (parseFloat(item.paguAnggaran) || 0), 0) / 1000000; // Dalam jutaan
             });
 
             const absorptionData = visibleMonths.map((month, index) => {
@@ -2058,7 +2134,7 @@
             };
 
             progressData.forEach(item => {
-                const physicalProgress = getProgressFisik(item); // Using smart getter
+                const physicalProgress = parseFloat(item.progressFisik) || 0;
                 if (physicalProgress === 0) {
                     progressCategories['Belum Mulai (0%)']++;
                 } else if (physicalProgress <= 25) {
@@ -2111,7 +2187,7 @@
                 if (!provinceBudgets[province]) {
                     provinceBudgets[province] = 0;
                 }
-                provinceBudgets[province] += getPaguAnggaran(item);
+                provinceBudgets[province] += (parseFloat(item.paguAnggaran) || 0);
             });
 
             // Get top 10 provinces
@@ -2162,7 +2238,7 @@
             };
 
             progressData.forEach(item => {
-                const progress = getProgressFisik(item); // Using smart getter
+                const progress = parseFloat(item.progressFisik) || 0;
                 if (progress === 0) progressRanges['0%']++;
                 else if (progress <= 25) progressRanges['1-25%']++;
                 else if (progress <= 50) progressRanges['26-50%']++;
@@ -2236,7 +2312,7 @@
 
             // Stalled projects (0% physical progress)
             const stalledProjects = progressData.filter(item => {
-                const progress = getProgressFisik(item); // Using smart getter
+                const progress = parseFloat(item.progressFisik) || 0;
                 return progress === 0;
             });
 
@@ -2249,9 +2325,9 @@
                 });
             }
 
-            // Budget vs absorption gap (using smart getter)
+            // Budget vs absorption gap (langsung dari Firebase)
             const bigGapItems = progressData.filter(item => {
-                const budget = getPaguAnggaran(item); // Using smart getter
+                const budget = parseFloat(item.paguAnggaran) || 0;
                 const absorption = parseFloat(item.progressKeuangan) || 0;
                 const gap = budget - absorption;
                 return gap > 500000000; // 500 Juta gap
@@ -2594,7 +2670,7 @@
             const uncontractedPrograms = totalPrograms - contractedPrograms;
             
             // Calculate totals
-            const totalBudget = progressData.reduce((sum, item) => sum + getPaguAnggaran(item), 0);
+            const totalBudget = progressData.reduce((sum, item) => sum + (parseFloat(item.paguAnggaran) || 0), 0);
             const totalKontrak = kegiatanSudahKontrak.reduce((sum, item) => sum + (parseFloat(item.nilaiKontrak) || 0), 0);
             const gapAmount = totalBudget - totalKontrak;
             
@@ -2608,11 +2684,11 @@
             let riskDescription = 'Coverage memadai';
             
             if (programCoverage < 60 || budgetCoverage < 60) {
-                riskLevel = 'BERBAHAYA';
+                riskLevel = 'ATENSI LEBIH';
                 riskColor = 'var(--danger)';
                 riskDescription = 'Coverage rendah, perlu tindakan segera';
             } else if (programCoverage < 80 || budgetCoverage < 80) {
-                riskLevel = 'PERHATIAN';
+                riskLevel = 'ATENSI';
                 riskColor = 'var(--warning)';
                 riskDescription = 'Coverage perlu ditingkatkan';
             }
@@ -2816,6 +2892,50 @@
             });
         }
 
+        function showMessage(message, type = 'info') {
+            // Create or update message element
+            let messageEl = document.getElementById('errorMessage');
+            if (!messageEl) {
+                messageEl = document.createElement('div');
+                messageEl.id = 'errorMessage';
+                messageEl.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 16px 24px;
+                    border-radius: 8px;
+                    z-index: 1000;
+                    max-width: 400px;
+                    font-weight: 500;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                `;
+                document.body.appendChild(messageEl);
+            }
+
+            // Set message and styling based on type
+            messageEl.textContent = message;
+            messageEl.className = `message-${type}`;
+            
+            const colors = {
+                info: { bg: '#3b82f6', text: 'white' },
+                warning: { bg: '#f59e0b', text: 'white' },
+                error: { bg: '#ef4444', text: 'white' },
+                success: { bg: '#10b981', text: 'white' }
+            };
+            
+            const color = colors[type] || colors.info;
+            messageEl.style.backgroundColor = color.bg;
+            messageEl.style.color = color.text;
+            messageEl.style.display = 'block';
+
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                if (messageEl) {
+                    messageEl.style.display = 'none';
+                }
+            }, 5000);
+        }
+
         // Sample data generator removed - using real Firebase data only
         // If you need to re-enable sample data for testing, uncomment the function above
 
@@ -2833,7 +2953,7 @@
                 generatedAt: new Date().toISOString(),
                 summary: {
                     totalPrograms: progressData.length,
-                    totalBudget: progressData.reduce((sum, item) => sum + (parseFloat(item.nilaiAnggaran) || 0), 0),
+                    totalBudget: progressData.reduce((sum, item) => sum + (parseFloat(item.paguAnggaran) || 0), 0),
                     totalAbsorption: progressData.reduce((sum, item) => sum + (parseFloat(item.progressKeuangan) || 0), 0),
                     uniqueSatkers: getUniqueSatkerCount()
                 },
