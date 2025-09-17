@@ -635,17 +635,8 @@
 
         <!-- Demo Users -->
         <div class="demo-users">
-            <h4><i class="fas fa-users"></i> Demo Users</h4>
             <div id="demoUsersList">
                 <!-- Will be populated by JavaScript -->
-            </div>
-            <div style="text-align: center; margin-top: 15px;">
-                <button type="button" onclick="refreshDemoUsers()" style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">
-                    <i class="fas fa-sync-alt"></i> Refresh Users
-                </button>
-                <button type="button" onclick="showAllUsers()" style="background: var(--info); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; margin-left: 8px;">
-                    <i class="fas fa-list"></i> Show All Users
-                </button>
             </div>
         </div>
 
@@ -933,10 +924,38 @@
                     satkerCode: 'ALL',
                     satkerName: 'All Satuan Kerja'
                 });
+
+                // Add menteri user
+                users.push({
+                    username: 'menteri',
+                    password: 'transmigrasi2025',
+                    fullName: 'Menteri Transmigrasi',
+                    role: 'menteri_transmigrasi',
+                    satkerCode: 'ALL',
+                    satkerName: 'Kementerian Transmigrasi Republik Indonesia'
+                });
+
+                // Add nakerbarelang user
+                users.push({
+                    username: 'nakerbarelang',
+                    password: 'password123',
+                    fullName: 'Admin Dinas Perumahan Rakyat, Permukiman dan Pertamanan Kota Batam',
+                    role: 'satker_admin',
+                    satkerCode: '691702',
+                    satkerName: 'Dinas Perumahan Rakyat, Permukiman dan Pertamanan Kota Batam',
+                    provinsi: 'Kepulauan Riau',
+                    kabupaten: 'Batam'
+                });
                
                 // Create users from satker data
                 completeSatkerData.forEach((satker, index) => {
                     const username = this.generateUsername(satker.name);
+                    
+                    // Skip if username already exists (avoid duplicates)
+                    if (users.find(u => u.username === username)) {
+                        console.log(`⚠️ Skipping duplicate username: ${username}`);
+                        return;
+                    }
                    
                     users.push({
                         username: username,
@@ -947,6 +966,11 @@
                         satkerName: satker.name,
                         satkerData: satker
                     });
+                    
+                    // Log first few users for debugging
+                    if (index < 5) {
+                        console.log(`✅ Created user: ${username} (${satker.name})`);
+                    }
                 });
                
                 console.log(`✅ Created ${users.length} users from satker data`);
@@ -955,8 +979,8 @@
 
             generateUsername: function(name) {
                 return name.toLowerCase()
-                    .replace(/[^a-z0-9\\s]/g, '')
-                    .replace(/\\s+/g, '')
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '')
                     .substring(0, 20);
             }
         };
@@ -978,12 +1002,22 @@
                 // Check if user is already logged in
                 const currentUser = window.SimpleAuth.getCurrentUser();
                 if (currentUser) {
-                    console.log('👤 User already logged in:', currentUser);
-                    redirectToDashboard();
+                    console.log('✅ Already logged in as:', currentUser.username);
+                    // Give user choice instead of auto-redirect
+                    showAlreadyLoggedIn(currentUser);
                     return;
                 }
                 
                 console.log('✅ Login system ready with embedded SimpleAuth');
+                
+                // Setup form handler
+                setupLoginForm();
+                
+                // Initialize and show demo users
+                initializeDemoUsers();
+                
+                // Show welcome message
+                showMessage('Selamat datang! Silakan login untuk mengakses sistem.', 'info');
                 
                 // Load users to populate dropdown if needed
                 const users = window.SimpleAuth.getUsers();
@@ -1030,25 +1064,6 @@
             }, 100);
         });
 
-        function initializeLogin() {
-            // Simple check - no aggressive redirect
-            const currentUser = window.SimpleAuth.getCurrentUser();
-            if (currentUser) {
-                console.log('✅ Already logged in as:', currentUser.username);
-                // Give user choice instead of auto-redirect
-                showAlreadyLoggedIn(currentUser);
-                return;
-            }
-            
-            // Setup form handler
-            setupLoginForm();
-            
-            // Initialize and show demo users
-            initializeDemoUsers();
-            
-            // Show welcome message
-            showMessage(`Selamat datang! Silakan login untuk mengakses sistem.`, 'info');
-        }
 
         function showAlreadyLoggedIn(user) {
             const messageContainer = document.getElementById('messageContainer');
@@ -1093,7 +1108,7 @@
 
         // Handle login form submission
         async function handleLogin(e) {
-            e.preventDefault();
+            if (e) e.preventDefault();
             
             if (isLoading) return;
             
@@ -1178,6 +1193,12 @@
                     password: 'admin123',
                     displayName: 'Super Administrator',
                     role: 'Full System Access'
+                },
+                {
+                    username: 'menteri',
+                    password: 'transmigrasi2025',
+                    displayName: 'Menteri Transmigrasi',
+                    role: 'Full Ministry Access'
                 }
             ];
             
@@ -1203,6 +1224,9 @@
 
         // Create demo user HTML
         function createDemoUserHTML(user, displayName, roleDescription) {
+            // Generate stars based on password length
+            const passwordStars = '*'.repeat(user.password.length);
+            
             return `
                 <div class="demo-user" onclick="fillLogin('${user.username}', '${user.password}')">
                     <div class="demo-user-info">
@@ -1211,7 +1235,7 @@
                     </div>
                     <div class="demo-user-credentials">
                         <div class="demo-username">${user.username}</div>
-                        <div class="demo-password">${user.password}</div>
+                        <div class="demo-password">${passwordStars}</div>
                     </div>
                 </div>
             `;
@@ -1223,7 +1247,7 @@
                 const users = window.SimpleAuth.getUsers();
                 
                 if (users.length === 0) {
-                    alert('No users found. Click "Refresh Users" first.');
+                    alert('No users found.');
                     return;
                 }
                 
@@ -1284,7 +1308,7 @@
             document.getElementById('loginBtn').focus();
             
             // Show hint
-            showMessage(`Demo login: ${username}. Klik "Masuk" untuk login.`, 'info');
+            showMessage(`Kredensial telah diisi. Klik "Masuk" untuk login.`, 'info');
         }
 
         // Toggle password visibility
@@ -1384,9 +1408,9 @@
 2. Atau masukkan username/password manual
 3. Klik "Masuk"
 
-👥 Demo Users:
+👥 Quick Login:
 • Super Admin: akses semua satker
-• Admin Satker: akses satker sendiri saja
+• Menteri: akses seluruh kementerian
 
 🔐 Default Password: password123
 (Bisa diubah setelah login)
@@ -1441,14 +1465,12 @@
 ✨ NEW FEATURES:
 • Auto-detect correct usernames
 • Dynamic demo users list
-• "Show All Users" button
 • Real-time user creation
 
 🎯 How to Login:
-1. Click "Refresh Users" to load demo users
-2. Click on any demo user to auto-fill
-3. Or click "Show All Users" to see complete list
-4. Super Admin always available: superadmin / admin123
+1. Click on any demo user to auto-fill
+2. Super Admin and Menteri always available
+3. Or enter username/password manually
 
 🧪 Debug Commands:
 • window.authManager.getSystemUsers() - View all users
@@ -1456,12 +1478,6 @@
 • refreshDemoUsers() - Reload demo users
         `);
 
-        // Initialize login when everything is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeLogin);
-        } else {
-            initializeLogin();
-        }
     </script>
 </body>
 </html>

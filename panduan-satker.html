@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Panduan Satuan Kerja - TC-More - Inspektorat Jenderal Kementerian Transmigrasi RI</title>
+    
+    <!-- Favicon dan Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo/logo.png">
+    <link rel="shortcut icon" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo/logo.png">
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Buku Panduan Lengkap Satuan Kerja untuk Aplikasi TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi RI">
+    <meta name="keywords" content="Panduan, Manual, Satuan Kerja, TC-More, Inspektorat Jenderal, Kementerian Transmigrasi">
+    <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Colors - Consistent with dashboard */
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #6b7280;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            
+            /* Backgrounds */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            
+            /* Text */
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-tertiary: #94a3b8;
+            
+            /* Borders */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            
+            .navbar, .print-hide, .floating-nav {
+                display: none !important;
+            }
+            
+            .container {
+                max-width: none;
+                padding: 0;
+            }
+            
+            .guide-section {
+                page-break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+            
+            .step-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+
+        /* Header Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .navbar-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-logo img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .navbar-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .navbar-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Floating Navigation */
+        .floating-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 0.5rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-light);
+            z-index: 999;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .floating-nav-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin: 0.25rem 0;
+            white-space: nowrap;
+        }
+
+        .floating-nav-item:hover,
+        .floating-nav-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .floating-nav-item i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 120px 2rem 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .guide-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .guide-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .guide-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-weight: 400;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+        }
+
+        .toc-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .toc-item {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+        }
+
+        .toc-item:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        .toc-link {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toc-link:hover {
+            color: var(--primary);
+        }
+
+        .toc-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+        }
+
+        /* Guide Sections */
+        .guide-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Steps */
+        .steps-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .step-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--success);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .step-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .step-content ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .step-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Screenshot placeholder */
+        .screenshot {
+            background: var(--bg-tertiary);
+            border: 2px dashed var(--border-medium);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-tertiary);
+            margin: 1.5rem 0;
+        }
+
+        .screenshot i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Important Notes */
+        .note {
+            background: var(--warning);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .note.info {
+            background: var(--info);
+        }
+
+        .note.success {
+            background: var(--success);
+        }
+
+        .note.danger {
+            background: var(--danger);
+        }
+
+        .note-icon {
+            font-size: 1.25rem;
+            margin-top: 0.125rem;
+        }
+
+        .note-content {
+            flex: 1;
+        }
+
+        .note-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--text-primary);
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        /* Form Examples */
+        .form-example {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .floating-nav {
+                display: none;
+            }
+
+            .navbar-content {
+                padding: 0 1rem;
+            }
+
+            .navbar-nav {
+                display: none;
+            }
+
+            .main-content {
+                padding: 100px 1rem 60px;
+            }
+
+            .guide-title {
+                font-size: 2.25rem;
+            }
+
+            .guide-section {
+                padding: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            height: 4px;
+            background: var(--primary);
+            z-index: 999;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-logo">
+                    <img src="logo/logo.png" alt="Logo Itjen">
+                </div>
+                <div class="navbar-text">
+                    <div class="navbar-title">TC-More</div>
+                    <div class="navbar-subtitle">Buku Panduan Satuan Kerja</div>
+                    <div class="navbar-subtitle" style="font-size: 0.75rem; margin-top: 2px;">Inspektorat Jenderal Kementerian Transmigrasi RI</div>
+                </div>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Beranda</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="progress-dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><button onclick="window.print()" class="btn btn-primary print-hide">
+                    <i class="fas fa-print"></i>
+                    Cetak Panduan
+                </button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Floating Navigation -->
+    <nav class="floating-nav" id="floatingNav">
+        <a href="#login" class="floating-nav-item">
+            <i class="fas fa-sign-in-alt"></i>
+            Login Sistem
+        </a>
+        <a href="#dashboard" class="floating-nav-item">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+        </a>
+        <a href="#kontrak" class="floating-nav-item">
+            <i class="fas fa-file-contract"></i>
+            Update Kontrak
+        </a>
+        <a href="#keuangan" class="floating-nav-item">
+            <i class="fas fa-money-bill-wave"></i>
+            Progress Keuangan
+        </a>
+        <a href="#fisik" class="floating-nav-item">
+            <i class="fas fa-tasks"></i>
+            Progress Fisik
+        </a>
+        <a href="#kendala" class="floating-nav-item">
+            <i class="fas fa-exclamation-triangle"></i>
+            Kendala & Mitigasi
+        </a>
+        <a href="#dokumentasi" class="floating-nav-item">
+            <i class="fas fa-camera"></i>
+            Dokumentasi
+        </a>
+        <a href="#tips" class="floating-nav-item">
+            <i class="fas fa-lightbulb"></i>
+            Tips & Trik
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="guide-header fade-in">
+            <div class="guide-badge">
+                <i class="fas fa-book"></i>
+                Buku Panduan Lengkap
+            </div>
+            <h1 class="guide-title">
+                Panduan Satuan Kerja
+                <span style="color: var(--primary);">TC-More</span>
+            </h1>
+            <p class="guide-subtitle">
+                Panduan lengkap untuk Satuan Kerja dalam menggunakan aplikasi TC-More (Trans Continuous Monitoring & Reporting) 
+                untuk monitoring dan pelaporan program kontraktual Kementerian Transmigrasi secara real-time.
+            </p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc fade-in">
+            <h2 class="toc-title">
+                <i class="fas fa-list"></i>
+                Daftar Isi
+            </h2>
+            <ul class="toc-list">
+                <li class="toc-item">
+                    <a href="#login" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-sign-in-alt"></i></div>
+                        <div>
+                            <div>1. Login ke Sistem</div>
+                            <small style="color: var(--text-tertiary);">Akses dan autentikasi</small>
+                        </div>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#dashboard" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div>
+                            <div>2. Navigasi Dashboard</div>
+                            <small style="color: var(--text-tertiary);">Memahami interface</small>
+                        </div>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#kontrak" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-file-contract"></i></div>
+                        <div>
+                            <div>3. Update Nilai Kontrak</div>
+                            <small style="color: var(--text-tertiary);">Mengelola data kontrak</small>
+                        </div>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#keuangan" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <div>
+                            <div>4. Progress Keuangan</div>
+                            <small style="color: var(--text-tertiary);">Monitoring anggaran</small>
+                        </div>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#fisik" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-tasks"></i></div>
+                        <div>
+                            <div>5. Progress Fisik</div>
+                            <small style="color: var(--text-tertiary);">Tracking pelaksanaan</small>
+                        </div>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#kendala" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div>
+                            <div>6. Kendala & Mitigasi</div>
+                            <small style="color: var(--text-tertiary);">Hambatan & solusi</small>
+                        </div>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#dokumentasi" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-camera"></i></div>
+                        <div>
+                            <div>7. Upload Dokumentasi</div>
+                            <small style="color: var(--text-tertiary);">Foto sebelum & sesudah</small>
+                        </div>
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="#tips" class="toc-link">
+                        <div class="toc-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div>
+                            <div>8. Tips & Trik</div>
+                            <small style="color: var(--text-tertiary);">Best practices</small>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 1: Login -->
+        <section id="login" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2 class="section-title">Login ke Sistem TC-More</h2>
+                <p class="section-description">
+                    Langkah pertama untuk mengakses aplikasi TC-More adalah melakukan login dengan akun Satuan Kerja yang telah disediakan.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1.1</div>
+                        <h3 class="step-title">Akses Halaman Login</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Buka browser dan kunjungi halaman login TC-More:</p>
+                        <div class="code-block">https://dashboard-kementrans.web.app/login.html</div>
+                        <p>Atau akses melalui website utama Kementerian Transmigrasi:</p>
+                        <div class="code-block">https://www.transmigrasi.go.id/Awasi</div>
+                        
+                        <div class="screenshot">
+                            <i class="fas fa-desktop"></i>
+                            <p>Screenshot: Halaman Login TC-More</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1.2</div>
+                        <h3 class="step-title">Input Kredensial Login</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Masukkan kredensial login Satuan Kerja Anda:</p>
+                        
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Username:</label>
+                                <input type="text" class="form-input" placeholder="naker[nama_daerah]" readonly>
+                                <small style="color: var(--text-tertiary);">Contoh: nakermerauke, nakerposo, nakerjakarta</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password:</label>
+                                <input type="password" class="form-input" placeholder="password123" readonly>
+                            </div>
+                        </div>
+
+                        <div class="note info">
+                            <i class="fas fa-info-circle note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Format Username Satker</div>
+                                Username menggunakan format: <strong>naker[nama_daerah]</strong><br>
+                                Password default: <strong>password123</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1.3</div>
+                        <h3 class="step-title">Verifikasi Login</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Setelah berhasil login, sistem akan:</p>
+                        <ul>
+                            <li>Memverifikasi kredensial dengan database Firebase</li>
+                            <li>Mengarahkan ke dashboard progress Satuan Kerja</li>
+                            <li>Menampilkan data spesifik untuk wilayah kerja Anda</li>
+                            <li>Menyimpan session untuk akses selanjutnya</li>
+                        </ul>
+
+                        <div class="note success">
+                            <i class="fas fa-check-circle note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Login Berhasil</div>
+                                Jika login berhasil, Anda akan diarahkan ke dashboard dengan data yang sesuai dengan wilayah kerja Satuan Kerja Anda.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Dashboard Navigation -->
+        <section id="dashboard" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2 class="section-title">Navigasi Dashboard</h2>
+                <p class="section-description">
+                    Memahami interface dashboard untuk navigasi yang efektif dalam sistem TC-More.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2.1</div>
+                        <h3 class="step-title">Layout Dashboard Utama</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Dashboard TC-More terdiri dari beberapa komponen utama:</p>
+                        <ul>
+                            <li><strong>Header Navigation:</strong> Menu utama dan informasi user</li>
+                            <li><strong>Sidebar:</strong> Menu navigasi cepat</li>
+                            <li><strong>Main Content:</strong> Area kerja utama</li>
+                            <li><strong>Status Bar:</strong> Informasi status dan notifikasi</li>
+                        </ul>
+
+                        <div class="screenshot">
+                            <i class="fas fa-desktop"></i>
+                            <p>Screenshot: Layout Dashboard TC-More</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2.2</div>
+                        <h3 class="step-title">Menu dan Fitur Utama</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Menu yang tersedia untuk Satuan Kerja:</p>
+                        <ul>
+                            <li><strong>Dashboard:</strong> Overview data dan statistik</li>
+                            <li><strong>Progress Kegiatan:</strong> Input dan update progress</li>
+                            <li><strong>Data Kontrak:</strong> Manajemen nilai kontrak</li>
+                            <li><strong>Dokumentasi:</strong> Upload foto dan dokumen</li>
+                            <li><strong>Laporan:</strong> Generate dan export laporan</li>
+                            <li><strong>Profile:</strong> Manajemen akun pengguna</li>
+                        </ul>
+
+                        <div class="note info">
+                            <i class="fas fa-info-circle note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Akses Berbasis Role</div>
+                                Menu yang tampil disesuaikan dengan role Satuan Kerja. Beberapa fitur mungkin tidak tersedia untuk semua user.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2.3</div>
+                        <h3 class="step-title">Responsive Design</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Dashboard TC-More dapat diakses melalui berbagai perangkat:</p>
+                        <ul>
+                            <li><strong>Desktop:</strong> Layout lengkap dengan semua fitur</li>
+                            <li><strong>Tablet:</strong> Layout yang disesuaikan untuk touch interface</li>
+                            <li><strong>Mobile:</strong> Interface mobile-friendly untuk akses di lapangan</li>
+                        </ul>
+
+                        <div class="note success">
+                            <i class="fas fa-mobile-alt note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Akses Mobile</div>
+                                Gunakan smartphone untuk update progress langsung dari lokasi kegiatan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Update Nilai Kontrak -->
+        <section id="kontrak" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2 class="section-title">Update Nilai Kontrak</h2>
+                <p class="section-description">
+                    Panduan lengkap untuk mengelola dan mengupdate nilai kontrak program dalam sistem TC-More.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3.1</div>
+                        <h3 class="step-title">Akses Menu Kontrak</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Untuk mengupdate nilai kontrak:</p>
+                        <ol>
+                            <li>Klik menu <strong>"Progress Kegiatan"</strong> di sidebar</li>
+                            <li>Pilih tab <strong>"Data Kontrak"</strong></li>
+                            <li>Cari kontrak yang akan diupdate menggunakan filter</li>
+                        </ol>
+
+                        <div class="screenshot">
+                            <i class="fas fa-file-contract"></i>
+                            <p>Screenshot: Menu Data Kontrak</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3.2</div>
+                        <h3 class="step-title">Form Input Nilai Kontrak</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Lengkapi form input nilai kontrak dengan data yang akurat:</p>
+                        
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Nama Kegiatan:</label>
+                                <input type="text" class="form-input" placeholder="Contoh: Pembangunan Rumah Transmigran Tahap 1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nilai Kontrak (Rp):</label>
+                                <input type="number" class="form-input" placeholder="500000000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nomor Kontrak:</label>
+                                <input type="text" class="form-input" placeholder="001/KONTRAK/TRANSMIG/2024">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tanggal Kontrak:</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Kontraktor:</label>
+                                <input type="text" class="form-input" placeholder="PT. Kontraktor Terpercaya">
+                            </div>
+                        </div>
+
+                        <div class="note warning">
+                            <i class="fas fa-exclamation-triangle note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Validasi Data</div>
+                                Pastikan semua data kontrak sesuai dengan dokumen resmi. Data yang salah dapat mempengaruhi pelaporan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3.3</div>
+                        <h3 class="step-title">Revisi dan Addendum</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Untuk kontrak yang mengalami revisi atau addendum:</p>
+                        <ul>
+                            <li>Klik tombol <strong>"Edit Kontrak"</strong> pada data yang akan direvisi</li>
+                            <li>Update nilai kontrak sesuai addendum terbaru</li>
+                            <li>Tambahkan keterangan revisi pada field "Catatan"</li>
+                            <li>Upload dokumen addendum sebagai dokumentasi pendukung</li>
+                        </ul>
+
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Nilai Kontrak Awal (Rp):</label>
+                                <input type="number" class="form-input" placeholder="500000000" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nilai Kontrak Revisi (Rp):</label>
+                                <input type="number" class="form-input" placeholder="550000000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Keterangan Revisi:</label>
+                                <textarea class="form-input form-textarea" placeholder="Addendum I - Penambahan volume pekerjaan sesuai SPPBJ No. 001/ADD/2024"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Progress Keuangan -->
+        <section id="keuangan" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2 class="section-title">Progress Keuangan</h2>
+                <p class="section-description">
+                    Monitoring dan pelaporan progress keuangan untuk tracking anggaran dan realisasi pengeluaran.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">4.1</div>
+                        <h3 class="step-title">Input Realisasi Keuangan</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Untuk mengupdate progress keuangan:</p>
+                        <ol>
+                            <li>Pilih menu <strong>"Progress Kegiatan"</strong></li>
+                            <li>Klik tab <strong>"Keuangan"</strong></li>
+                            <li>Pilih kegiatan yang akan diupdate progressnya</li>
+                            <li>Input data realisasi keuangan</li>
+                        </ol>
+
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Total Anggaran (Rp):</label>
+                                <input type="number" class="form-input" placeholder="500000000" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Realisasi Sampai Saat Ini (Rp):</label>
+                                <input type="number" class="form-input" placeholder="250000000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Persentase Progress (%):</label>
+                                <input type="number" class="form-input" placeholder="50" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Periode Pelaporan:</label>
+                                <input type="month" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">4.2</div>
+                        <h3 class="step-title">Breakdown Anggaran</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Input detail breakdown anggaran per komponen:</p>
+                        
+                        <div class="form-example">
+                            <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Komponen Anggaran:</h4>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Material (Rp):</label>
+                                <input type="number" class="form-input" placeholder="200000000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Upah Tenaga Kerja (Rp):</label>
+                                <input type="number" class="form-input" placeholder="150000000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Alat dan Mesin (Rp):</label>
+                                <input type="number" class="form-input" placeholder="100000000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Overhead (Rp):</label>
+                                <input type="number" class="form-input" placeholder="50000000">
+                            </div>
+                        </div>
+
+                        <div class="note info">
+                            <i class="fas fa-calculator note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Auto Calculate</div>
+                                Sistem akan otomatis menghitung persentase dan sisa anggaran berdasarkan input yang Anda masukkan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">4.3</div>
+                        <h3 class="step-title">Proyeksi dan Analisis</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Sistem akan memberikan analisis otomatis:</p>
+                        <ul>
+                            <li><strong>Burn Rate:</strong> Tingkat penggunaan anggaran per bulan</li>
+                            <li><strong>Proyeksi Penyelesaian:</strong> Estimasi waktu selesai berdasarkan progress</li>
+                            <li><strong>Variance Analysis:</strong> Selisih anggaran vs realisasi</li>
+                            <li><strong>Cash Flow:</strong> Proyeksi kebutuhan kas</li>
+                        </ul>
+
+                        <div class="note success">
+                            <i class="fas fa-chart-line note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Dashboard Analytics</div>
+                                Data keuangan akan ditampilkan dalam bentuk grafik dan chart untuk memudahkan analisis.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Progress Fisik -->
+        <section id="fisik" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2 class="section-title">Progress Fisik</h2>
+                <p class="section-description">
+                    Tracking dan pelaporan progress fisik pelaksanaan kegiatan untuk monitoring real-time.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">5.1</div>
+                        <h3 class="step-title">Input Progress Fisik</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Langkah-langkah input progress fisik:</p>
+                        <ol>
+                            <li>Akses menu <strong>"Progress Kegiatan"</strong></li>
+                            <li>Pilih tab <strong>"Progress Fisik"</strong></li>
+                            <li>Pilih kegiatan yang akan diupdate</li>
+                            <li>Input persentase progress fisik</li>
+                        </ol>
+
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Progress Fisik (%):</label>
+                                <input type="number" class="form-input" placeholder="65" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tanggal Update:</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Deskripsi Progress:</label>
+                                <textarea class="form-input form-textarea" placeholder="Pekerjaan pondasi telah selesai 100%, dinding sudah 70%, atap sedang dalam proses pemasangan"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">5.2</div>
+                        <h3 class="step-title">Milestone dan Target</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Tracking berdasarkan milestone yang telah ditetapkan:</p>
+                        
+                        <div class="form-example">
+                            <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Target Milestone:</h4>
+                            
+                            <div style="display: grid; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                                    <span><strong>Persiapan Lahan</strong></span>
+                                    <span style="color: var(--success); font-weight: 600;">✓ Selesai (100%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                                    <span><strong>Pekerjaan Pondasi</strong></span>
+                                    <span style="color: var(--success); font-weight: 600;">✓ Selesai (100%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--warning); color: white; border-radius: 8px;">
+                                    <span><strong>Pekerjaan Struktur</strong></span>
+                                    <span style="font-weight: 600;">🔄 Progress (65%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+                                    <span><strong>Finishing</strong></span>
+                                    <span style="color: var(--text-tertiary); font-weight: 600;">⏳ Belum Mulai (0%)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="note info">
+                            <i class="fas fa-flag-checkered note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Milestone Tracking</div>
+                                Update progress berdasarkan milestone membantu monitoring yang lebih akurat dan terstruktur.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">5.3</div>
+                        <h3 class="step-title">Quality Control</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Input hasil quality control dan inspeksi:</p>
+                        
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Status Quality Control:</label>
+                                <select class="form-input">
+                                    <option>Pilih Status</option>
+                                    <option>Sesuai Standar</option>
+                                    <option>Perlu Perbaikan Minor</option>
+                                    <option>Perlu Perbaikan Major</option>
+                                    <option>Tidak Sesuai Standar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tanggal Inspeksi:</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Inspektur:</label>
+                                <input type="text" class="form-input" placeholder="Nama inspektur/pengawas">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Catatan Inspeksi:</label>
+                                <textarea class="form-input form-textarea" placeholder="Detail hasil inspeksi dan rekomendasi"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Kendala -->
+        <section id="kendala" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <h2 class="section-title">Kendala & Mitigasi</h2>
+                <p class="section-description">
+                    Identifikasi, dokumentasi, dan pelaporan kendala yang dihadapi serta langkah-langkah mitigasi dalam pelaksanaan kegiatan.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">6.1</div>
+                        <h3 class="step-title">Identifikasi Kendala</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Langkah-langkah melaporkan kendala:</p>
+                        <ol>
+                            <li>Klik menu <strong>"Progress Kegiatan"</strong></li>
+                            <li>Pilih tab <strong>"Kendala & Risiko"</strong></li>
+                            <li>Klik tombol <strong>"Tambah Kendala"</strong></li>
+                            <li>Lengkapi form pelaporan kendala</li>
+                        </ol>
+
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Hambatan:</label>
+                                <textarea class="form-input form-textarea" placeholder="Jelaskan hambatan yang dihadapi dalam pelaksanaan kegiatan"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">6.2</div>
+                        <h3 class="step-title">Input Hambatan dan Mitigasi</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Dalam form edit kegiatan, Anda dapat mengisi bagian hambatan dan mitigasi:</p>
+                        
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">Hambatan:</label>
+                                <textarea class="form-input form-textarea" placeholder="Contoh: Keterlambatan pengiriman material beton karena cuaca buruk dan akses jalan yang sulit"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Mitigasi:</label>
+                                <textarea class="form-input form-textarea" placeholder="Contoh: Koordinasi dengan supplier untuk percepatan pengiriman, mencari supplier alternatif, penyesuaian jadwal kerja"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="note info">
+                            <i class="fas fa-info-circle note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Form Terintegrasi</div>
+                                Hambatan dan mitigasi diisi dalam satu form yang sama dengan data kegiatan lainnya di menu Edit Kegiatan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Section 7: Dokumentasi -->
+        <section id="dokumentasi" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <h2 class="section-title">Upload Dokumentasi</h2>
+                <p class="section-description">
+                    Panduan lengkap untuk mengupload dokumentasi foto sebelum dan sesudah kegiatan serta dokumen pendukung lainnya.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">8.1</div>
+                        <h3 class="step-title">Sistem Dokumentasi Link-Based</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>TC-More menggunakan sistem dokumentasi berbasis link untuk efisiensi storage:</p>
+                        <ul>
+                            <li><strong>Cloud Storage Integration:</strong> Google Drive, Dropbox, OneDrive</li>
+                            <li><strong>Link-Based Storage:</strong> Hemat space server</li>
+                            <li><strong>Preview System:</strong> Preview langsung dari link</li>
+                            <li><strong>Multiple Format Support:</strong> JPG, PNG, PDF, DOC, dll</li>
+                        </ul>
+
+                        <div class="note info">
+                            <i class="fas fa-cloud note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Cloud Storage</div>
+                                Upload file ke cloud storage terlebih dahulu, kemudian input link ke sistem TC-More.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">7.2</div>
+                        <h3 class="step-title">Form Dokumentasi dalam Edit Kegiatan</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Dalam form Edit Kegiatan, terdapat 3 bagian dokumentasi yang dapat diisi:</p>
+                        
+                        <div class="form-example">
+                            <div class="form-group">
+                                <label class="form-label">📸 Link Foto Sebelum Kegiatan:</label>
+                                <input type="url" class="form-input" placeholder="https://example.com/foto-sebelum.jpg">
+                                <small style="color: #6b7280; font-size: 0.85rem;">
+                                    <i class="fas fa-info-circle"></i> Upload foto ke Google Drive, Dropbox, dll, lalu paste linknya
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">📸 Link Foto Sesudah Kegiatan:</label>
+                                <input type="url" class="form-input" placeholder="https://example.com/foto-sesudah.jpg">
+                                <small style="color: #6b7280; font-size: 0.85rem;">
+                                    <i class="fas fa-info-circle"></i> Upload foto progress/hasil ke cloud storage
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">📄 Link Dokumentasi Tambahan:</label>
+                                <textarea class="form-input form-textarea" rows="3" placeholder="https://example.com/dokumen1.pdf
+https://example.com/dokumen2.jpg
+https://example.com/dokumen3.png"></textarea>
+                                <small style="color: #6b7280; font-size: 0.85rem;">
+                                    <i class="fas fa-info-circle"></i> Upload dokumen ke cloud storage, paste link-linknya di sini (satu link per baris)
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="note info">
+                            <i class="fas fa-info-circle note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Preview Otomatis</div>
+                                Sistem akan menampilkan preview gambar dan dokumen secara otomatis setelah link dimasukkan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">7.3</div>
+                        <h3 class="step-title">Langkah Upload ke Cloud Storage</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Panduan upload file ke cloud storage:</p>
+                        
+                        <ol>
+                            <li><strong>Google Drive:</strong>
+                                <ul>
+                                    <li>Upload file ke Google Drive</li>
+                                    <li>Klik kanan file → "Get link"</li>
+                                    <li>Set permission "Anyone with the link"</li>
+                                    <li>Copy link dan paste ke form TC-More</li>
+                                </ul>
+                            </li>
+                            <li><strong>Dropbox:</strong>
+                                <ul>
+                                    <li>Upload file ke Dropbox</li>
+                                    <li>Klik "Share" → "Create link"</li>
+                                    <li>Copy link dan paste ke form TC-More</li>
+                                </ul>
+                            </li>
+                            <li><strong>OneDrive:</strong>
+                                <ul>
+                                    <li>Upload file ke OneDrive</li>
+                                    <li>Klik "Share" → "Anyone with the link can view"</li>
+                                    <li>Copy link dan paste ke form TC-More</li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <div class="note warning">
+                            <i class="fas fa-exclamation-triangle note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Permission Setting</div>
+                                Pastikan file permission di-set ke "Public" atau "Anyone with link" agar dapat diakses oleh sistem.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Tips & Trik -->
+        <section id="tips" class="guide-section fade-in">
+            <div class="section-header">
+                <div class="section-number">8</div>
+                <h2 class="section-title">Tips & Trik</h2>
+                <p class="section-description">
+                    Best practices dan tips untuk menggunakan aplikasi TC-More dengan maksimal dan efisien.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">8.1</div>
+                        <h3 class="step-title">Efisiensi Input Data</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Tips untuk input data yang efisien:</p>
+                        <ul>
+                            <li><strong>Batch Processing:</strong> Kumpulkan data sebelum input untuk efisiensi</li>
+                            <li><strong>Template Konsisten:</strong> Gunakan format yang konsisten untuk semua input</li>
+                            <li><strong>Regular Updates:</strong> Update data secara berkala, jangan menumpuk</li>
+                            <li><strong>Validation Check:</strong> Selalu cek data sebelum submit</li>
+                            <li><strong>Backup Data:</strong> Simpan copy data penting di local storage</li>
+                        </ul>
+
+                        <div class="note success">
+                            <i class="fas fa-rocket note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Productivity Tip</div>
+                                Gunakan shortcut keyboard dan auto-fill browser untuk mempercepat input data.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">8.2</div>
+                        <h3 class="step-title">Mobile Usage</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Mengoptimalkan penggunaan di mobile device:</p>
+                        <ul>
+                            <li><strong>Field Updates:</strong> Update progress langsung dari lokasi</li>
+                            <li><strong>Photo Capture:</strong> Ambil foto langsung dengan kamera HP</li>
+                            <li><strong>Offline Notes:</strong> Catat data offline, sync saat ada koneksi</li>
+                            <li><strong>GPS Location:</strong> Manfaatkan GPS untuk akurasi lokasi</li>
+                            <li><strong>Voice Notes:</strong> Gunakan voice recorder untuk catatan cepat</li>
+                        </ul>
+
+                        <div class="note info">
+                            <i class="fas fa-mobile-alt note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Mobile-First</div>
+                                TC-More didesain mobile-friendly untuk memudahkan akses dari lapangan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">8.3</div>
+                        <h3 class="step-title">Troubleshooting Umum</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Solusi untuk masalah yang sering terjadi:</p>
+                        
+                        <div style="display: grid; gap: 1rem;">
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                                <strong style="color: var(--danger);">Problem:</strong> Tidak bisa login<br>
+                                <strong style="color: var(--success);">Solution:</strong> Cek username format (naker[daerah]), clear browser cache, atau hubungi admin
+                            </div>
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                                <strong style="color: var(--danger);">Problem:</strong> Data tidak tersimpan<br>
+                                <strong style="color: var(--success);">Solution:</strong> Cek koneksi internet, refresh halaman, atau coba browser lain
+                            </div>
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                                <strong style="color: var(--danger);">Problem:</strong> Link dokumentasi error<br>
+                                <strong style="color: var(--success);">Solution:</strong> Pastikan file permission public, cek format link, atau re-upload file
+                            </div>
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                                <strong style="color: var(--danger);">Problem:</strong> Dashboard loading lambat<br>
+                                <strong style="color: var(--success);">Solution:</strong> Clear cache, gunakan browser terbaru, atau akses saat traffic rendah
+                            </div>
+                        </div>
+
+                        <div class="note warning">
+                            <i class="fas fa-life-ring note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Technical Support</div>
+                                Jika masalah berlanjut, hubungi technical support atau gunakan fitur help di dalam aplikasi.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">8.4</div>
+                        <h3 class="step-title">Security Best Practices</h3>
+                    </div>
+                    <div class="step-content">
+                        <p>Praktik keamanan yang direkomendasikan:</p>
+                        <ul>
+                            <li><strong>Password Security:</strong> Ganti password default secara berkala</li>
+                            <li><strong>Secure Connection:</strong> Selalu akses melalui HTTPS</li>
+                            <li><strong>Logout Properly:</strong> Selalu logout setelah selesai menggunakan</li>
+                            <li><strong>Public Computer:</strong> Jangan save password di komputer umum</li>
+                            <li><strong>Data Privacy:</strong> Jaga kerahasiaan data internal kementerian</li>
+                        </ul>
+
+                        <div class="note danger">
+                            <i class="fas fa-shield-alt note-icon"></i>
+                            <div class="note-content">
+                                <div class="note-title">Data Security</div>
+                                Data yang diinput adalah data resmi kementerian. Pastikan keamanan dan kerahasiaan data.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Action -->
+        <div style="text-align: center; margin-top: 4rem; padding: 2rem; background: white; border-radius: 20px; box-shadow: var(--shadow-lg);" class="fade-in">
+            <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Butuh Bantuan Lebih Lanjut?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                Hubungi tim support atau akses dashboard untuk mulai menggunakan TC-More
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="login.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login TC-More
+                </a>
+                <a href="progress-dashboard.html" class="btn btn-success">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Akses Dashboard
+                </a>
+                <button onclick="window.print()" class="btn btn-secondary print-hide">
+                    <i class="fas fa-print"></i>
+                    Cetak Panduan
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Scroll Progress Indicator
+        function updateScrollIndicator() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        }
+
+        // Navbar scroll effect
+        function updateNavbar() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // Floating navigation active state
+        function updateFloatingNav() {
+            const sections = document.querySelectorAll('.guide-section');
+            const navItems = document.querySelectorAll('.floating-nav-item');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.id;
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + currentSection) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Initialize smooth scrolling
+            initSmoothScrolling();
+        });
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateScrollIndicator();
+            updateNavbar();
+            updateFloatingNav();
+        });
+
+        // Initial calls
+        updateScrollIndicator();
+        updateNavbar();
+        updateFloatingNav();
+    </script>
+</body>
+</html>

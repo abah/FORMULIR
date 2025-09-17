@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - TC-More - Inspektorat Jenderal Kementerian Transmigrasi RI</title>
+    
+    <!-- Favicon dan Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo/logo.png">
+    <link rel="shortcut icon" href="logo/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo/logo.png">
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="QR Code Generator untuk TC-More - Trans Continuous Monitoring & Reporting - Inspektorat Jenderal Kementerian Transmigrasi RI">
+    <meta name="keywords" content="QR Code, Generator, TC-More, Inspektorat Jenderal, Kementerian Transmigrasi">
+    <meta name="author" content="Inspektorat Jenderal Kementerian Transmigrasi">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- QR.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    
+    <style>
+        :root {
+            /* Colors - Consistent with dashboard */
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #6b7280;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            
+            /* Backgrounds */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            
+            /* Text */
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-tertiary: #94a3b8;
+            
+            /* Borders */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .navbar-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-logo img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .navbar-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .navbar-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 120px 2rem 80px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-weight: 400;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* QR Generator Section */
+        .qr-generator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .generator-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 120px;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-input:disabled {
+            background: var(--bg-tertiary);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .color-input {
+            width: 60px;
+            height: 50px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .color-input:hover {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* QR Preview Section */
+        .qr-preview {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .preview-header {
+            margin-bottom: 2rem;
+        }
+
+        .preview-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .qr-container {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px dashed var(--border-medium);
+            margin-bottom: 2rem;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-placeholder {
+            color: var(--text-tertiary);
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .qr-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        #qrCanvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .qr-info {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Features Section */
+        .features {
+            margin-top: 6rem;
+            padding-top: 4rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .navbar-content {
+                padding: 0 1rem;
+            }
+
+            .navbar-nav {
+                display: none;
+            }
+
+            .main-content {
+                padding: 100px 1rem 60px;
+            }
+
+            .page-title {
+                font-size: 2.25rem;
+            }
+
+            .qr-generator {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .generator-form {
+                position: static;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <div class="navbar-logo">
+                    <img src="logo/logo.png" alt="Logo Itjen">
+                </div>
+                <div class="navbar-text">
+                    <div class="navbar-title">TC-More</div>
+                    <div class="navbar-subtitle">QR Code Generator</div>
+                    <div class="navbar-subtitle" style="font-size: 0.75rem; margin-top: 2px;">Inspektorat Jenderal Kementerian Transmigrasi RI</div>
+                </div>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Beranda</a></li>
+                <li><a href="progress-dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="login.html" class="nav-link nav-cta">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header fade-in">
+                <div class="page-badge">
+                    <i class="fas fa-qrcode"></i>
+                    QR Code Generator
+                </div>
+                <h1 class="page-title">
+                    Generator QR Code
+                    <span style="color: var(--primary);">TC-More</span>
+                </h1>
+                <p class="page-subtitle">
+                    Buat QR Code untuk akses mudah ke aplikasi TC-More di www.transmigrasi.go.id/Awasi 
+                    dengan logo kementerian yang terintegrasi secara profesional.
+                </p>
+            </div>
+
+            <!-- QR Generator -->
+            <div class="qr-generator">
+                <!-- Generator Form -->
+                <div class="generator-form fade-in">
+                    <h3 style="margin-bottom: 2rem; color: var(--text-primary); font-size: 1.5rem; font-weight: 700;">
+                        <i class="fas fa-cog" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                        Pengaturan QR Code
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="qrText">
+                            <i class="fas fa-link" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                            URL atau Teks
+                        </label>
+                        <input type="text" id="qrText" class="form-input" 
+                               value="https://www.transmigrasi.go.id/Awasi" 
+                               placeholder="Masukkan URL atau teks untuk QR Code">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="qrSize">
+                                <i class="fas fa-expand-arrows-alt" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                                Ukuran
+                            </label>
+                            <select id="qrSize" class="form-select">
+                                <option value="256">256px (Small)</option>
+                                <option value="512" selected>512px (Medium)</option>
+                                <option value="1024">1024px (Large)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="errorCorrection">
+                                <i class="fas fa-shield-alt" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                                Error Correction
+                            </label>
+                            <select id="errorCorrection" class="form-select">
+                                <option value="L">Low (7%)</option>
+                                <option value="M" selected>Medium (15%)</option>
+                                <option value="Q">Quartile (25%)</option>
+                                <option value="H">High (30%)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="foregroundColor">
+                                <i class="fas fa-palette" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                                Warna Foreground
+                            </label>
+                            <input type="color" id="foregroundColor" class="color-input" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="backgroundColor">
+                                <i class="fas fa-fill-drip" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                                Warna Background
+                            </label>
+                            <input type="color" id="backgroundColor" class="color-input" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-image" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                            Logo Kementerian
+                        </label>
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                            <input type="checkbox" id="includeLogo" checked style="width: 20px; height: 20px;">
+                            <label for="includeLogo" style="margin: 0; cursor: pointer;">Sertakan logo Kementerian Transmigrasi di tengah QR Code</label>
+                        </div>
+                    </div>
+
+                    <button id="generateBtn" class="btn btn-primary">
+                        <i class="fas fa-magic"></i>
+                        Generate QR Code
+                    </button>
+                </div>
+
+                <!-- QR Preview -->
+                <div class="qr-preview fade-in">
+                    <div class="preview-header">
+                        <h3 class="preview-title">
+                            <i class="fas fa-eye" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                            Preview QR Code
+                        </h3>
+                        <p class="preview-subtitle">QR Code akan muncul di sini setelah di-generate</p>
+                    </div>
+
+                    <div class="qr-container" id="qrContainer">
+                        <div class="qr-placeholder">
+                            <i class="fas fa-qrcode"></i>
+                            <div>Klik "Generate QR Code" untuk membuat QR Code</div>
+                        </div>
+                    </div>
+
+                    <div class="qr-info" id="qrInfo" style="display: none;">
+                        <div class="info-item">
+                            <span class="info-label">URL/Teks:</span>
+                            <span class="info-value" id="infoText">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Ukuran:</span>
+                            <span class="info-value" id="infoSize">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Error Correction:</span>
+                            <span class="info-value" id="infoError">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Logo:</span>
+                            <span class="info-value" id="infoLogo">-</span>
+                        </div>
+                    </div>
+
+                    <div class="btn-group" id="actionButtons" style="display: none;">
+                        <button id="downloadBtn" class="btn btn-success">
+                            <i class="fas fa-download"></i>
+                            Download PNG
+                        </button>
+                        <button id="copyBtn" class="btn btn-secondary">
+                            <i class="fas fa-copy"></i>
+                            Copy QR Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <section class="features fade-in">
+                <div class="section-header" style="text-align: center;">
+                    <h2 class="section-title" style="font-size: 2.5rem; font-weight: 800; color: var(--text-primary); margin-bottom: 1rem;">
+                        Fitur QR Code Generator
+                    </h2>
+                    <p class="section-subtitle" style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                        Generator QR Code profesional dengan berbagai fitur untuk kebutuhan kementerian.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="feature-title">Logo Terintegrasi</h3>
+                        <p class="feature-description">
+                            QR Code dengan logo Kementerian Transmigrasi yang terintegrasi secara profesional 
+                            di bagian tengah tanpa mengganggu fungsi scanning.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 class="feature-title">Kustomisasi Lengkap</h3>
+                        <p class="feature-description">
+                            Atur ukuran, warna, level error correction, dan berbagai pengaturan lainnya 
+                            sesuai dengan kebutuhan dan standar visual kementerian.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3 class="feature-title">Download & Share</h3>
+                        <p class="feature-description">
+                            Download QR Code dalam format PNG berkualitas tinggi atau copy langsung 
+                            untuk digunakan dalam presentasi, dokumen, atau media lainnya.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">QR Code berhasil di-generate!</span>
+    </div>
+
+    <script>
+        // Global variables
+        let qrCode = null;
+        let logoImg = new Image();
+        
+        // Initialize logo
+        logoImg.crossOrigin = "anonymous";
+        logoImg.src = "logo/logo.png";
+        
+        // DOM elements
+        const generateBtn = document.getElementById('generateBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const qrContainer = document.getElementById('qrContainer');
+        const qrInfo = document.getElementById('qrInfo');
+        const actionButtons = document.getElementById('actionButtons');
+        const toast = document.getElementById('toast');
+
+        // Form elements
+        const qrText = document.getElementById('qrText');
+        const qrSize = document.getElementById('qrSize');
+        const errorCorrection = document.getElementById('errorCorrection');
+        const foregroundColor = document.getElementById('foregroundColor');
+        const backgroundColor = document.getElementById('backgroundColor');
+        const includeLogo = document.getElementById('includeLogo');
+
+        // Generate QR Code function
+        function generateQRCode() {
+            const text = qrText.value.trim();
+            
+            if (!text) {
+                showToast('Mohon masukkan URL atau teks!', 'error');
+                return;
+            }
+
+            // Show loading
+            generateBtn.innerHTML = '<div class="loading"></div> Generating...';
+            generateBtn.disabled = true;
+
+            setTimeout(() => {
+                try {
+                    // Clear previous QR code
+                    qrContainer.innerHTML = '';
+
+                    // Create canvas
+                    const canvas = document.createElement('canvas');
+                    const size = parseInt(qrSize.value);
+                    
+                    // Generate QR code
+                    qrCode = new QRious({
+                        element: canvas,
+                        value: text,
+                        size: size,
+                        level: errorCorrection.value,
+                        foreground: foregroundColor.value,
+                        background: backgroundColor.value,
+                        padding: 20
+                    });
+
+                    // Add logo if enabled
+                    if (includeLogo.checked && logoImg.complete) {
+                        addLogoToQR(canvas, size);
+                    }
+
+                    // Display QR code
+                    canvas.id = 'qrCanvas';
+                    qrContainer.appendChild(canvas);
+
+                    // Update info
+                    updateQRInfo(text, size);
+
+                    // Show action buttons
+                    qrInfo.style.display = 'block';
+                    actionButtons.style.display = 'flex';
+
+                    showToast('QR Code berhasil di-generate!', 'success');
+
+                } catch (error) {
+                    console.error('Error generating QR code:', error);
+                    showToast('Gagal membuat QR Code. Silakan coba lagi.', 'error');
+                } finally {
+                    // Reset button
+                    generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate QR Code';
+                    generateBtn.disabled = false;
+                }
+            }, 500);
+        }
+
+        // Add logo to QR code
+        function addLogoToQR(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const logoSize = size * 0.2; // Logo size 20% of QR code
+            const x = (size - logoSize) / 2;
+            const y = (size - logoSize) / 2;
+
+            // Create white background for logo
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x - 10, y - 10, logoSize + 20, logoSize + 20);
+
+            // Add border around logo
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x - 10, y - 10, logoSize + 20, logoSize + 20);
+
+            // Draw logo
+            ctx.drawImage(logoImg, x, y, logoSize, logoSize);
+        }
+
+        // Update QR info
+        function updateQRInfo(text, size) {
+            document.getElementById('infoText').textContent = text.length > 50 ? text.substring(0, 50) + '...' : text;
+            document.getElementById('infoSize').textContent = size + 'px';
+            document.getElementById('infoError').textContent = errorCorrection.value + ' Level';
+            document.getElementById('infoLogo').textContent = includeLogo.checked ? 'Ya' : 'Tidak';
+        }
+
+        // Download QR code
+        function downloadQRCode() {
+            const canvas = document.getElementById('qrCanvas');
+            if (!canvas) return;
+
+            const link = document.createElement('a');
+            link.download = 'qr-code-tc-more.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            
+            showToast('QR Code berhasil didownload!', 'success');
+        }
+
+        // Copy QR code to clipboard
+        async function copyQRCode() {
+            const canvas = document.getElementById('qrCanvas');
+            if (!canvas) return;
+
+            try {
+                // Convert canvas to blob
+                canvas.toBlob(async (blob) => {
+                    try {
+                        await navigator.clipboard.write([
+                            new ClipboardItem({ 'image/png': blob })
+                        ]);
+                        showToast('QR Code berhasil disalin!', 'success');
+                    } catch (err) {
+                        // Fallback: copy as data URL
+                        const dataUrl = canvas.toDataURL();
+                        await navigator.clipboard.writeText(dataUrl);
+                        showToast('QR Code berhasil disalin sebagai data URL!', 'success');
+                    }
+                });
+            } catch (err) {
+                console.error('Error copying QR code:', err);
+                showToast('Gagal menyalin QR Code.', 'error');
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toastElement = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            
+            // Set toast color based on type
+            if (type === 'error') {
+                toastElement.style.background = 'var(--danger)';
+            } else {
+                toastElement.style.background = 'var(--success)';
+            }
+            
+            toastElement.classList.add('show');
+            
+            setTimeout(() => {
+                toastElement.classList.remove('show');
+            }, 3000);
+        }
+
+        // Navbar scroll effect
+        function updateNavbar() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Event listeners
+        generateBtn.addEventListener('click', generateQRCode);
+        downloadBtn.addEventListener('click', downloadQRCode);
+        copyBtn.addEventListener('click', copyQRCode);
+
+        // Auto-generate on input change
+        [qrText, qrSize, errorCorrection, foregroundColor, backgroundColor, includeLogo].forEach(element => {
+            element.addEventListener('change', () => {
+                if (qrText.value.trim()) {
+                    generateQRCode();
+                }
+            });
+        });
+
+        // Enter key to generate
+        qrText.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateQRCode();
+            }
+        });
+
+        window.addEventListener('scroll', updateNavbar);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Generate initial QR code
+            generateQRCode();
+        });
+
+        // Initial calls
+        updateNavbar();
+    </script>
+</body>
+</html>

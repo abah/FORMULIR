@@ -22,15 +22,37 @@ window.SimpleAuth = {
     login: function(username, password) {
         try {
             const users = this.getUsers();
+            console.log(`🔍 Login attempt: username="${username}", password="${password}"`);
+            console.log(`👥 Total users available: ${users.length}`);
+            
+            // Debug: Show all usernames
+            const usernames = users.map(u => u.username);
+            console.log('📋 Available usernames:', usernames);
+            
+            // Find exact match
             const user = users.find(u => u.username === username && u.password === password);
+            
+            // Debug: Check username match
+            const usernameMatch = users.find(u => u.username === username);
+            if (usernameMatch) {
+                console.log(`✅ Username "${username}" found`);
+                console.log(`🔑 Expected password: "${usernameMatch.password}"`);
+                console.log(`🔑 Provided password: "${password}"`);
+                console.log(`🔐 Password match: ${usernameMatch.password === password}`);
+            } else {
+                console.log(`❌ Username "${username}" NOT found`);
+            }
            
             if (user) {
                 localStorage.setItem('satker_current_user', JSON.stringify(user));
+                console.log('✅ Login successful');
                 return { success: true, user: user };
             } else {
+                console.log('❌ Login failed');
                 return { success: false, error: 'Username atau password salah' };
             }
         } catch (error) {
+            console.error('🚨 Login error:', error);
             return { success: false, error: 'System error' };
         }
     },
@@ -62,6 +84,8 @@ window.SimpleAuth = {
                 localStorage.setItem('satker_users_db', JSON.stringify(users));
                 console.log('💾 Users cached successfully');
             }
+
+            // nakerbarelang is now hardcoded in createAllUsers(), no fallback needed
            
             return users;
         } catch (error) {
@@ -80,6 +104,34 @@ window.SimpleAuth = {
         return users;
     },
 
+    // Debug function to check nakerbarelang specifically
+    debugNakerbarelang: function() {
+        console.log('=== DEBUG NAKERBARELANG ===');
+        const users = this.getUsers();
+        console.log('Total users:', users.length);
+        
+        const nakerbarelang = users.find(u => u.username === 'nakerbarelang');
+        console.log('Nakerbarelang found:', !!nakerbarelang);
+        
+        if (nakerbarelang) {
+            console.log('Nakerbarelang data:', nakerbarelang);
+            console.log('Username type:', typeof nakerbarelang.username);
+            console.log('Password type:', typeof nakerbarelang.password);
+            console.log('Username value:', JSON.stringify(nakerbarelang.username));
+            console.log('Password value:', JSON.stringify(nakerbarelang.password));
+        }
+        
+        // Test exact match
+        const exactMatch = users.find(u => u.username === 'nakerbarelang' && u.password === 'password123');
+        console.log('Exact match found:', !!exactMatch);
+        
+        // Show all users with 'naker' in username
+        const nakerUsers = users.filter(u => u.username.includes('naker'));
+        console.log('Naker users:', nakerUsers.map(u => u.username));
+        
+        return nakerbarelang;
+    },
+
     createAllUsers: function() {
         const users = [];
        
@@ -92,11 +144,49 @@ window.SimpleAuth = {
             satkerCode: 'ALL',
             satkerName: 'All Satuan Kerja'
         });
+
+        // Add menteri user
+        users.push({
+            username: 'menteri',
+            password: 'transmigrasi2025',
+            fullName: 'Menteri Transmigrasi',
+            role: 'menteri_transmigrasi',
+            satkerCode: 'ALL',
+            satkerName: 'Kementerian Transmigrasi Republik Indonesia',
+            provinsi: 'DKI Jakarta',
+            kabupaten: 'Jakarta Pusat',
+            type: 'pusat',
+            category: 'menteri',
+            codeVerified: true
+        });
+
+        // Add hardcoded nakerbarelang user (always works)
+        users.push({
+            id: 'hardcoded_nakerbarelang',
+            username: 'nakerbarelang',
+            password: 'password123',
+            fullName: 'Admin Dinas Perumahan, Kawasan Permukiman, dan Pertamanan Kota Batam',
+            role: 'satker_admin',
+            satkerCode: '699506',
+            satkerName: 'Dinas Perumahan, Kawasan Permukiman, dan Pertamanan Kota Batam',
+            provinsi: 'Kepulauan Riau',
+            kabupaten: 'Batam',
+            type: 'kabupaten',
+            category: 'dinas',
+            codeVerified: true
+        });
+
        
         // Create users from satker data - ALL SATKER APPROACH
         if (typeof completeSatkerData !== 'undefined' && completeSatkerData.length > 0) {
             completeSatkerData.forEach((satker, index) => {
                 const username = this.generateUsername(satker.name);
+               
+                // Skip if username already exists (avoid duplicate with manual entries)
+                if (users.find(u => u.username === username)) {
+                    console.log(`⚠️ Skipping duplicate username: ${username}`);
+                    return;
+                }
                
                 // Generate code if not exist
                 let satkerCode = satker.code;
@@ -139,6 +229,7 @@ window.SimpleAuth = {
 
     generateSatkerCode: function(satker) {
         // COMPLETE FIREBASE MAPPING - UPDATED
+        const name = satker.name.toLowerCase();
         const firebaseMapping = {
             // DIREKTORAT
             'direktorat pemberdayaan masyarakat transmigrasi': '694652',
@@ -148,8 +239,7 @@ window.SimpleAuth = {
             'direktorat jenderal pembangunan dan pengembangan kawasan transmigrasi': '694590',
            
             // BATAM
-            'dinas perumahan kawasan permukiman dan pertamanan kota batam ': '691702',
-            'dinas perumahan rakyat permukiman dan pertamanan kota batam': '691648',
+            'dinas perumahan, kawasan permukiman, dan pertamanan kota batam': '699506',
            
             // ACEH
             'dinas tenaga kerja dan mobilitas penduduk aceh': '694544',
