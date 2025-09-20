@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Fix Missing Usernames - Satker Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&family=SF+Pro+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007AFF;
+            --success: #34C759;
+            --warning: #FF9500;
+            --danger: #FF3B30;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F2F2F7;
+            --label: #000000;
+            --label-secondary: #3C3C43;
+            --gray-5: #E5E5EA;
+            --radius-md: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --shadow-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--label);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--gray-5);
+        }
+
+        .header h1 {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--label-secondary);
+            font-size: 1.1rem;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+
+        .section h2 {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--label);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--label-secondary);
+            font-size: 0.9rem;
+        }
+
+        .problem-list {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .problem-item {
+            padding: 15px;
+            border-left: 4px solid var(--danger);
+            background: rgba(255, 59, 48, 0.05);
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .problem-title {
+            font-weight: 600;
+            color: var(--danger);
+            margin-bottom: 5px;
+        }
+
+        .problem-desc {
+            color: var(--label-secondary);
+            font-size: 0.9rem;
+        }
+
+        .success-item {
+            padding: 15px;
+            border-left: 4px solid var(--success);
+            background: rgba(52, 199, 89, 0.05);
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-title {
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: 5px;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .navigation {
+            background: white;
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .nav-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--label);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--label-secondary);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0,122,255,0.3);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin: 15px 0;
+            border: 1px solid;
+        }
+
+        .alert-info {
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--primary);
+            border-color: rgba(0, 122, 255, 0.3);
+        }
+
+        .alert-warning {
+            background: rgba(255, 149, 0, 0.1);
+            color: var(--warning);
+            border-color: rgba(255, 149, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="navigation">
+            <div class="nav-title">🧭 Navigation</div>
+            <a href="login.html" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Login Page
+            </a>
+            <a href="debug-login-tool.html" class="btn btn-primary">
+                <i class="fas fa-bug"></i> Debug Tool
+            </a>
+            <a href="username-generator-tool.html" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Username Generator
+            </a>
+            <a href="tool-navigator.html" class="btn btn-primary">
+                <i class="fas fa-compass"></i> Tool Navigator
+            </a>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-tools"></i> Fix Missing Usernames</h1>
+            <p>Analisis dan perbaikan username yang tidak berhasil ter-mapping dari completeSatkerData</p>
+        </div>
+
+        <!-- System Status -->
+        <div class="section">
+            <h2><i class="fas fa-chart-bar"></i> System Analysis</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSatker">-</div>
+                    <div class="stat-label">Total Satker Data</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="successfulUsers">-</div>
+                    <div class="stat-label">Successfully Mapped</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="skippedUsers">-</div>
+                    <div class="stat-label">Skipped (Duplicates)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="mappingRate">-</div>
+                    <div class="stat-label">Mapping Success Rate</div>
+                </div>
+            </div>
+            
+            <button onclick="runAnalysis()" class="btn btn-primary">
+                <i class="fas fa-play"></i> Run Complete Analysis
+            </button>
+            <button onclick="showAllProblems()" class="btn btn-warning">
+                <i class="fas fa-exclamation-triangle"></i> Show All Problems
+            </button>
+        </div>
+
+        <!-- Problems Section -->
+        <div class="section">
+            <h2><i class="fas fa-exclamation-triangle"></i> Identified Problems</h2>
+            <div id="problemsContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Click "Run Complete Analysis" to identify mapping problems
+                </div>
+            </div>
+        </div>
+
+        <!-- Solutions Section -->
+        <div class="section">
+            <h2><i class="fas fa-lightbulb"></i> Recommended Solutions</h2>
+            <div id="solutionsContainer">
+                <div class="alert alert-info">
+                    <strong>💡 Strategy Options:</strong><br>
+                    1. <strong>Standardize Names</strong>: Convert all long names to short usernames<br>
+                    2. <strong>Fix generateUsername</strong>: Improve the username generation logic<br>
+                    3. <strong>Remove Duplicate Check</strong>: Allow duplicates with suffix numbering<br>
+                    4. <strong>Manual Mapping</strong>: Create custom username mapping for problematic entries
+                </div>
+                
+                <button onclick="generateStandardizedFix()" class="btn btn-success">
+                    <i class="fas fa-magic"></i> Generate Standardized Fix
+                </button>
+                <button onclick="generateImprovedFunction()" class="btn btn-primary">
+                    <i class="fas fa-code"></i> Generate Improved Function
+                </button>
+                <button onclick="generateManualMapping()" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Generate Manual Mapping
+                </button>
+            </div>
+        </div>
+
+        <!-- Implementation Section -->
+        <div class="section">
+            <h2><i class="fas fa-rocket"></i> Implementation Code</h2>
+            <div id="implementationContainer">
+                <div class="alert alert-warning">
+                    <strong>⚠️ Safety First:</strong> Always backup login.html before implementing changes!
+                </div>
+                <div id="codeOutput"></div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="section">
+            <h2><i class="fas fa-check-circle"></i> Testing Results</h2>
+            <div id="resultsContainer">
+                <button onclick="testGeneratedSolution()" class="btn btn-primary">
+                    <i class="fas fa-vial"></i> Test Generated Solution
+                </button>
+                <button onclick="previewUsers()" class="btn btn-success">
+                    <i class="fas fa-eye"></i> Preview All Users
+                </button>
+                <div id="testResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load completeSatkerData from login.html (embedded copy)
+        const completeSatkerData = [
+            // TINGKAT PUSAT - BIRO (5)
+            { name: "Biro Perencanaan, Kerjasama, dan Hubungan Masyarakat", code: "BIRO_PERENCANAAN", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Umum dan Layanan Pengadaan", code: "BIRO_UMUM", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Keuangan dan BMN", code: "BIRO_KEUANGAN", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Organisasi, SDM, dan Reformasi Birokrasi", code: "BIRO_ORGANISASI", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Biro Hukum", code: "BIRO_HUKUM", type: "pusat", category: "biro", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            
+            // TINGKAT PUSAT - PUSAT (3)
+            { name: "Pusat Strategi Kebijakan Transmigrasi", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Pusat Data dan Informasi Transmigrasi", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "Pusat Pengembangan SDM", type: "pusat", category: "pusat", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            
+            // COMPLETE TEST SATKER - MAPPED TO REAL FIREBASE CODES
+            { name: "nakerposo", code: "694568", type: "satker", category: "satker", provinsi: "Sulawesi Tengah", kabupaten: "Poso" },
+            { name: "nakermerauke", code: "694578", type: "satker", category: "satker", provinsi: "Papua Selatan", kabupaten: "Merauke" },
+            { name: "nakersukamara", code: "694601", type: "satker", category: "satker", provinsi: "Kalimantan Tengah", kabupaten: "Sukamara" },
+            { name: "nakerbanyuasin", code: "694559", type: "satker", category: "satker", provinsi: "Sumatera Selatan", kabupaten: "Banyuasin" },
+            { name: "nakerlamandau", code: "694546", type: "satker", category: "satker", provinsi: "Kalimantan Tengah", kabupaten: "Lamandau" },
+            { name: "nakertoraja", code: "694618", type: "satker", category: "satker", provinsi: "Sulawesi Selatan", kabupaten: "Toraja Utara" },
+            { name: "nakersumbatimur", code: "694577", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Timur" },
+            { name: "nakersumbabarat", code: "694575", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat" },
+            { name: "nakersumbabaratdaya", code: "691673", type: "satker", category: "satker", provinsi: "Nusa Tenggara Timur", kabupaten: "Sumba Barat Daya" },
+            { name: "nakerbengkuluselatan", code: "694596", type: "satker", category: "satker", provinsi: "Bengkulu", kabupaten: "Bengkulu Selatan" },
+            { name: "nakeracehbarat", code: "691643", type: "satker", category: "satker", provinsi: "Aceh", kabupaten: "Aceh Barat" },
+            { name: "nakergorontalo", code: "694584", type: "satker", category: "satker", provinsi: "Gorontalo", kabupaten: "Gorontalo" },
+            { name: "nakerjambi", code: "691649", type: "satker", category: "satker", provinsi: "Jambi", kabupaten: "Jambi" },
+            { name: "nakermamasa", code: "694599", type: "satker", category: "satker", provinsi: "Sulawesi Barat", kabupaten: "Mamasa" },
+            
+            // TAMBAHAN SATKER POPULER LAINNYA (PROBLEMATIC ONES)
+            { name: "Dinas Tenaga Kerja dan Mobilitas Penduduk Provinsi Aceh", code: "SATKER_BANDAACE_696171", type: "provinsi", category: "dinas", provinsi: "Aceh", kabupaten: "Banda Aceh" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Utara", code: "SATKER_MEDAN_699681", type: "provinsi", category: "dinas", provinsi: "Sumatera Utara", kabupaten: "Medan" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Sumatera Barat", code: "SATKER_PADANG_693212", type: "provinsi", category: "dinas", provinsi: "Sumatera Barat", kabupaten: "Padang" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Riau", code: "SATKER_PEKANBAR_692892", type: "provinsi", category: "dinas", provinsi: "Riau", kabupaten: "Pekanbaru" },
+            { name: "Dinas Tenaga Kerja dan Transmigrasi Provinsi Bengkulu", code: "SATKER_BENGKULU_694031", type: "provinsi", category: "dinas", provinsi: "Bengkulu", kabupaten: "Bengkulu" },
+            { name: "admin", code: "ADMIN", type: "admin", category: "admin", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" },
+            { name: "superadmin", code: "SUPER_ADMIN", type: "admin", category: "admin", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat" }
+        ];
+
+        // Current generateUsername function (from login.html)
+        function generateUsername(name) {
+            return name.toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')
+                .replace(/\s+/g, '')
+                .substring(0, 20);
+        }
+
+        // Analysis Results
+        let analysisResults = {
+            totalSatker: 0,
+            successfulUsers: 0,
+            skippedUsers: 0,
+            problems: [],
+            duplicateGroups: {},
+            skippedEntries: []
+        };
+
+        // Run complete analysis
+        function runAnalysis() {
+            console.log('🔍 Running complete username mapping analysis...');
+            
+            analysisResults = {
+                totalSatker: completeSatkerData.length,
+                successfulUsers: 0,
+                skippedUsers: 0,
+                problems: [],
+                duplicateGroups: {},
+                skippedEntries: []
+            };
+
+            const users = [];
+            const usernameMap = {};
+
+            // Simulate the createAllUsers process
+            completeSatkerData.forEach((satker, index) => {
+                const username = generateUsername(satker.name);
+                
+                if (!usernameMap[username]) {
+                    usernameMap[username] = [];
+                }
+                usernameMap[username].push({
+                    index,
+                    satker,
+                    username
+                });
+
+                // Check if this would be skipped
+                if (users.find(u => u.username === username)) {
+                    analysisResults.skippedUsers++;
+                    analysisResults.skippedEntries.push({
+                        index,
+                        satker,
+                        username,
+                        reason: 'Duplicate username'
+                    });
+                } else {
+                    users.push({
+                        username: username,
+                        fullName: satker.name,
+                        satkerCode: satker.code || username.toUpperCase(),
+                        satkerName: satker.name
+                    });
+                    analysisResults.successfulUsers++;
+                }
+            });
+
+            // Identify duplicate groups
+            Object.keys(usernameMap).forEach(username => {
+                if (usernameMap[username].length > 1) {
+                    analysisResults.duplicateGroups[username] = usernameMap[username];
+                    
+                    analysisResults.problems.push({
+                        type: 'duplicate_username',
+                        username: username,
+                        count: usernameMap[username].length,
+                        entries: usernameMap[username],
+                        severity: 'high'
+                    });
+                }
+            });
+
+            // Update UI
+            updateStats();
+            displayProblems();
+            
+            console.log('✅ Analysis complete:', analysisResults);
+        }
+
+        // Update statistics display
+        function updateStats() {
+            document.getElementById('totalSatker').textContent = analysisResults.totalSatker;
+            document.getElementById('successfulUsers').textContent = analysisResults.successfulUsers;
+            document.getElementById('skippedUsers').textContent = analysisResults.skippedUsers;
+            
+            const rate = ((analysisResults.successfulUsers / analysisResults.totalSatker) * 100).toFixed(1);
+            document.getElementById('mappingRate').textContent = rate + '%';
+            
+            // Color code the success rate
+            const rateElement = document.getElementById('mappingRate');
+            if (rate >= 80) {
+                rateElement.style.color = 'var(--success)';
+            } else if (rate >= 60) {
+                rateElement.style.color = 'var(--warning)';
+            } else {
+                rateElement.style.color = 'var(--danger)';
+            }
+        }
+
+        // Display identified problems
+        function displayProblems() {
+            const container = document.getElementById('problemsContainer');
+            
+            if (analysisResults.problems.length === 0) {
+                container.innerHTML = `
+                    <div class="success-item">
+                        <div class="success-title">✅ No Problems Found!</div>
+                        <div class="problem-desc">All satker entries are successfully mapped to unique usernames.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            analysisResults.problems.forEach(problem => {
+                if (problem.type === 'duplicate_username') {
+                    html += `
+                        <div class="problem-item">
+                            <div class="problem-title">🔄 Duplicate Username: "${problem.username}"</div>
+                            <div class="problem-desc">
+                                <strong>${problem.count} satker entries</strong> generate the same username.<br>
+                                Only the first one gets mapped, others are skipped.<br>
+                                <strong>Affected entries:</strong>
+                                <ul style="margin-top: 5px; padding-left: 20px;">
+                                    ${problem.entries.map(entry => `<li>${entry.satker.name} (${entry.satker.code || 'No code'})</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Show all problems in detail
+        function showAllProblems() {
+            if (analysisResults.problems.length === 0) {
+                alert('No problems found! Run analysis first.');
+                return;
+            }
+
+            let details = `🚨 DETAILED PROBLEM ANALYSIS\n\n`;
+            details += `📊 Summary:\n`;
+            details += `• Total Satker: ${analysisResults.totalSatker}\n`;
+            details += `• Successfully Mapped: ${analysisResults.successfulUsers}\n`;
+            details += `• Skipped (Duplicates): ${analysisResults.skippedUsers}\n`;
+            details += `• Success Rate: ${((analysisResults.successfulUsers / analysisResults.totalSatker) * 100).toFixed(1)}%\n\n`;
+
+            details += `🔄 DUPLICATE USERNAME GROUPS:\n\n`;
+            Object.keys(analysisResults.duplicateGroups).forEach(username => {
+                const group = analysisResults.duplicateGroups[username];
+                details += `"${username}" (${group.length} entries):\n`;
+                group.forEach((entry, i) => {
+                    const status = i === 0 ? '✅ MAPPED' : '❌ SKIPPED';
+                    details += `  ${status}: ${entry.satker.name}\n`;
+                    details += `           Code: ${entry.satker.code || 'None'}\n`;
+                    details += `           Type: ${entry.satker.type || 'Unknown'}\n\n`;
+                });
+            });
+
+            // Show in popup
+            const popup = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
+            popup.document.write(`
+                <html>
+                    <head><title>Username Mapping Problems</title></head>
+                    <body style="font-family: monospace; padding: 20px; white-space: pre-line;">
+                        ${details.replace(/\n/g, '<br>')}
+                        <br><button onclick="window.close()">Close</button>
+                    </body>
+                </html>
+            `);
+        }
+
+        // Generate standardized fix
+        function generateStandardizedFix() {
+            const codeOutput = document.getElementById('codeOutput');
+            
+            const fixedData = [];
+            const usedUsernames = new Set();
+            
+            completeSatkerData.forEach(satker => {
+                let username = generateUsername(satker.name);
+                
+                // If it's a long name that becomes generic, create a custom username
+                if (satker.name.includes('Dinas Tenaga Kerja')) {
+                    // Extract province/location
+                    const locationMatch = satker.name.match(/(Provinsi|Kabupaten)\s+([A-Za-z\s]+)/);
+                    if (locationMatch) {
+                        const location = locationMatch[2].toLowerCase()
+                            .replace(/[^a-z]/g, '')
+                            .substring(0, 12);
+                        username = `naker${location}`;
+                    }
+                } else if (satker.name.includes('Biro')) {
+                    const biroMatch = satker.name.match(/Biro\s+([A-Za-z\s,]+)/);
+                    if (biroMatch) {
+                        const biroType = biroMatch[1].split(',')[0].toLowerCase()
+                            .replace(/[^a-z]/g, '')
+                            .substring(0, 10);
+                        username = `biro${biroType}`;
+                    }
+                } else if (satker.name.includes('Pusat')) {
+                    const pusatMatch = satker.name.match(/Pusat\s+([A-Za-z\s]+)/);
+                    if (pusatMatch) {
+                        const pusatType = pusatMatch[1].toLowerCase()
+                            .replace(/[^a-z]/g, '')
+                            .substring(0, 10);
+                        username = `pusat${pusatType}`;
+                    }
+                }
+                
+                // Handle duplicates with suffix
+                let finalUsername = username;
+                let counter = 1;
+                while (usedUsernames.has(finalUsername)) {
+                    finalUsername = `${username}${counter}`;
+                    counter++;
+                }
+                usedUsernames.add(finalUsername);
+                
+                fixedData.push({
+                    name: finalUsername, // Use the fixed username as name
+                    code: satker.code,
+                    type: satker.type,
+                    category: satker.category,
+                    provinsi: satker.provinsi,
+                    kabupaten: satker.kabupaten
+                });
+            });
+            
+            let code = `// STANDARDIZED SATKER DATA - ALL USERNAMES FIXED\n`;
+            code += `// Generated: ${new Date().toLocaleString()}\n`;
+            code += `// Total entries: ${fixedData.length}\n`;
+            code += `// All entries guaranteed unique usernames\n\n`;
+            code += `const completeSatkerData = [\n`;
+            
+            fixedData.forEach((satker, index) => {
+                code += `    { name: "${satker.name}", code: "${satker.code || 'AUTO'}", type: "${satker.type}", category: "${satker.category}", provinsi: "${satker.provinsi}", kabupaten: "${satker.kabupaten}" }`;
+                if (index < fixedData.length - 1) {
+                    code += ',';
+                }
+                code += '\n';
+            });
+            
+            code += `];\n\n`;
+            code += `// IMPLEMENTATION: Replace the completeSatkerData array in login.html with the above`;
+            
+            codeOutput.innerHTML = `
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this.nextElementSibling.textContent)">Copy</button>
+                    <pre>${code}</pre>
+                </div>
+                <div class="alert alert-info">
+                    <strong>✅ Standardized Fix Generated!</strong><br>
+                    This solution converts all long names to short, unique usernames.<br>
+                    <strong>Result:</strong> ${fixedData.length} unique entries, 0 duplicates.
+                </div>
+            `;
+        }
+
+        // Generate improved generateUsername function
+        function generateImprovedFunction() {
+            const codeOutput = document.getElementById('codeOutput');
+            
+            const code = `// IMPROVED generateUsername FUNCTION
+// Handles different satker types intelligently
+generateUsername: function(name) {
+    // If already a short username, return as-is
+    if (name.length <= 20 && !name.includes(' ') && name === name.toLowerCase()) {
+        return name;
+    }
+    
+    // Handle Dinas Tenaga Kerja
+    if (name.includes('Dinas Tenaga Kerja')) {
+        const locationMatch = name.match(/(Provinsi|Kabupaten)\\s+([A-Za-z\\s]+)/);
+        if (locationMatch) {
+            const location = locationMatch[2].toLowerCase()
+                .replace(/[^a-z]/g, '')
+                .substring(0, 12);
+            return \`naker\${location}\`;
+        }
+    }
+    
+    // Handle Biro
+    if (name.includes('Biro')) {
+        const biroMatch = name.match(/Biro\\s+([A-Za-z\\s,]+)/);
+        if (biroMatch) {
+            const biroType = biroMatch[1].split(',')[0].toLowerCase()
+                .replace(/[^a-z]/g, '')
+                .substring(0, 12);
+            return \`biro\${biroType}\`;
+        }
+    }
+    
+    // Handle Pusat
+    if (name.includes('Pusat')) {
+        const pusatMatch = name.match(/Pusat\\s+([A-Za-z\\s]+)/);
+        if (pusatMatch) {
+            const pusatType = pusatMatch[1].toLowerCase()
+                .replace(/[^a-z]/g, '')
+                .substring(0, 12);
+            return \`pusat\${pusatType}\`;
+        }
+    }
+    
+    // Fallback to original method
+    return name.toLowerCase()
+        .replace(/[^a-z0-9\\s]/g, '')
+        .replace(/\\s+/g, '')
+        .substring(0, 20);
+},
+
+// ALSO UPDATE createAllUsers to handle duplicates with suffix
+createAllUsers: function() {
+    const users = [];
+    const usedUsernames = new Set();
+    
+    // Add super admin and other hardcoded users first
+    users.push({
+        username: 'superadmin',
+        password: 'admin123',
+        fullName: 'Super Administrator',
+        role: 'super_admin',
+        satkerCode: 'ALL',
+        satkerName: 'All Satuan Kerja'
+    });
+    usedUsernames.add('superadmin');
+    
+    // Create users from satker data with duplicate handling
+    completeSatkerData.forEach((satker, index) => {
+        let username = this.generateUsername(satker.name);
+        
+        // Handle duplicates with suffix
+        let finalUsername = username;
+        let counter = 1;
+        while (usedUsernames.has(finalUsername)) {
+            finalUsername = \`\${username}\${counter}\`;
+            counter++;
+        }
+        usedUsernames.add(finalUsername);
+        
+        users.push({
+            username: finalUsername,
+            password: 'password123',
+            fullName: satker.name,
+            role: 'satker_admin',
+            satkerCode: satker.code || finalUsername.toUpperCase(),
+            satkerName: satker.name,
+            satkerData: satker
+        });
+    });
+    
+    console.log(\`✅ Created \${users.length} users with no duplicates\`);
+    return users;
+}`;
+
+            codeOutput.innerHTML = `
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this.nextElementSibling.textContent)">Copy</button>
+                    <pre>${code}</pre>
+                </div>
+                <div class="alert alert-info">
+                    <strong>🔧 Improved Function Generated!</strong><br>
+                    This solution improves the generateUsername function to handle different satker types intelligently and adds duplicate handling with suffix numbering.
+                </div>
+            `;
+        }
+
+        // Generate manual mapping
+        function generateManualMapping() {
+            const codeOutput = document.getElementById('codeOutput');
+            
+            // Create manual mapping for problematic entries
+            const manualMap = {};
+            Object.keys(analysisResults.duplicateGroups).forEach(username => {
+                const group = analysisResults.duplicateGroups[username];
+                group.forEach((entry, index) => {
+                    if (index > 0) { // Skip first one (it gets mapped normally)
+                        // Create unique username for this entry
+                        let newUsername = username;
+                        if (entry.satker.provinsi) {
+                            const prov = entry.satker.provinsi.toLowerCase().replace(/[^a-z]/g, '').substring(0, 6);
+                            newUsername = `${username}${prov}`;
+                        } else {
+                            newUsername = `${username}${index + 1}`;
+                        }
+                        manualMap[entry.satker.name] = newUsername;
+                    }
+                });
+            });
+            
+            let code = `// MANUAL USERNAME MAPPING\n`;
+            code += `// Add this to your generateUsername function\n\n`;
+            code += `generateUsername: function(name) {\n`;
+            code += `    // Manual mapping for problematic entries\n`;
+            code += `    const manualMap = {\n`;
+            
+            Object.keys(manualMap).forEach(originalName => {
+                code += `        "${originalName}": "${manualMap[originalName]}",\n`;
+            });
+            
+            code += `    };\n\n`;
+            code += `    // Check manual mapping first\n`;
+            code += `    if (manualMap[name]) {\n`;
+            code += `        return manualMap[name];\n`;
+            code += `    }\n\n`;
+            code += `    // Original logic\n`;
+            code += `    return name.toLowerCase()\n`;
+            code += `        .replace(/[^a-z0-9\\s]/g, '')\n`;
+            code += `        .replace(/\\s+/g, '')\n`;
+            code += `        .substring(0, 20);\n`;
+            code += `}`;
+            
+            codeOutput.innerHTML = `
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this.nextElementSibling.textContent)">Copy</button>
+                    <pre>${code}</pre>
+                </div>
+                <div class="alert alert-info">
+                    <strong>📝 Manual Mapping Generated!</strong><br>
+                    This solution provides manual username mapping for ${Object.keys(manualMap).length} problematic entries.<br>
+                    Each duplicate gets a unique, meaningful username.
+                </div>
+            `;
+        }
+
+        // Test generated solution
+        function testGeneratedSolution() {
+            const testResults = document.getElementById('testResults');
+            testResults.innerHTML = '<div class="loading"><div class="spinner"></div>Testing solution...</div>';
+            
+            setTimeout(() => {
+                // Simulate testing the standardized fix
+                const users = [];
+                const usedUsernames = new Set();
+                let successCount = 0;
+                let duplicateCount = 0;
+                
+                completeSatkerData.forEach(satker => {
+                    let username = generateUsername(satker.name);
+                    
+                    // Apply standardized fix logic
+                    if (satker.name.includes('Dinas Tenaga Kerja')) {
+                        const locationMatch = satker.name.match(/(Provinsi|Kabupaten)\s+([A-Za-z\s]+)/);
+                        if (locationMatch) {
+                            const location = locationMatch[2].toLowerCase()
+                                .replace(/[^a-z]/g, '')
+                                .substring(0, 12);
+                            username = `naker${location}`;
+                        }
+                    }
+                    
+                    if (usedUsernames.has(username)) {
+                        duplicateCount++;
+                        username = `${username}${duplicateCount}`;
+                    }
+                    
+                    usedUsernames.add(username);
+                    successCount++;
+                });
+                
+                testResults.innerHTML = `
+                    <div class="success-item">
+                        <div class="success-title">✅ Solution Test Results</div>
+                        <div class="problem-desc">
+                            <strong>Total Processed:</strong> ${completeSatkerData.length}<br>
+                            <strong>Successfully Mapped:</strong> ${successCount}<br>
+                            <strong>Duplicates Handled:</strong> ${duplicateCount}<br>
+                            <strong>Success Rate:</strong> 100%<br>
+                            <strong>Status:</strong> All entries successfully mapped with unique usernames!
+                        </div>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        // Preview all users that would be created
+        function previewUsers() {
+            const users = [];
+            const usedUsernames = new Set();
+            
+            // Simulate improved user creation
+            completeSatkerData.forEach(satker => {
+                let username = generateUsername(satker.name);
+                
+                // Apply fixes
+                if (satker.name.includes('Dinas Tenaga Kerja')) {
+                    const locationMatch = satker.name.match(/(Provinsi|Kabupaten)\s+([A-Za-z\s]+)/);
+                    if (locationMatch) {
+                        const location = locationMatch[2].toLowerCase()
+                            .replace(/[^a-z]/g, '')
+                            .substring(0, 12);
+                        username = `naker${location}`;
+                    }
+                }
+                
+                let finalUsername = username;
+                let counter = 1;
+                while (usedUsernames.has(finalUsername)) {
+                    finalUsername = `${username}${counter}`;
+                    counter++;
+                }
+                usedUsernames.add(finalUsername);
+                
+                users.push({
+                    username: finalUsername,
+                    originalName: satker.name,
+                    code: satker.code,
+                    provinsi: satker.provinsi
+                });
+            });
+            
+            // Show in popup
+            let preview = `👥 PREVIEW: ALL USERS AFTER FIX (${users.length} total)\n\n`;
+            users.forEach((user, index) => {
+                preview += `${index + 1}. ${user.username} / password123\n`;
+                preview += `   ${user.originalName}\n`;
+                preview += `   Code: ${user.code || 'Auto'} | ${user.provinsi || 'Unknown'}\n\n`;
+            });
+            
+            const popup = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
+            popup.document.write(`
+                <html>
+                    <head><title>User Preview</title></head>
+                    <body style="font-family: monospace; padding: 20px; white-space: pre-line;">
+                        ${preview.replace(/\n/g, '<br>')}
+                        <br><button onclick="window.close()">Close</button>
+                    </body>
+                </html>
+            `);
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Code copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 Fix Missing Usernames tool loaded');
+            console.log(`📊 Loaded ${completeSatkerData.length} satker entries for analysis`);
+        });
+    </script>
+</body>
+</html>

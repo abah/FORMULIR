@@ -3331,6 +3331,68 @@
             return false;
         }
 
+        // CORRECT SATKER-BASED FILTERING - Show data FOR this satker organization
+        // Logic: If data belongs to same satker organization (regardless of location), show it
+        function isSameSatkerOrganization(dataSatkerName, userSatkerName, dataItem = null) {
+            if (!dataSatkerName || !userSatkerName) return false;
+            
+            console.log(`🔍 DEBUG: SATKER ORGANIZATION MATCHING:`);
+            console.log(`📋 Data satker: "${dataSatkerName}"`);
+            console.log(`👤 User satker: "${userSatkerName}"`);
+            
+            // STEP 1: Exact name match
+            if (dataSatkerName.toLowerCase().trim() === userSatkerName.toLowerCase().trim()) {
+                console.log(`✅ DEBUG: EXACT SATKER NAME MATCH`);
+                return true;
+            }
+            
+            // STEP 2: Fuzzy organization matching (for multiple codes of same satker)
+            const normalize = (name) => name.toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            const dataName = normalize(dataSatkerName);
+            const userName = normalize(userSatkerName);
+
+            if (dataName === userName) {
+                console.log(`✅ DEBUG: NORMALIZED SATKER NAME MATCH`);
+                return true;
+            }
+
+            // STEP 3: Key words matching (for same organization with different naming)
+            const commonWords = ['dinas', 'kota', 'kabupaten', 'provinsi', 'dan', 'tenaga', 'kerja', 'transmigrasi', 'atau', 'badan', 'kantor', 'balai', 'perumahan', 'rakyat', 'permukiman', 'pertamanan'];
+            const getKeyWords = (name) => name.split(' ')
+                .filter(word => word.length > 2 && !commonWords.includes(word));
+
+            const dataWords = getKeyWords(dataName);
+            const userWords = getKeyWords(userName);
+
+            if (dataWords.length === 0 || userWords.length === 0) {
+                console.log(`❌ DEBUG: Insufficient key words for matching`);
+                return false;
+            }
+
+            let matchCount = 0;
+            dataWords.forEach(dWord => {
+                if (userWords.some(uWord => uWord.includes(dWord) || dWord.includes(uWord))) {
+                    matchCount++;
+                }
+            });
+
+            const similarity = matchCount / Math.max(dataWords.length, userWords.length);
+            console.log(`🔍 DEBUG: Organization similarity: ${similarity.toFixed(2)} (${matchCount}/${Math.max(dataWords.length, userWords.length)})`);
+            
+            if (similarity > 0.7) { // 70% similarity threshold
+                console.log(`✅ DEBUG: FUZZY SATKER ORGANIZATION MATCH`);
+                return true;
+            }
+
+            console.log(`❌ DEBUG: No satker organization match`);
+            return false;
+        }
+
+
         // MOCK DATA REMOVED - ONLY USE FIREBASE DATA
 
         async function loadData() {
@@ -3340,25 +3402,49 @@
 
                 console.log('🔄 Loading data for user:', currentUser.username, 'SatkerCode:', currentUser.satkerCode);
 
-                // Load data from Firebase
-                const progressRef = collection(db, 'progress_data');
-                const snapshot = await getDocs(progressRef);
+                let allData = [];
                 
-                allProgressData = [];
-                const seenIds = new Set(); // To prevent duplicates
+                // Try localStorage first (same as executive-dashboard)
+                console.log('📱 Loading data from localStorage...');
+                const localData = localStorage.getItem('satker_progress_data');
+                if (localData) {
+                    allData = JSON.parse(localData);
+                    console.log(`✅ Found ${allData.length} records in localStorage`);
+                }
+
+                // Try Firebase if localStorage is empty
+                if (allData.length === 0) {
+                    console.log('📡 Loading data from Firebase...');
+                    const progressRef = collection(db, 'progress_data');
+                    const snapshot = await getDocs(progressRef);
                     
-                console.log('📊 Firebase data loaded:', snapshot.size, 'documents');
+                    console.log('📊 Firebase data loaded:', snapshot.size, 'documents');
+                        
+                    if (snapshot.size === 0) {
+                        console.log('⚠️ No data in Firebase for this user');
+                        displayNoData();
+                        return;
+                    }
                     
-                if (snapshot.size === 0) {
-                    console.log('⚠️ No data in Firebase for this user');
-                    displayNoData();
-                    return;
+                    snapshot.forEach((doc) => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        data.firebaseId = doc.id;
+                        allData.push(data);
+                    });
+                    
+                    console.log(`✅ Found ${allData.length} records in Firebase`);
                 }
                 
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    data.id = doc.id;
-                    data.firebaseId = doc.id;
+                // Filter data based on user permissions (same as executive-dashboard)
+                allProgressData = [];
+                const seenIds = new Set(); // To prevent duplicates
+                
+                allData.forEach((data) => {
+                    // Ensure data has proper ID
+                    if (!data.id && data.firebaseId) {
+                        data.id = data.firebaseId;
+                    }
                     
                     // Skip if already seen (duplicate)
                     if (seenIds.has(data.id)) {
@@ -3385,6 +3471,11 @@
                         allProgressData.push(data);
                     } else if (isCodeMatch(data.satkerCode, currentUser.satkerCode)) {
                         console.log('✅ DEBUG: Flexible match - adding item');
+                        allProgressData.push(data);
+                    } else if (isSameSatkerOrganization(data.satkerName, currentUser.satkerName, data)) {
+                        console.log('✅ DEBUG: Geographic/organization match - adding item');
+                        console.log('✅ DEBUG: Data satker name:', data.satkerName);
+                        console.log('✅ DEBUG: User satker name:', currentUser.satkerName);
                         allProgressData.push(data);
                     } else {
                         console.log('❌ DEBUG: No match - skipping item');

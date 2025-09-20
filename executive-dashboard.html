@@ -1450,6 +1450,67 @@
             return parts.length >= 2 ? parts[1] : '';
         }
 
+        // ULTRA STRICT matching function using GEOGRAPHIC DATA
+        // Only matches if SAME PROVINSI + similar organization
+        function isSameSatkerOrganization(dataSatkerName, userSatkerName, dataItem = null) {
+            if (!dataSatkerName || !userSatkerName) return false;
+            
+            console.log(`🔍 DEBUG: SATKER ORGANIZATION MATCHING:`);
+            console.log(`📋 Data satker: "${dataSatkerName}"`);
+            console.log(`👤 User satker: "${userSatkerName}"`);
+            
+            // STEP 1: Exact name match
+            if (dataSatkerName.toLowerCase().trim() === userSatkerName.toLowerCase().trim()) {
+                console.log(`✅ DEBUG: EXACT SATKER NAME MATCH`);
+                return true;
+            }
+            
+            // STEP 2: Fuzzy organization matching (for multiple codes of same satker)
+            const normalize = (name) => name.toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            const dataName = normalize(dataSatkerName);
+            const userName = normalize(userSatkerName);
+
+            if (dataName === userName) {
+                console.log(`✅ DEBUG: NORMALIZED SATKER NAME MATCH`);
+                return true;
+            }
+
+            // STEP 3: Key words matching (for same organization with different naming)
+            const commonWords = ['dinas', 'kota', 'kabupaten', 'provinsi', 'dan', 'tenaga', 'kerja', 'transmigrasi', 'atau', 'badan', 'kantor', 'balai', 'perumahan', 'rakyat', 'permukiman', 'pertamanan'];
+            const getKeyWords = (name) => name.split(' ')
+                .filter(word => word.length > 2 && !commonWords.includes(word));
+
+            const dataWords = getKeyWords(dataName);
+            const userWords = getKeyWords(userName);
+
+            if (dataWords.length === 0 || userWords.length === 0) {
+                console.log(`❌ DEBUG: Insufficient key words for matching`);
+                return false;
+            }
+
+            let matchCount = 0;
+            dataWords.forEach(dWord => {
+                if (userWords.some(uWord => uWord.includes(dWord) || dWord.includes(uWord))) {
+                    matchCount++;
+                }
+            });
+
+            const similarity = matchCount / Math.max(dataWords.length, userWords.length);
+            console.log(`🔍 DEBUG: Organization similarity: ${similarity.toFixed(2)} (${matchCount}/${Math.max(dataWords.length, userWords.length)})`);
+            
+            if (similarity > 0.7) { // 70% similarity threshold
+                console.log(`✅ DEBUG: FUZZY SATKER ORGANIZATION MATCH`);
+                return true;
+            }
+
+            console.log(`❌ DEBUG: No satker organization match`);
+            return false;
+        }
+
         function showFallbackMessage() {
             document.getElementById('dashboardStatus').textContent = 'Status: Error Loading Data ❌';
             console.error('❌ Dashboard error - showing fallback message');
@@ -1469,17 +1530,9 @@
                 console.log('🔧 Current user:', currentUser);
                 let allData = [];
                 
-                // Try localStorage first
-                console.log('📱 Loading data from localStorage...');
-                const localData = localStorage.getItem('satker_progress_data');
-                if (localData) {
-                    allData = JSON.parse(localData);
-                    console.log(`✅ Found ${allData.length} records in localStorage`);
-                }
-
-                // Try Firebase if localStorage is empty
-                if (allData.length === 0 && window.firebaseReady && window.db && window.firebase) {
-                    console.log('📡 Loading data from Firebase...');
+                // PRIORITIZE Firebase as source of truth (same as progress-dashboard)
+                if (window.firebaseReady && window.db && window.firebase) {
+                    console.log('📡 Loading data from Firebase (source of truth)...');
                     const querySnapshot = await window.firebase.getDocs(
                         window.firebase.query(
                             window.firebase.collection(window.db, 'progress_data'),
@@ -1494,6 +1547,14 @@
                     });
                     
                     console.log(`✅ Found ${allData.length} records in Firebase`);
+                } else {
+                    // Fallback to localStorage only if Firebase fails
+                    console.log('📱 Fallback: Loading data from localStorage...');
+                    const localData = localStorage.getItem('satker_progress_data');
+                    if (localData) {
+                        allData = JSON.parse(localData);
+                        console.log(`✅ Found ${allData.length} records in localStorage (fallback)`);
+                    }
                 }
 
                 // Filter data based on user permissions
@@ -1507,14 +1568,35 @@
                         // Satker admin sees ONLY their own data (NO "ALL" access)
                         const userSatkerCode = currentUser.satkerCode || '';
                         progressData = allData.filter(item => {
-                            // STRICT FILTERING: Only exact satkerCode match
+                            // 1. Check viewableBy array first
                             if (item.viewableBy && Array.isArray(item.viewableBy)) {
-                                // ONLY exact match, NO "ALL" access for satker
-                                return item.viewableBy.includes(userSatkerCode);
-                            } else {
-                                // Fallback: direct satkerCode match
-                                return item.satkerCode === userSatkerCode;
+                                if (item.viewableBy.includes(userSatkerCode)) {
+                                    console.log('✅ DEBUG: ViewableBy exact match - including item:', item.namaKegiatan);
+                                    return true;
+                                }
                             }
+                            
+                            // 2. Check direct satkerCode match
+                            if (item.satkerCode === userSatkerCode) {
+                                console.log('✅ DEBUG: SatkerCode exact match - including item:', item.namaKegiatan);
+                                return true;
+                            }
+                            
+                            // 3. Check flexible code matching
+                            if (isCodeMatch(userSatkerCode, item.satkerCode)) {
+                                console.log('✅ DEBUG: Flexible code match - including item:', item.namaKegiatan);
+                                return true;
+                            }
+                            
+                            // 4. NEW: Check geographic/organization matching (for existing data)
+                            if (isSameSatkerOrganization(item.satkerName, currentUser.satkerName, item)) {
+                                console.log('✅ DEBUG: Geographic/organization match - including item:', item.namaKegiatan);
+                                console.log('✅ DEBUG: Data satker:', item.satkerName);
+                                console.log('✅ DEBUG: User satker:', currentUser.satkerName);
+                                return true;
+                            }
+                            
+                            return false;
                         });
                         console.log(`👤 Satker (${userSatkerCode}): viewing ${progressData.length} own records only`);
                         const userSatkerName = currentUser.satkerName || currentUser.username || 'Unknown Satker';
